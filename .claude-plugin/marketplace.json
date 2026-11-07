@@ -1,0 +1,16 @@
+{
+  "name": "vnamstock",
+  "owner": {
+    "name": "VNamStock"
+  },
+  "plugins": [
+    {
+      "name": "vnamstock",
+      "source": "./",
+      "description": "Trợ lý phân tích cổ phiếu Việt Nam: định giá, phân tích cơ bản, CAN SLIM, 4M, kế hoạch mua bán."
+    }
+  ],
+  "metadata": {
+    "description": "Bộ skill VNamStock phân tích cổ phiếu Việt Nam cho Claude Code."
+  }
+}

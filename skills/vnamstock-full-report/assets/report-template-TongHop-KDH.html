@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KDH VNamStock tổng hợp</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16191d;--mut:#5d6670;--line:#e3e6ea;--acc:#1f5fbf;--good:#1d7a46;--bad:#b4362c;--warn:#a76a00;--soft:#eef3fb;--bar1:#9aa6b2;--bar2:#1f5fbf}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1a1e24;--ink:#e8ebef;--mut:#9aa4af;--line:#2c323a;--acc:#6ea4ff;--good:#4cc283;--bad:#ff7a6e;--warn:#e6a83a;--soft:#1d2633;--bar1:#5d6670;--bar2:#6ea4ff}}
+:root[data-theme="dark"]{--bg:#111418;--card:#1a1e24;--ink:#e8ebef;--mut:#9aa4af;--line:#2c323a;--acc:#6ea4ff;--good:#4cc283;--bad:#ff7a6e;--warn:#e6a83a;--soft:#1d2633;--bar1:#5d6670;--bar2:#6ea4ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header .eyebrow{color:var(--acc);font-weight:700;letter-spacing:.06em;font-size:12px;text-transform:uppercase}
+h1{font-size:28px;margin:6px 0 4px}
+h2{font-size:19px;margin:0 0 12px}
+.sub{color:var(--mut);font-size:14px}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+nav a{color:var(--acc);text-decoration:none;font-size:13px;border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .l{color:var(--mut);font-size:12px}
+.kpi .v{font-size:22px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi .n{font-size:12px;color:var(--mut)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.verdict div{border-left:4px solid var(--line);padding:4px 12px}
+.verdict .b{border-color:var(--bad)}.verdict .w{border-color:var(--warn)}.verdict .g{border-color:var(--good)}
+.verdict strong{display:block}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--mut);font-weight:600;font-size:12px;background:var(--soft)}
+td.l{text-align:left;white-space:normal}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600}
+.p-bad{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad)}
+.p-good{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.p-warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.neg{color:var(--bad)}.pos{color:var(--good)}
+.note{color:var(--mut);font-size:13px;margin-top:10px}
+.callout{background:var(--soft);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:14px}
+svg text{fill:var(--mut);font-size:11px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mut);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+ul{margin:6px 0;padding-left:20px}
+li{margin:4px 0}
+a{color:var(--acc)}
+footer{color:var(--mut);font-size:12px;margin-top:28px}
+.gloss{margin-top:12px;padding:10px 12px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--mut)}
+.gloss b{color:var(--ink)}
+.gloss div{margin:3px 0}
+dl.g{display:grid;grid-template-columns:minmax(110px,180px) 1fr;gap:6px 14px;margin:0;font-size:14px}
+dl.g dt{font-weight:700}
+dl.g dd{margin:0;color:var(--mut)}
+.price-top{border:2px solid var(--acc)}
+.price-top td b{font-size:15px}
+.pricebox{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.pricebox div{background:var(--soft);border-radius:10px;padding:10px 12px}
+.pricebox .l{display:block;font-size:12px;color:var(--mut)}
+.pricebox .v{display:block;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+@media (max-width:560px){dl.g{grid-template-columns:1fr}dl.g dd{margin-bottom:8px}}
+tr.chg td:first-child{border-left:3px solid var(--acc)}
+tr.fix td{color:var(--mut)}
+tr.fix td[colspan]{text-align:center;white-space:normal}
+tr.fix td:first-child{border-left:3px solid var(--bar1)}
+.pricebox .l + .v + .l{margin-top:2px}
+tr.grp td{background:var(--soft);color:var(--ink);font-weight:700;text-align:left;font-size:12.5px;letter-spacing:.02em}
+table.fy td:first-child{white-space:normal;min-width:170px}
+.part{display:flex;align-items:baseline;gap:10px;margin:34px 0 4px;padding-bottom:6px;border-bottom:2px solid var(--acc)}
+.part b{color:var(--acc);font-size:12px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.part span{font-size:21px;font-weight:700}
+.part + .sub{margin-bottom:4px}
+nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">VNamStock · Báo cáo tổng hợp: định giá + phân tích cơ bản</div>
+  <h1>KDH — Nhà Khang Điền (HOSE)</h1>
+  <div class="sub">Ngày phân tích 29/10/2026 · Giá tham chiếu 14.250 đ (đóng cửa 28/10/2026, CafeF) · BCTC hợp nhất CafeF tới Q2/2026 (Q3/2026 chưa công bố) · 1.245.297.704 cp sau cổ tức cổ phiếu 10% và ESOP 10/2026</div>
+</header>
+
+<div class="part" id="phan1"><b>Phần 1</b><span>Tổng quan định giá</span></div>
+<div class="sub">Giá trị ước tính theo 3 phương pháp, so với giá thị trường, và giá mua có biên an toàn.</div>
+
+<section class="card price-top" id="giadinhgia">
+  <h2>Giá định giá KDH — 3 phương pháp</h2>
+  <div class="tw"><table>
+    <tr><th>Phương pháp</th><th>Bi quan</th><th>Cơ sở</th><th>Lạc quan</th><th>Cơ sở so với giá 14.250</th></tr>
+    <tr><td><b>1. NCAV</b> (tài sản ngắn hạn ròng)</td><td>4.238</td><td><b>8.029</b></td><td>11.820</td><td class="neg">−43,7%</td></tr>
+    <tr><td><b>2. DCF 10 năm</b> (chiết khấu dòng tiền)</td><td>2.689</td><td><b>6.377</b></td><td>11.555</td><td class="neg">−55,2%</td></tr>
+    <tr><td><b>3. Owner Earnings</b></td><td>3.025</td><td><b>6.377</b></td><td>10.876</td><td class="neg">−55,2%</td></tr>
+  </table></div>
+  <div class="pricebox">
+    <div><span class="l">Giá thị trường 28/10/2026</span><span class="v">14.250 đ</span></div>
+    <div><span class="l">Khoảng giá trị kịch bản cơ sở</span><span class="v">6.400 – 8.000 đ</span></div>
+    <div><span class="l">Cao nhất (lạc quan)</span><span class="v">≈ 11.800 đ</span></div>
+    <div><span class="l">Giá mua MOS 30% (DCF cơ sở)</span><span class="v">4.464 đ</span></div>
+  </div>
+  <p class="note">Đơn vị đ/cổ phiếu, trên 1.245.297.704 cp. Cả 3 phương pháp đều cho giá trị <b>thấp hơn giá thị trường</b>, kể cả kịch bản lạc quan. Độ tin cậy thấp: DCF và Owner Earnings dựa trên giả định vì dòng tiền lịch sử âm; NCAV dùng tồn kho theo giá vốn. Phương pháp phù hợp nhất cho BĐS (RNAV) chưa đủ dữ liệu — phân tích chi tiết ở các phần bên dưới.</p>
+  <div class="gloss">
+    <div><b>NCAV</b>: tài sản ngắn hạn trừ toàn bộ nợ — phần còn lại nếu bán hết tài sản ngắn hạn (3 mức: giảm giá tồn kho 30% / 15% / 0%). <b>DCF</b>: giá trị hôm nay của tiền doanh nghiệp tạo ra trong tương lai. <b>Owner Earnings</b>: tiền chủ doanh nghiệp thật sự rút ra được (Warren Buffett).</div>
+    <div><b>Bi quan/Cơ sở/Lạc quan</b>: ba bộ giả định từ xấu đến tốt. <b>MOS</b> (biên an toàn): mua thấp hơn giá trị ước tính để dự phòng sai số. <b>RNAV</b>: định giá lại từng dự án theo giá thị trường.</div>
+  </div>
+</section>
+
+<section class="card" id="tomtat">
+  <h2>Tóm tắt nhanh</h2>
+  <div class="verdict">
+    <div class="b"><strong>Tăng trưởng: cốt lõi đình trệ</strong>LN báo cáo tăng mạnh nhờ lãi mua rẻ An Lập (285 tỷ) và lãi thoái vốn Bình Trưng Mới (896 tỷ). LN hoạt động cốt lõi giảm 2 quý liên tiếp.</div>
+    <div class="w"><strong>Định giá: dòng tiền không ủng hộ giá</strong>Giá gần bằng BVPS, cao hơn NCAV sổ sách. DCF/OE có điều kiện thấp hơn giá vì CFO âm gần như liên tục từ 2018.</div>
+    <div class="w"><strong>Độ tin cậy: thấp</strong>Phương pháp phù hợp nhất là RNAV từng dự án, nhưng chưa đủ dữ liệu giá bán, tiến độ, chi phí hoàn thiện.</div>
+  </div>
+  <div class="callout"><strong>Quy tắc của chuyên gia:</strong> <span class="pill p-bad">Tín hiệu bán 2 quý</span> theo tăng trưởng cốt lõi (cần xác minh ngoại lệ bàn giao theo đợt, <a href="#quy">chi tiết</a>) · <span class="pill p-good">Không có tín hiệu bán</span> từ người nội bộ trong 90 ngày (<a href="#noibo">chi tiết</a>).</div>
+  <div class="gloss">
+    <div><b>BVPS</b>: giá trị sổ sách mỗi cổ phiếu. <b>NCAV</b>: tài sản ngắn hạn trừ toàn bộ nợ. <b>DCF</b>: giá trị hôm nay của dòng tiền tương lai. <b>OE</b> (Owner Earnings): tiền chủ sở hữu thật sự rút ra được. <b>CFO</b>: dòng tiền từ hoạt động kinh doanh.</div>
+    <div><b>RNAV</b>: định giá lại từng dự án theo giá thị trường rồi trừ nợ. <b>LN cốt lõi</b>: lãi từ kinh doanh chính, không tính khoản bất thường.</div>
+  </div>
+</section>
+
+<nav>
+  <span class="pl">Phần 1 · Tổng quan định giá</span><a href="#giadinhgia">Giá định giá</a><a href="#tomtat">Tóm tắt</a>
+  <span class="pl">Phần 2 · Phân tích cơ bản</span><a href="#coban">Chỉ số chính</a><a href="#namnam">So sánh 5 năm</a><a href="#bang">5 kịch bản giá</a><a href="#the">Thẻ kịch bản</a><a href="#doichieu">Đối chiếu CafeF</a><a href="#nhanxet">Nhận xét</a>
+  <span class="pl">Phần 3 · Chi tiết định giá</span><a href="#pe">P/E · PEG</a><a href="#taisan">NCAV/NWC</a><a href="#dcf">DCF</a><a href="#oe">Owner Earnings</a><a href="#payback">Payback</a><a href="#quy">Quy tắc bán ①</a><a href="#noibo">Quy tắc bán ②</a><a href="#ruiro">Rủi ro</a><a href="#kiemdinh">Kiểm định</a><a href="#thuatngu">Thuật ngữ</a><a href="#nguon">Nguồn</a>
+</nav>
+
+<div class="part" id="phan2"><b>Phần 2</b><span>Phân tích cơ bản</span></div>
+<div class="sub">Doanh nghiệp đã làm ăn thế nào trong 5 năm, và các chỉ số thay đổi ra sao nếu giá tăng/giảm 20–40%.</div>
+
+<div id="coban"></div>
+<section class="kpis">
+  <div class="kpi"><div class="l">Giá 28/10/2026</div><div class="v">14.250</div><div class="n">đ/cp</div></div>
+  <div class="kpi"><div class="l">BVPS cổ đông mẹ</div><div class="v">15.046</div><div class="n">P/B 0,95x</div></div>
+  <div class="kpi"><div class="l">NCAV sổ sách</div><div class="v">11.820</div><div class="n">2/3 NCAV: 7.880</div></div>
+  <div class="kpi"><div class="l">DCF kịch bản cơ sở</div><div class="v neg">6.377</div><div class="n">có điều kiện · −55% so với giá</div></div>
+  <div class="kpi"><div class="l">P/E TTM bỏ one-off</div><div class="v">30,5x</div><div class="n">P/E báo cáo 10,1x</div></div>
+  <div class="kpi"><div class="l">Nợ vay ròng / VCSH mẹ</div><div class="v neg">73,5%</div><div class="n">nợ vay 16.659 tỷ</div></div>
+</section>
+<div class="gloss">
+  <div><b>BVPS</b> (giá trị sổ sách mỗi cổ phiếu): phần vốn của cổ đông chia cho số cổ phiếu, theo sổ kế toán. <b>P/B</b> = giá ÷ BVPS; 0,95 nghĩa là giá đang thấp hơn sổ sách một chút.</div>
+  <div><b>NCAV</b> (tài sản ngắn hạn ròng): tài sản ngắn hạn trừ toàn bộ nợ — ước tính phần còn lại nếu thanh lý. <b>DCF</b> (chiết khấu dòng tiền): giá trị hôm nay của tiền doanh nghiệp tạo ra trong tương lai.</div>
+  <div><b>P/E</b> (giá ÷ lợi nhuận mỗi cổ phiếu): trả bao nhiêu đồng cho 1 đồng lãi mỗi năm. <b>One-off</b>: khoản lãi bất thường, không lặp lại. <b>VCSH mẹ</b>: vốn chủ sở hữu thuộc cổ đông công ty mẹ; nợ vay ròng/VCSH 73,5% là mức vay khá cao.</div>
+</div>
+
+<section class="card" id="namnam">
+  <h2>So sánh chỉ số 5 năm (2021–2025)</h2>
+  <div class="tw"><table class="fy">
+    <tr><th>Chỉ số</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>TTM / hiện tại</th><th>CAGR · TB 5 năm</th></tr>
+    <tr class="grp"><td colspan="8">Tăng trưởng</td></tr><tr><td>Doanh thu thuần (tỷ đ)</td><td>3.738</td><td>2.912</td><td>2.088</td><td>3.279</td><td>4.651</td><td><b>3.357</b></td><td>CAGR 5,6%</td></tr><tr><td>Doanh thu so năm trước</td><td>-17,5%</td><td>-22,1%</td><td>-28,3%</td><td>57,0%</td><td>41,9%</td><td><b>—</b></td><td>TB 6,2%</td></tr><tr><td>LN mẹ (tỷ đ)</td><td>1.202</td><td>1.103</td><td>716</td><td>810</td><td>1.045</td><td><b>1.763</b></td><td>CAGR -3,4%</td></tr><tr><td>LN mẹ so năm trước</td><td>4,3%</td><td>-8,3%</td><td>-35,1%</td><td>13,2%</td><td>29,0%</td><td><b>—</b></td><td>TB 0,6%</td></tr><tr class="grp"><td colspan="8">Hiệu quả</td></tr><tr><td>Biên lợi nhuận gộp</td><td>48,0%</td><td>50,1%</td><td>76,0%</td><td>53,1%</td><td>59,2%</td><td><b>69,4%</b></td><td>TB 57,3%</td></tr><tr><td>Biên LN ròng (LN mẹ/doanh thu)</td><td>32,2%</td><td>37,9%</td><td>34,3%</td><td>24,7%</td><td>22,5%</td><td><b>52,5%</b></td><td>TB 30,3%</td></tr><tr><td>ROE</td><td>13,1%</td><td>10,1%</td><td>5,7%</td><td>5,3%</td><td>5,8%</td><td><b>9,7%</b></td><td>TB 8,0%</td></tr><tr><td>ROA</td><td>8,5%</td><td>6,1%</td><td>3,0%</td><td>2,8%</td><td>3,2%</td><td><b>5,0%</b></td><td>TB 4,7%</td></tr><tr class="grp"><td colspan="8">Mỗi cổ phiếu (quy về cp hiện hành)</td></tr><tr><td>EPS (đ)</td><td>966</td><td>886</td><td>575</td><td>651</td><td>840</td><td><b>1.416</b></td><td>CAGR -3,4%</td></tr><tr><td>BVPS (đ)</td><td>8.179</td><td>9.281</td><td>10.801</td><td>13.968</td><td>14.874</td><td><b>15.046</b></td><td>CAGR 16,1%</td></tr><tr class="grp"><td colspan="8">Định giá tại giá cuối năm</td></tr><tr><td>Giá đóng cửa (đ, chưa điều chỉnh)</td><td>52.100</td><td>26.500</td><td>31.400</td><td>36.100</td><td>31.500</td><td><b>14.250</b></td><td>—</td></tr><tr><td>P/E (lần)</td><td>27,9</td><td>17,2</td><td>35,1</td><td>45,0</td><td>33,8</td><td><b>10,1</b></td><td>TB 31,8</td></tr><tr><td>P/B (lần)</td><td>3,29</td><td>1,64</td><td>1,87</td><td>2,10</td><td>1,91</td><td><b>0,95</b></td><td>TB 2,16</td></tr><tr><td>Tỷ suất cổ tức tiền đã trả</td><td>0,0%</td><td>0,0%</td><td>0,0%</td><td>0,0%</td><td>0,0%</td><td><b>—</b></td><td>TB 0,0%</td></tr><tr class="grp"><td colspan="8">Sức khỏe tài chính</td></tr><tr><td>Tổng nợ phải trả cuối kỳ (tỷ đ)</td><td>4.151</td><td>9.745</td><td>10.958</td><td>11.304</td><td>12.910</td><td><b>19.497</b></td><td>CAGR 32,8%</td></tr><tr><td>Nợ phải trả / Doanh thu</td><td>111,1%</td><td>334,6%</td><td>524,9%</td><td>344,8%</td><td>277,6%</td><td><b>580,9%</b></td><td>TB 318,6%</td></tr><tr><td>Nợ phải trả / VCSH (lần)</td><td>0,41</td><td>0,83</td><td>0,71</td><td>0,58</td><td>0,61</td><td><b>0,98</b></td><td>TB 0,63</td></tr><tr><td>Dòng tiền kinh doanh CFO (tỷ đ)</td><td>-2.010</td><td>-1.047</td><td>-1.543</td><td>N/A</td><td>-2.024</td><td><b>—</b></td><td>—</td></tr><tr><td>CFO / LN mẹ (lần)</td><td>-1,7</td><td>-0,9</td><td>-2,2</td><td>N/A</td><td>-1,9</td><td><b>—</b></td><td>TB -1,7</td></tr><tr><td>FCF = CFO − đầu tư TSCĐ (tỷ đ)</td><td>-2.068</td><td>-1.108</td><td>-1.737</td><td>N/A</td><td>-2.708</td><td><b>—</b></td><td>—</td></tr>
+  </table></div>
+  <p class="note">Năm = báo cáo hợp nhất cả năm (CafeF). Cột TTM: LN mẹ, EPS, ROE, P/E theo 4 quý Q3-2025→Q2-2026; giá 14.250 đ (đóng cửa 28/10/2026). P/E, P/B mỗi năm = vốn hóa cuối năm ÷ LN mẹ / VCSH mẹ, nên không bị lệch do cổ phiếu thưởng.</p>
+  <div class="callout"><b>Đọc nhanh 5 năm:</b>
+    <ul>
+      <li><b>Tăng trưởng yếu và không đều:</b> doanh thu chỉ tăng 5,6%/năm, LN mẹ <b>giảm 3,4%/năm</b> (1.202 tỷ năm 2021 → 1.045 tỷ năm 2025, đáy 716 tỷ năm 2023). LN mẹ TTM 1.763 tỷ là nhờ lãi thoái vốn Bình Trưng Mới (~896 tỷ) và lãi mua rẻ An Lập (~285 tỷ); bỏ hai khoản này còn khoảng 581 tỷ.</li>
+      <li><b>Hiệu quả vốn đi xuống:</b> ROE từ 13,1% (2021) còn 5,3–5,8% (2023–2025); TTM 9,7% cũng nhờ khoản lãi bất thường. EPS quy về cổ phiếu hiện hành năm 2025 thấp hơn 2021 dù BVPS tăng 16%/năm — vốn tăng nhưng lãi không tăng theo.</li>
+      <li><b>Nợ so với doanh thu tăng rất nhanh:</b> tổng nợ phải trả tăng 32,8%/năm trong khi doanh thu tăng 5,6%/năm, nên Nợ/Doanh thu từ 111% (2021) lên 278% (2025) và <b>581%</b> hiện tại. Riêng 6 tháng đầu 2026 nợ tăng từ 12.893 lên 19.497 tỷ, chủ yếu nợ dài hạn (+6.578 tỷ) khi hợp nhất An Lập, cùng lúc tồn kho quỹ đất tăng 6.224 tỷ. Với công ty bất động sản, nợ thường đi trước doanh thu vài năm — nhưng mức này là rủi ro lớn nếu bán hàng chậm hoặc lãi suất tăng.</li>
+      <li><b>Dòng tiền kinh doanh âm mọi năm có số liệu</b> (2021–2023, 2025), FCF âm: tiền dồn vào quỹ đất. Không trả cổ tức tiền, chỉ trả cổ phiếu 10%/năm.</li>
+      <li><b>Định giá thấp nhất 5 năm:</b> P/B 0,95 lần so với trung bình 2,2 lần; P/E 10,1 lần so với trung bình 31,8 lần. Nhưng nếu bỏ lãi bất thường, P/E cốt lõi khoảng 30 lần — rẻ chủ yếu theo giá trị sổ sách, không rẻ theo lợi nhuận.</li>
+      <li><b>Lưu ý dữ liệu:</b> CafeF thiếu dòng tiền kinh doanh năm 2024 (ghi 0) nên để N/A. Q3/2026 chưa công bố khi lấy dữ liệu.</li>
+    </ul>
+  </div>
+  <div class="gloss">
+    <div><b>LN mẹ</b>: lợi nhuận sau thuế thuộc cổ đông công ty mẹ. <b>Biên LN gộp</b>: phần lãi còn lại sau giá vốn trên mỗi 100 đồng doanh thu. <b>ROE</b>: lãi trên mỗi 100 đồng vốn chủ. <b>ROA</b>: lãi trên mỗi 100 đồng tài sản.</div>
+    <div><b>EPS · BVPS</b>: lợi nhuận · giá trị sổ sách mỗi cổ phiếu, chia cho số cổ phiếu hiện tại để các năm so được với nhau. <b>P/E · P/B</b>: giá gấp bao nhiêu lần lợi nhuận · giá trị sổ sách.</div>
+    <div><b>Nợ phải trả / Doanh thu</b>: tổng nợ cuối kỳ bằng bao nhiêu % doanh thu cả năm — tăng dần qua các năm nghĩa là nợ phình nhanh hơn việc kinh doanh. <b>VCSH</b>: vốn chủ sở hữu. <b>CFO</b>: tiền thật thu từ kinh doanh; CFO/LN mẹ ≥ 1 là lợi nhuận về tiền tốt. <b>FCF</b>: dòng tiền tự do còn lại sau đầu tư tài sản cố định. <b>TTM</b>: 12 tháng gần nhất. <b>CAGR</b>: tăng trưởng kép bình quân mỗi năm. <b>TB</b>: trung bình 5 năm.</div>
+  </div>
+</section>
+
+<section class="card" id="bang">
+  <h2>12 chỉ số cơ bản theo 5 mức giá</h2>
+  <div class="tw"><table>
+    <tr><th>Chỉ số</th><th>−40%</th><th>−20%</th><th>Hiện tại</th><th>+20%</th><th>+40%</th></tr>
+    <tr class="chg"><td><b>Giá</b> (đ)</td><td>8.550</td><td>11.400</td><td><b>14.250</b></td><td>17.100</td><td>19.950</td></tr>
+    <tr class="chg"><td><b>Vốn hóa</b> (tỷ đ)</td><td>10.647</td><td>14.196</td><td><b>17.745</b></td><td>21.295</td><td>24.844</td></tr>
+    <tr class="chg"><td><b>P/E</b> (lần)</td><td>6,04</td><td>8,05</td><td><b>10,07</b></td><td>12,08</td><td>14,09</td></tr>
+    <tr class="chg"><td>P/E cốt lõi (bỏ lãi bất thường)</td><td>18,3</td><td>24,4</td><td><b>30,5</b></td><td>36,6</td><td>42,7</td></tr>
+    <tr class="chg"><td><b>P/B</b> (lần)</td><td>0,57</td><td>0,76</td><td><b>0,95</b></td><td>1,14</td><td>1,33</td></tr>
+    <tr class="chg"><td><b>Tỷ suất cổ tức tiền</b></td><td>0%</td><td>0%</td><td><b>0%</b></td><td>0%</td><td>0%</td></tr>
+    <tr class="fix"><td>EPS (đ)</td><td colspan="5">1.416 — giữ nguyên (cốt lõi ~467)</td></tr>
+    <tr class="fix"><td>BVPS (đ)</td><td colspan="5">15.046 — giữ nguyên</td></tr>
+    <tr class="fix"><td>ROE</td><td colspan="5">9,7% — giữ nguyên</td></tr>
+    <tr class="fix"><td>ROA</td><td colspan="5">5,0% — giữ nguyên</td></tr>
+    <tr class="fix"><td>Cổ phiếu lưu hành</td><td colspan="5">1.245.297.704 cp — giữ nguyên</td></tr>
+    <tr class="fix"><td>Free float</td><td colspan="5">N/A — CafeF không cung cấp</td></tr>
+    <tr class="fix"><td>Beta</td><td colspan="5">0,92 — số lịch sử 1 năm, giữ nguyên</td></tr>
+    <tr class="fix"><td>KL giao dịch TB 10 phiên</td><td colspan="5">5.677.590 cp — số lịch sử, giữ nguyên</td></tr>
+  </table></div>
+  <div class="legend"><span><i style="background:var(--acc)"></i>Thay đổi theo giá</span><span><i style="background:var(--bar1)"></i>Giữ nguyên khi giá đổi</span></div>
+  <p class="note">Đây là phép đổi <b>riêng giá cổ phiếu</b>, giữ nguyên lợi nhuận, vốn, số cổ phiếu — không phải dự báo. Giá giảm làm P/E, P/B, vốn hóa giảm; nhưng giá giảm không tự chứng minh KDH rẻ hơn hay ít rủi ro hơn. KDH không trả cổ tức tiền nên tỷ suất cổ tức = 0% ở mọi mức giá.</p>
+  <div class="gloss">
+    <div><b>Vốn hóa</b>: giá × số cổ phiếu. <b>P/E</b> = giá ÷ EPS: trả bao nhiêu đồng cho 1 đồng lãi/năm. <b>P/E cốt lõi</b>: P/E khi bỏ lãi bất thường (thoái vốn, mua rẻ công ty con). <b>P/B</b> = giá ÷ BVPS: dưới 1 là giá thấp hơn giá trị sổ sách. <b>Tỷ suất cổ tức</b>: cổ tức tiền mỗi năm ÷ giá.</div>
+    <div><b>EPS</b>: lợi nhuận mỗi cổ phiếu. <b>BVPS</b>: giá trị sổ sách mỗi cổ phiếu. <b>ROE</b>: lãi trên mỗi 100 đồng vốn chủ. <b>ROA</b>: lãi trên mỗi 100 đồng tài sản. <b>Free float</b>: tỷ lệ cổ phiếu tự do giao dịch. <b>Beta</b>: mức dao động so với thị trường; 0,92 là dao động gần bằng VN-Index. <b>KL TB 10 phiên</b>: số cổ phiếu khớp lệnh trung bình mỗi phiên.</div>
+  </div>
+</section>
+
+<section class="card" id="the">
+  <h2>Tóm tắt từng kịch bản</h2>
+  <div class="pricebox">
+    <div><span class="l">−40% · 8.550 đ</span><span class="v">P/E 6,0 · P/B 0,57</span><span class="l">P/E cốt lõi 18,3 · vốn hóa 10.647 tỷ</span></div>
+    <div><span class="l">−20% · 11.400 đ</span><span class="v">P/E 8,1 · P/B 0,76</span><span class="l">P/E cốt lõi 24,4 · vốn hóa 14.196 tỷ</span></div>
+    <div><span class="l">Hiện tại · 14.250 đ</span><span class="v">P/E 10,1 · P/B 0,95</span><span class="l">P/E cốt lõi 30,5 · vốn hóa 17.745 tỷ</span></div>
+    <div><span class="l">+20% · 17.100 đ</span><span class="v">P/E 12,1 · P/B 1,14</span><span class="l">P/E cốt lõi 36,6 · vốn hóa 21.295 tỷ</span></div>
+    <div><span class="l">+40% · 19.950 đ</span><span class="v">P/E 14,1 · P/B 1,33</span><span class="l">P/E cốt lõi 42,7 · vốn hóa 24.844 tỷ</span></div>
+  </div>
+  <div class="gloss"><div>Mỗi thẻ là một mức giá giả định; các chỉ số khác (EPS, ROE…) không đổi.</div></div>
+</section>
+
+<section class="card" id="doichieu">
+  <h2>Đối chiếu số CafeF với số tự tính</h2>
+  <div class="tw"><table>
+    <tr><th>Chỉ số</th><th>CafeF</th><th>Dùng trong báo cáo</th><th>Lý do</th></tr>
+    <tr><td>EPS</td><td>1.570 (cơ bản = pha loãng)</td><td><b>1.416</b></td><td class="l">CafeF tính tới Q2/2026, mẫu số trước cổ tức cổ phiếu 10% (10/2026). Báo cáo dùng LN mẹ Q3/25–Q2/26 = 1.762,9 tỷ ÷ 1.245,3 triệu cp hiện hành (EPS pro forma)</td></tr>
+    <tr><td>P/E</td><td>9,07</td><td><b>10,07</b></td><td class="l">14.250 ÷ 1.570 = 9,08 — khớp CafeF, nhưng mẫu số chưa điều chỉnh cổ tức cổ phiếu</td></tr>
+    <tr><td>BVPS</td><td>16.700</td><td><b>15.046</b></td><td class="l">CafeF dùng số cổ phiếu cũ; báo cáo dùng VCSH mẹ 30/06/2026 18.606 tỷ + tiền ESOP 130,4 tỷ ÷ cp hiện hành</td></tr>
+    <tr><td>P/B</td><td>0,88</td><td><b>0,95</b></td><td class="l">14.250 ÷ 16.700 = 0,85 ≠ 0,88 của CafeF — có thể khác ngày giá; chưa xác minh</td></tr>
+    <tr><td>Vốn hóa</td><td>17.745,49 tỷ</td><td><b>17.745 tỷ</b></td><td class="l">Khớp: 14.250 × 1.245.297.704</td></tr>
+    <tr><td>Tỷ suất cổ tức</td><td>N/A</td><td><b>0%</b></td><td class="l">Lịch sự kiện CafeF: từ 2021 chỉ trả cổ tức cổ phiếu 10%/năm; lần cuối trả tiền mặt 5% năm 2020</td></tr>
+    <tr><td>ROE · ROA</td><td>N/A</td><td><b>9,7% · 5,0%</b></td><td class="l">Tự tính: LN mẹ TTM ÷ vốn chủ mẹ / tổng tài sản bình quân 30/06/2025 và 30/06/2026; gồm lãi bất thường</td></tr>
+    <tr><td>Beta</td><td>N/A</td><td><b>0,92</b></td><td class="l">Tự tính 245 phiên so với VN-Index (tương quan 0,52)</td></tr>
+    <tr><td>KL TB 10 phiên</td><td>5.677.590</td><td><b>5.677.590</b></td><td class="l">Khớp với tự tính 10 phiên tới 28/10/2026</td></tr>
+    <tr><td>Room ngoại còn lại</td><td>24,11%</td><td>—</td><td class="l">Không phải free float</td></tr>
+  </table></div>
+  <div class="gloss">
+    <div><b>Pro forma</b>: tính lại theo số cổ phiếu hiện tại để so sánh nhất quán. <b>Cổ tức cổ phiếu</b>: trả cổ phiếu mới thay tiền, làm số cổ phiếu tăng và lợi nhuận mỗi cổ phiếu giảm. <b>VCSH mẹ</b>: vốn chủ sở hữu thuộc cổ đông công ty mẹ. <b>ESOP</b>: cổ phiếu ưu đãi cho nhân viên. <b>Room ngoại</b>: phần cổ phiếu nhà đầu tư nước ngoài còn được mua.</div>
+  </div>
+</section>
+
+<section class="card" id="nhanxet">
+  <h2>Nhận xét phân tích cơ bản</h2>
+  <ul>
+    <li><strong>Rẻ theo sổ sách, không rẻ theo lợi nhuận:</strong> P/B 0,95 lần là thấp nhất 5 năm (trung bình 2,2 lần). P/E 10,1 lần trông rẻ, nhưng bỏ lãi bất thường thì P/E cốt lõi khoảng 30 lần.</li>
+    <li><strong>Với công ty bất động sản, P/B dưới 1 chỉ hấp dẫn khi</strong> quỹ đất (tồn kho 29.488 tỷ, ghi theo giá vốn) bán được với giá cao hơn sổ sách và nợ được kiểm soát. Báo cáo này không định giá lại quỹ đất (RNAV).</li>
+    <li><strong>Ở mức −20% (11.400 đ):</strong> P/B 0,76 lần. <strong>Ở mức +40% (19.950 đ):</strong> P/B 1,33 lần — vẫn dưới trung bình 5 năm, nhưng P/E cốt lõi lên khoảng 43 lần.</li>
+    <li><strong>Rủi ro chính:</strong> nợ tăng nhanh hơn doanh thu nhiều lần (Nợ/Doanh thu 581%), dòng tiền kinh doanh âm liên tục, lợi nhuận cốt lõi yếu. LN hoạt động cốt lõi đã giảm 2 quý liên tiếp (xem <a href="#quy">quy tắc bán ①</a>) — cần xem Q3/2026.</li>
+    <li><strong>Nối sang định giá:</strong> bội số chỉ cho biết giá so với lợi nhuận/sổ sách; giá trị ước tính theo dòng tiền và tài sản nằm ở <a href="#giadinhgia">Phần 1</a> và chi tiết ở <a href="#pe">Phần 3</a>.</li>
+  </ul>
+  <div class="gloss"><div><b>RNAV</b>: giá trị tài sản ròng sau khi định giá lại từng dự án theo giá thị trường. <b>Tồn kho</b> (bất động sản): đất và dự án đang làm chưa bán. <b>DCF</b>: định giá chiết khấu dòng tiền. <b>Lãi bất thường</b>: khoản lãi một lần, không lặp lại.</div></div>
+</section>
+
+<div class="part" id="phan3"><b>Phần 3</b><span>Chi tiết định giá</span></div>
+<div class="sub">Cách tính từng con số ở Phần 1, độ nhạy, thời gian hoàn vốn, quy tắc bán của chuyên gia và rủi ro.</div>
+
+<section class="card" id="pe">
+  <h2>P/E và PEG</h2>
+  <div class="tw"><table>
+    <tr><th>Cơ sở</th><th>EPS (đ)</th><th>P/E</th><th>Tăng trưởng EPS</th><th>PEG</th><th>Ghi chú</th></tr>
+    <tr><td>TTM báo cáo (Q3/25–Q2/26)</td><td>1.416</td><td>10,1x</td><td>—</td><td>không có ý nghĩa</td><td class="l">Gồm khoản một lần</td></tr>
+    <tr><td>TTM bỏ 2 khoản một lần (xấp xỉ)</td><td>467</td><td>30,5x</td><td>âm</td><td>không có ý nghĩa</td><td class="l">Trừ trước thuế, chưa phân bổ thuế/NCI</td></tr>
+    <tr><td>Chuẩn hóa LN mẹ BQ 2021–25 (975 tỷ)</td><td>783</td><td>18,2x</td><td>CAGR 2021→25 âm</td><td>không có ý nghĩa</td><td class="l">LN mẹ 2021: 1.202,5 → 2025: 1.045,5 tỷ</td></tr>
+    <tr><td>Forward theo KH 2026 (1.500 tỷ)</td><td>1.205</td><td>11,8x</td><td>+43,5%</td><td>0,27</td><td class="l"><span class="pill p-warn">Không dùng</span> bị làm đẹp bởi lãi thoái vốn</td></tr>
+  </table></div>
+  <p class="note">EPS tính trên 1.245.297.704 cp hiện tại. PEG chỉ là tham khảo tương quan giá/tăng trưởng, không phải ngưỡng mua bán.</p>
+  <div class="gloss">
+    <div><b>EPS</b> (lợi nhuận trên mỗi cổ phiếu): lãi của cổ đông mẹ ÷ số cổ phiếu. <b>P/E</b> = giá ÷ EPS; 30x nghĩa là cần 30 năm lãi (nếu không đổi) mới bằng giá mua.</div>
+    <div><b>PEG</b> = P/E ÷ tốc độ tăng EPS (%); quanh 1 là giá tương xứng với tăng trưởng. Khi tăng trưởng âm, PEG không có ý nghĩa.</div>
+    <div><b>TTM</b>: 12 tháng gần nhất (4 quý gần nhất cộng lại). <b>Forward</b>: dựa trên kế hoạch năm tới. <b>CAGR</b>: tốc độ tăng trưởng bình quân mỗi năm. <b>KH</b>: kế hoạch. <b>NCI</b>: phần lãi thuộc cổ đông thiểu số ở công ty con. <b>BQ</b>: bình quân.</div>
+  </div>
+</section>
+
+<section class="card" id="taisan">
+  <h2>Phương pháp 1 — NWC và NCAV</h2>
+  <div class="tw"><table>
+    <tr><th>Thước đo</th><th>Tỷ đồng</th><th>đ/cp</th><th>2/3 NCAV</th><th>So với giá</th></tr>
+    <tr><td>NWC (TSNH − nợ ngắn hạn)</td><td>32.059</td><td>25.744</td><td>—</td><td class="l">Thanh khoản, không phải giá trị</td></tr>
+    <tr><td>NCAV sổ sách</td><td>14.719</td><td>11.820</td><td>7.880</td><td class="neg">−17%</td></tr>
+    <tr><td>NCAV, giảm 15% tồn kho / 10% phải thu</td><td>—</td><td>8.029</td><td>5.353</td><td class="neg">−44%</td></tr>
+    <tr><td>NCAV, giảm 30% tồn kho / 20% phải thu</td><td>—</td><td>4.238</td><td>2.825</td><td class="neg">−70%</td></tr>
+  </table></div>
+  <p class="note">NCAV = TSNH 35.453,5 − tổng nợ 19.497,0 − NCI 1.367,5 + tiền ESOP 130,4 tỷ (số dư 30/06/2026). Tồn kho 29.488 tỷ ghi theo giá vốn, không phải giá thị trường quỹ đất. Mức giảm giá là giả định.</p>
+  <div class="gloss">
+    <div><b>NWC</b> (vốn lưu động ròng) = <b>TSNH</b> (tài sản ngắn hạn: tiền, phải thu, tồn kho…) − nợ ngắn hạn; đo khả năng trả nợ ngắn hạn, không phải giá trị cổ phiếu.</div>
+    <div><b>NCAV</b> = TSNH − toàn bộ nợ − <b>NCI</b> (phần của cổ đông thiểu số); phần còn lại cho cổ đông nếu bán hết tài sản ngắn hạn. <b>2/3 NCAV</b>: ngưỡng mua rất thận trọng của Benjamin Graham.</div>
+    <div>Với công ty bất động sản, tồn kho chủ yếu là quỹ đất và dự án; "giảm 15% tồn kho" là giả định bán được thấp hơn giá sổ sách 15%.</div>
+  </div>
+</section>
+
+<section class="card" id="dcf">
+  <h2>Phương pháp 2 — DCF FCFE 10 năm (có điều kiện)</h2>
+  <p>FCFE năm 0 = tỷ lệ chuyển đổi × LN mẹ bình quân 975,4 tỷ. <strong>Đây là giả định</strong>: CFO − capex thực tế năm 2025 âm.</p>
+  <div class="tw"><table>
+    <tr><th>Kịch bản</th><th>FCFE năm 0</th><th>g năm 1–5 / 6–10</th><th>r / gT</th><th>PV 10 năm</th><th>PV TV (tỷ trọng)</th><th>Giá trị/cp</th><th>vs giá</th></tr>
+    <tr><td>Bi quan</td><td>390 (40%)</td><td>3% / 3%</td><td>15% / 3%</td><td>2.236</td><td>1.113 (33%)</td><td>2.689</td><td class="neg">−81,1%</td></tr>
+    <tr><td>Cơ sở</td><td>634 (65%)</td><td>8% / 5%</td><td>14% / 4%</td><td>4.606</td><td>3.335 (42%)</td><td><strong>6.377</strong></td><td class="neg">−55,2%</td></tr>
+    <tr><td>Lạc quan</td><td>829 (85%)</td><td>12% / 7%</td><td>13% / 4%</td><td>7.413</td><td>6.976 (48%)</td><td>11.555</td><td class="neg">−18,9%</td></tr>
+  </table></div>
+  <div class="callout"><strong>Định giá ngược:</strong> để 14.250 đ hợp lý với tham số cơ sở, KDH cần khoảng <strong>1.417 tỷ FCFE/năm</strong> (1.138 đ/cp), tức 145% LN mẹ bình quân.</div>
+  <h2 style="margin-top:18px;font-size:16px">Độ nhạy kịch bản cơ sở (đ/cp)</h2>
+  <div class="tw"><table>
+    <tr><th>r \ gT</th><th>3%</th><th>4%</th><th>5%</th></tr>
+    <tr><td>12%</td><td>7.560</td><td>8.038</td><td>8.653</td></tr>
+    <tr><td>13%</td><td>6.762</td><td>7.115</td><td>7.556</td></tr>
+    <tr><td>14%</td><td>6.111</td><td>6.377</td><td>6.704</td></tr>
+    <tr><td>15%</td><td>5.570</td><td>5.775</td><td>6.022</td></tr>
+    <tr><td>16%</td><td>5.114</td><td>5.275</td><td>5.465</td></tr>
+  </table></div>
+  <p class="note">Giá mua theo MOS (cơ sở): 15% → 5.421 · 25% → 4.783 · 30% → 4.464 · 50% → 3.189 đ/cp.</p>
+  <div class="gloss">
+    <div><b>DCF</b> (chiết khấu dòng tiền): cộng tiền doanh nghiệp tạo ra trong 10 năm tới và sau đó, quy về giá trị hôm nay. <b>FCFE</b>: dòng tiền tự do thuộc về cổ đông, sau mọi chi phí, đầu tư và trả nợ.</div>
+    <div><b>g</b>: tốc độ tăng dòng tiền mỗi năm. <b>r</b>: lợi nhuận tối thiểu nhà đầu tư đòi hỏi mỗi năm (tỷ lệ chiết khấu); r càng cao, giá trị càng thấp. <b>gT</b>: tốc độ tăng mãi mãi sau năm 10.</div>
+    <div><b>PV</b>: giá trị hiện tại (tiền tương lai quy về hôm nay). <b>TV</b> (giá trị cuối kỳ): giá trị mọi dòng tiền sau năm 10; tỷ trọng TV cao là định giá phụ thuộc nhiều vào tương lai xa.</div>
+    <div><b>Định giá ngược</b>: tìm số tiền doanh nghiệp phải làm ra mỗi năm để giá hiện tại là hợp lý. <b>Độ nhạy</b>: giá trị đổi thế nào khi đổi r hoặc gT. <b>MOS</b> (biên an toàn): mua thấp hơn giá trị ước tính bao nhiêu % để dự phòng sai số.</div>
+  </div>
+</section>
+
+<section class="card" id="oe">
+  <h2>Phương pháp 3 — Owner Earnings</h2>
+  <div class="tw"><table>
+    <tr><th>Kịch bản</th><th>Tái đầu tư quỹ đất duy trì</th><th>OE (tỷ)</th><th>OE/cp</th><th>Giá trị/cp</th><th>TV</th><th>vs giá</th></tr>
+    <tr><td>Bi quan</td><td>55%</td><td>439</td><td>352</td><td>3.025</td><td>33%</td><td class="neg">−78,8%</td></tr>
+    <tr><td>Cơ sở</td><td>35%</td><td>634</td><td>509</td><td>6.377</td><td>42%</td><td class="neg">−55,2%</td></tr>
+    <tr><td>Lạc quan</td><td>20%</td><td>780</td><td>627</td><td>10.876</td><td>48%</td><td class="neg">−23,7%</td></tr>
+  </table></div>
+  <p class="note">OE = LN chuẩn hóa + D&amp;A (13,3) − capex duy trì (≈ D&amp;A) − bổ sung quỹ đất duy trì (giả định, không có thuyết minh). Dùng chung nền lợi nhuận với DCF nên không phải bằng chứng độc lập.</p>
+  <div class="gloss">
+    <div><b>Owner Earnings</b> (lợi nhuận của chủ sở hữu, theo Warren Buffett): số tiền chủ doanh nghiệp thật sự có thể rút ra = lợi nhuận + khấu hao − tiền phải tái đầu tư để giữ nguyên quy mô. <b>OE</b>: viết tắt Owner Earnings.</div>
+    <div><b>D&amp;A</b> (khấu hao): chi phí phân bổ giá trị tài sản theo thời gian, không phải tiền chi ra trong kỳ. <b>Capex</b>: tiền chi mua sắm, xây dựng tài sản dài hạn. Với công ty BĐS, "tái đầu tư quỹ đất" là tiền mua đất mới để có dự án tiếp theo.</div>
+  </div>
+</section>
+
+<section class="card" id="payback">
+  <h2>Thời gian hoàn vốn (dòng tiền/cp so với 14.250 đ)</h2>
+  <div class="tw"><table>
+    <tr><th>Dòng tiền</th><th>CF0/cp</th><th>Không tăng trưởng</th><th>Tăng trưởng, không chiết khấu</th><th>Chiết khấu</th></tr>
+    <tr><td>FCFE bi quan</td><td>313</td><td>45,5 năm</td><td>28,5 năm</td><td class="l">chưa hoàn vốn trong 10 năm</td></tr>
+    <tr><td>FCFE cơ sở</td><td>509</td><td>28,0 năm</td><td>15,9 năm</td><td class="l">chưa hoàn vốn trong 10 năm</td></tr>
+    <tr><td>FCFE lạc quan</td><td>666</td><td>21,4 năm</td><td>11,3 năm</td><td class="l">chưa hoàn vốn trong 10 năm</td></tr>
+    <tr><td>OE bi quan</td><td>352</td><td>40,4 năm</td><td>26,3 năm</td><td class="l">chưa hoàn vốn trong 10 năm</td></tr>
+    <tr><td>OE cơ sở</td><td>509</td><td>28,0 năm</td><td>15,9 năm</td><td class="l">chưa hoàn vốn trong 10 năm</td></tr>
+    <tr><td>OE lạc quan</td><td>627</td><td>22,7 năm</td><td>11,8 năm</td><td class="l">chưa hoàn vốn trong 10 năm</td></tr>
+  </table></div>
+  <p class="note">Mốc vượt 10 năm giữ tăng trưởng giai đoạn năm 6–10 cho các năm sau. Không cộng terminal value hoặc giá bán cổ phiếu.</p>
+  <div class="gloss">
+    <div><b>Payback</b> (thời gian hoàn vốn): số năm để tiền doanh nghiệp tạo ra cho mỗi cổ phiếu cộng dồn bằng giá mua. <b>CF0/cp</b>: dòng tiền năm gốc của mỗi cổ phiếu.</div>
+    <div><b>Không tăng trưởng</b>: dòng tiền giữ nguyên mỗi năm. <b>Có chiết khấu</b>: tính theo giá trị hôm nay của tiền (tiền nhận sau 10 năm đáng giá ít hơn hiện tại), nên luôn lâu hơn.</div>
+  </div>
+</section>
+
+<section class="card" id="quy">
+  <h2>Quy tắc bán ① — tăng trưởng đình trệ 2–3 quý (LN cốt lõi so với cùng kỳ)</h2>
+  <svg viewBox="0 0 640 240" width="100%" role="img" aria-label="LN cốt lõi theo quý so với cùng kỳ">
+    <line x1="50" y1="190" x2="630" y2="190" stroke="var(--line)"/>
+    <line x1="50" y1="20" x2="50" y2="210" stroke="var(--line)"/>
+    <text x="44" y="194" text-anchor="end">0</text><text x="44" y="109" text-anchor="end">500</text><text x="44" y="24" text-anchor="end">1.000</text>
+    <line x1="50" y1="105" x2="630" y2="105" stroke="var(--line)" stroke-dasharray="3 4"/>
+    <!-- scale: 1000 ty = 170px -->
+    <rect x="80" y="174.6" width="44" height="15.4" fill="var(--bar1)"/><rect x="128" y="78.4" width="44" height="111.6" fill="var(--bar2)"/>
+    <text x="126" y="72" text-anchor="middle">657</text><text x="126" y="228" text-anchor="middle">Q3/25</text>
+    <rect x="225" y="74.7" width="44" height="115.3" fill="var(--bar1)"/><rect x="273" y="16.4" width="44" height="173.6" fill="var(--bar2)"/>
+    <text x="295" y="13" text-anchor="middle">1.021</text><text x="271" y="228" text-anchor="middle">Q4/25</text>
+    <rect x="370" y="157.8" width="44" height="32.2" fill="var(--bar1)"/><rect x="418" y="175.2" width="44" height="14.8" fill="var(--bar2)"/>
+    <text x="440" y="170" text-anchor="middle">87</text><text x="416" y="228" text-anchor="middle">Q1/26</text>
+    <rect x="515" y="140.3" width="44" height="49.7" fill="var(--bar1)"/><rect x="563" y="190" width="44" height="9.1" fill="var(--bad)"/>
+    <text x="585" y="212" text-anchor="middle" style="fill:var(--bad)">−53</text><text x="561" y="228" text-anchor="middle">Q2/26</text>
+  </svg>
+  <div class="legend"><span><i style="background:var(--bar1)"></i>Cùng kỳ năm trước</span><span><i style="background:var(--bar2)"></i>Quý hiện tại</span><span>Đơn vị: tỷ đồng · LN cốt lõi = LN gộp − CPBH − CPQL</span></div>
+  <div class="tw" style="margin-top:14px"><table>
+    <tr><th>Kỳ</th><th>DT thuần</th><th>DT YoY</th><th>LN mẹ</th><th>LN mẹ YoY</th><th>LN cốt lõi (cùng kỳ)</th><th>CFO lũy kế</th><th>Khoản bất thường</th><th>Trạng thái</th></tr>
+    <tr><td>Q3/2025</td><td>1.098,2</td><td class="pos">+334,9%</td><td>235,8</td><td class="pos">+235,1%</td><td>656,5 (90,7)</td><td>−3.294,6 (9T)</td><td class="l">—</td><td><span class="pill p-good">Tăng</span></td></tr>
+    <tr><td>Q4/2025</td><td>1.816,3</td><td class="neg">−11,3%</td><td>496,0</td><td class="pos">+24,8%</td><td>1.021,4 (678,1)</td><td>−3.174,7 (12T)*</td><td class="l">—</td><td><span class="pill p-good">Tăng</span></td></tr>
+    <tr><td>Q1/2026</td><td>281,4</td><td class="neg">−60,4%</td><td>281,4</td><td class="pos">+130,7%</td><td>86,8 (189,7)</td><td>−633,7 (3T)</td><td class="l">Lãi mua rẻ An Lập 285,2</td><td><span class="pill p-bad">Giảm</span></td></tr>
+    <tr><td>Q2/2026</td><td>160,6</td><td class="neg">−84,7%</td><td>749,8</td><td class="pos">+277,3%</td><td class="neg">−53,3 (292,4)</td><td>−1.480,2 (6T)</td><td class="l">Lãi thoái vốn BTM 896,3</td><td><span class="pill p-bad">Giảm</span></td></tr>
+  </table></div>
+  <p class="note">Đơn vị tỷ đồng. Nguồn: CafeF KQKD/LCTT quý (raw API). CFO là số lũy kế, không cộng các cột. *CafeF năm 2025 ghi CFO −2.024,2 tỷ, khác số lũy kế Q4 −3.174,7 tỷ: cần đối chiếu BCTC kiểm toán.</p>
+  <div class="callout"><strong>Trạng thái:</strong> <span class="pill p-bad">Tín hiệu bán 2 quý</span> — LN cốt lõi Q1/2026 và Q2/2026 đều thấp hơn cùng kỳ. Cần xác minh ngoại lệ bàn giao dự án theo đợt; Q3/2026 sẽ quyết định quý thứ ba.</div>
+  <div class="gloss">
+    <div><b>DT</b>: doanh thu. <b>YoY</b> (so với cùng kỳ năm trước): ví dụ Q2/2026 so với Q2/2025, để tránh ảnh hưởng mùa vụ. <b>LN mẹ</b>: lợi nhuận sau thuế thuộc cổ đông công ty mẹ.</div>
+    <div><b>LN cốt lõi</b>: lãi từ việc kinh doanh chính = LN gộp (doanh thu − giá vốn) − <b>CPBH</b> (chi phí bán hàng) − <b>CPQL</b> (chi phí quản lý). Âm nghĩa là bán nhà không đủ bù chi phí vận hành.</div>
+    <div><b>CFO</b> (dòng tiền từ hoạt động kinh doanh): tiền thực thu về từ kinh doanh; âm là đang tiêu nhiều hơn thu. <b>Lũy kế</b>: cộng dồn từ đầu năm (3T, 6T, 9T, 12T = 3, 6, 9, 12 tháng). <b>BTM</b>: dự án/công ty Bình Trưng Mới. <b>BCTC</b>: báo cáo tài chính; <b>KQKD</b>: kết quả kinh doanh; <b>LCTT</b>: lưu chuyển tiền tệ.</div>
+  </div>
+</section>
+
+<section class="card" id="noibo">
+  <h2>Quy tắc bán ② — người nội bộ, rà soát 30/07–28/10/2026</h2>
+  <div class="tw"><table>
+    <tr><th>Người / chức vụ / quan hệ</th><th>Ngày</th><th>Trạng thái</th><th>Đăng ký</th><th>Thực hiện</th><th>Sở hữu trước</th><th>Sau GD</th><th>Nguồn</th></tr>
+    <tr><td class="l">Lý Tuấn Kiệt — Phó TGĐ (con ông Lý Điền Sơn)</td><td>23/07–21/08</td><td><span class="pill p-good">Mua khớp lệnh</span></td><td>20.000.000</td><td>20.000.000</td><td>0,056%</td><td>1,838%</td><td class="l">BC KQGD 21/08/2026</td></tr>
+    <tr><td class="l">Lý Điền Sơn — Phó CT HĐQT</td><td>02/10</td><td><span class="pill p-good">Mua ESOP</span></td><td>1.300.000</td><td>1.300.000</td><td>0,10%</td><td>0,22%</td><td class="l">BC KQGD 02/10/2026</td></tr>
+    <tr><td class="l">Các người nội bộ khác (Đặng Thế Lương, Ngô Thị Thanh Tâm, Mai Trần Thanh Trang…)</td><td>02–14/10</td><td><span class="pill p-warn">ESOP (theo tên file)</span></td><td>—</td><td>—</td><td>—</td><td>—</td><td class="l">Chưa mở từng file</td></tr>
+  </table></div>
+  <div class="callout"><strong>Kết luận:</strong> chưa có tín hiệu bán đáng kể. Không thấy báo cáo bán nào trong danh sách công bố 07–10/2026.</div>
+  <div class="gloss">
+    <div><b>TGĐ</b>: tổng giám đốc. <b>HĐQT</b>: hội đồng quản trị. <b>CT</b>: chủ tịch. <b>GD</b>: giao dịch. <b>BC KQGD</b>: báo cáo kết quả giao dịch gửi sở giao dịch chứng khoán.</div>
+    <div><b>ESOP</b>: cổ phiếu công ty bán cho nhân viên/lãnh đạo với giá ưu đãi (đợt này 12.000 đ/cp), bị hạn chế bán trong 1 năm. <b>Khớp lệnh</b>: mua/bán trên sàn theo giá thị trường.</div>
+  </div>
+</section>
+
+<section class="card" id="ruiro">
+  <h2>Rủi ro và việc cần kiểm tra tiếp</h2>
+  <ul>
+    <li><strong>BCTC Q3/2026</strong> (hạn khoảng 30/10): quyết định quý thứ ba theo quy tắc của chuyên gia. Cùng kỳ Q3/2025: DT 1.098 tỷ, LN cốt lõi 657 tỷ — nền so sánh cao.</li>
+    <li><strong>Nợ:</strong> nợ vay 16.659 tỷ, tăng 64% trong 6 tháng; nợ vay ròng 73,5% VCSH mẹ. Mỗi +1 điểm % lãi suất ≈ +167 tỷ chi phí lãi/năm trước thuế.</li>
+    <li><strong>Dòng tiền:</strong> CFO âm 2018, 2019, 2021, 2022, 2023, 2025; chỉ dương 2020 (163 tỷ).</li>
+    <li><strong>Dữ liệu lệch</strong> CFO 2025 giữa bảng năm và lũy kế Q4 trên CafeF.</li>
+    <li><strong>RNAV dự án</strong> (Tân Tạo, An Lập, Bình Trưng, Đoàn Nguyên, Gladia/Keppel…) cần giá bán, diện tích, tiến độ, chi phí hoàn thiện.</li>
+  </ul>
+  <div class="gloss">
+    <div><b>RNAV</b> (giá trị tài sản ròng đánh giá lại): định giá từng dự án theo giá thị trường rồi trừ nợ — cách phù hợp nhất cho công ty bất động sản. <b>Điểm %</b>: ví dụ lãi suất từ 8% lên 9% là tăng 1 điểm %.</div>
+  </div>
+</section>
+
+<section class="card" id="kiemdinh">
+  <h2>Kiểm định</h2>
+  <div class="tw"><table>
+    <tr><th>Hạng mục</th><th>Trạng thái</th><th>Ghi chú</th></tr>
+    <tr class="grp"><td colspan="3">Phần 2 — Phân tích cơ bản</td></tr>
+    <tr><td>Bảng 5 năm: tổng LN mẹ 2021–2025</td><td><span class="pill p-good">Đạt</span></td><td class="l">4.876 tỷ, khớp nền DCF (bình quân 975,4 tỷ)</td></tr>
+    <tr><td>Cột TTM bảng 5 năm = bảng 12 chỉ số</td><td><span class="pill p-good">Đạt</span></td><td class="l">EPS, BVPS, ROE, ROA, P/B cùng nền</td></tr>
+    <tr><td>Giá, vốn hóa, P/E, P/B tỷ lệ thuận với k</td><td><span class="pill p-good">Đạt</span></td><td class="l">Vốn hóa = giá × cổ phiếu, lệch &lt;0,1% so với CafeF</td></tr>
+    <tr><td>Chỉ số cố định giống nhau ở 5 kịch bản</td><td><span class="pill p-good">Đạt</span></td><td class="l">EPS, BVPS, ROE, ROA, số cp, beta, KL</td></tr>
+    <tr><td>Đủ 12 chỉ số</td><td><span class="pill p-warn">11/12</span></td><td class="l">Free float N/A; CFO 2024 N/A (CafeF ghi 0)</td></tr>
+    <tr class="grp"><td colspan="3">Phần 1 &amp; 3 — Định giá</td></tr>
+    <tr><td>NCAV/NWC</td><td><span class="pill p-good">Đã tính</span></td><td class="l">Số dư 30/06/2026 + tiền ESOP</td></tr>
+    <tr><td>DCF 10 năm</td><td><span class="pill p-warn">Ước tính có giả định</span></td><td class="l">Không có dòng tiền lịch sử dương làm nền</td></tr>
+    <tr><td>Owner Earnings</td><td><span class="pill p-warn">Ước tính có giả định</span></td><td class="l">Tái đầu tư quỹ đất chưa thuyết minh</td></tr>
+    <tr><td>RNAV dự án</td><td><span class="pill p-bad">Thiếu dữ liệu</span></td><td class="l">Phương pháp phù hợp nhất cho BĐS</td></tr>
+    <tr><td>Số học</td><td><span class="pill p-good">Đã kiểm</span></td><td class="l">Chạy lại bằng code; test perpetuity và tổng dòng tiền tăng trưởng đều</td></tr>
+    <tr><td>Phần 1 khớp Phần 3</td><td><span class="pill p-good">Đạt</span></td><td class="l">Bảng giá định giá lấy đúng số cơ sở/bi quan/lạc quan ở NCAV, DCF, OE</td></tr>
+    <tr><td>PDF công bố</td><td><span class="pill p-good">Đã đọc</span></td><td class="l">3 bản scan, đọc bằng ảnh trang, chưa OCR</td></tr>
+  </table></div>
+  <p class="note">Mức đạt: <strong>đạt một phần trong phạm vi dữ liệu</strong>. Đây là phân tích theo khung quy tắc của chuyên gia, không phải tư vấn đầu tư cá nhân hóa.</p>
+  <div class="gloss">
+    <div><b>k</b>: hệ số giá (0,6 / 0,8 / 1 / 1,2 / 1,4) tương ứng −40% … +40%. <b>TTM</b>: 12 tháng gần nhất. <b>OCR</b>: nhận dạng chữ từ ảnh scan. <b>Perpetuity</b>: dòng tiền kéo dài mãi mãi — dùng để kiểm tra công thức. <b>N/A</b>: không có dữ liệu.</div>
+  </div>
+</section>
+
+<section class="card" id="thuatngu">
+  <h2>Giải thích thuật ngữ</h2>
+  <dl class="g">
+    <dt>BCTC · KQKD · CĐKT · LCTT</dt><dd>Báo cáo tài chính; báo cáo kết quả kinh doanh (lãi/lỗ); bảng cân đối kế toán (tài sản, nợ, vốn); báo cáo lưu chuyển tiền tệ (tiền thực vào/ra).</dd>
+    <dt>DT · LN gộp · LNST</dt><dd>Doanh thu; lợi nhuận gộp = doanh thu − giá vốn; lợi nhuận sau thuế.</dd>
+    <dt>LN mẹ</dt><dd>Lợi nhuận sau thuế thuộc cổ đông công ty mẹ (đã trừ phần của cổ đông thiểu số).</dd>
+    <dt>LN cốt lõi</dt><dd>Lãi từ kinh doanh chính = LN gộp − chi phí bán hàng − chi phí quản lý; không tính khoản bất thường.</dd>
+    <dt>One-off</dt><dd>Khoản lãi/lỗ một lần, không lặp lại (ví dụ bán công ty con, lãi mua rẻ).</dd>
+    <dt>Biên LN gộp · ròng</dt><dd>Lãi gộp ÷ doanh thu · LN mẹ ÷ doanh thu.</dd>
+    <dt>YoY · QoQ</dt><dd>So với cùng kỳ năm trước · so với quý liền trước.</dd>
+    <dt>TTM · Forward · Pro forma</dt><dd>12 tháng gần nhất · dựa trên kế hoạch/dự báo năm tới · tính lại theo số cổ phiếu hiện tại.</dd>
+    <dt>CAGR · TB</dt><dd>Tốc độ tăng trưởng kép bình quân mỗi năm · trung bình 5 năm.</dd>
+    <dt>Vốn hóa</dt><dd>Giá × số cổ phiếu lưu hành.</dd>
+    <dt>EPS</dt><dd>Lợi nhuận trên mỗi cổ phiếu.</dd>
+    <dt>P/E · P/E cốt lõi</dt><dd>Giá ÷ EPS: trả bao nhiêu đồng cho 1 đồng lãi mỗi năm · P/E sau khi bỏ lãi bất thường.</dd>
+    <dt>PEG</dt><dd>P/E ÷ tốc độ tăng EPS (%); quanh 1 là giá tương xứng với tăng trưởng.</dd>
+    <dt>VCSH · BVPS · P/B</dt><dd>Vốn chủ sở hữu = tài sản − nợ · giá trị sổ sách mỗi cổ phiếu · giá ÷ BVPS (dưới 1 là giá thấp hơn sổ sách).</dd>
+    <dt>ROE · ROA</dt><dd>Lợi nhuận ÷ vốn chủ · lợi nhuận ÷ tổng tài sản.</dd>
+    <dt>Tỷ suất cổ tức</dt><dd>Cổ tức tiền mỗi năm ÷ giá cổ phiếu.</dd>
+    <dt>Cổ tức cổ phiếu 10%</dt><dd>Có 100 cổ phiếu được nhận thêm 10 cổ phiếu, không nhận tiền.</dd>
+    <dt>Free float · Room ngoại</dt><dd>Tỷ lệ cổ phiếu tự do giao dịch · phần cổ phiếu nhà đầu tư nước ngoài còn được mua.</dd>
+    <dt>Beta · KL TB 10 phiên</dt><dd>Độ dao động so với thị trường (dưới 1 là ít biến động hơn) · khối lượng khớp lệnh trung bình 10 phiên — đo thanh khoản.</dd>
+    <dt>Nợ / VCSH · Nợ / Doanh thu</dt><dd>Nợ phải trả ÷ vốn chủ · tổng nợ cuối kỳ ÷ doanh thu cả năm; tăng dần là nợ phình nhanh hơn kinh doanh.</dd>
+    <dt>Nợ vay ròng</dt><dd>Nợ vay có lãi − tiền và đầu tư ngắn hạn.</dd>
+    <dt>TSNH · NCI</dt><dd>Tài sản ngắn hạn (tiền, phải thu, tồn kho…) · lợi ích cổ đông không kiểm soát (phần công ty con thuộc cổ đông khác).</dd>
+    <dt>NWC · NCAV</dt><dd>Vốn lưu động ròng = TSNH − nợ ngắn hạn · tài sản ngắn hạn ròng = TSNH − toàn bộ nợ (− NCI), phương pháp Graham.</dd>
+    <dt>DCF</dt><dd>Chiết khấu dòng tiền: giá trị hôm nay của tiền doanh nghiệp tạo ra trong tương lai.</dd>
+    <dt>CFO · FCF · FCFE</dt><dd>Dòng tiền từ kinh doanh · dòng tiền tự do · dòng tiền tự do thuộc về cổ đông.</dd>
+    <dt>Capex · D&amp;A</dt><dd>Tiền chi xây dựng/mua tài sản dài hạn · khấu hao (chi phí phân bổ, không phải tiền chi ra).</dd>
+    <dt>r · g · gT</dt><dd>Tỷ lệ chiết khấu (lợi nhuận tối thiểu đòi hỏi) · tốc độ tăng dòng tiền · tốc độ tăng mãi mãi sau năm 10.</dd>
+    <dt>PV · TV</dt><dd>Giá trị hiện tại · giá trị cuối kỳ (mọi dòng tiền sau năm 10).</dd>
+    <dt>Owner Earnings (OE)</dt><dd>Tiền chủ doanh nghiệp thật sự rút ra được sau khi giữ nguyên quy mô kinh doanh (Warren Buffett).</dd>
+    <dt>RNAV</dt><dd>Giá trị tài sản ròng đánh giá lại theo giá thị trường từng dự án.</dd>
+    <dt>MOS</dt><dd>Biên an toàn: mua thấp hơn giá trị ước tính bao nhiêu %.</dd>
+    <dt>Payback</dt><dd>Thời gian hoàn vốn từ dòng tiền doanh nghiệp tạo ra.</dd>
+    <dt>ESOP</dt><dd>Cổ phiếu ưu đãi phát hành cho nhân viên/lãnh đạo.</dd>
+    <dt>HĐQT · TGĐ</dt><dd>Hội đồng quản trị · tổng giám đốc.</dd>
+    <dt>HOSE</dt><dd>Sở giao dịch chứng khoán TP.HCM.</dd>
+  </dl>
+</section>
+
+<footer id="nguon">
+  <strong>Nguồn:</strong>
+  <a href="https://www.khangdien.com.vn/en/shareholders-investors/corporate-disclosure-2">Khang Điền – Công bố thông tin</a> ·
+  <a href="https://cafef.vn/du-lieu/hose/kdh-tai-chinh.chn">CafeF – KDH tài chính</a> ·
+  <a href="https://vietstock.vn/2026/07/khang-dien-lap-ky-luc-loi-nhuan-bang-mot-thuong-vu-thoai-von-737-1474200.htm">Vietstock – thoái vốn</a> ·
+  <a href="https://vietstock.vn/2026/05/vi-sao-loi-nhuan-khang-dien-bat-tang-hon-130-du-mang-kinh-doanh-cot-loi-giam-manh-737-1435906.htm">Vietstock – cốt lõi giảm</a> ·
+  <a href="https://baodautu.vn/nha-khang-dien-len-ke-hoach-lai-1500-ty-dong-trong-nam-2026-d558641.html">Báo Đầu tư – KH 2026</a> ·
+  <a href="https://www.dnse.com.vn/senses/tin-tuc/nha-khang-dien-sap-bom-hon-112-trieu-co-phieu-de-tra-co-tuc-35287151">DNSE – cổ tức cổ phiếu</a> ·
+  <a href="https://cafef.vn/du-lieu/hose/kdh-cong-ty-co-phan-dau-tu-va-kinh-doanh-nha-khang-dien.chn">CafeF – KDH</a> ·
+  <a href="https://cafef.vn/du-lieu/lich-su-giao-dich-kdh-1.chn">CafeF – lịch sử giá</a> ·
+  <a href="https://cafef.vn/du-lieu/Ajax/PageNew/ChiSoTaiChinh.ashx?Symbol=KDH">CafeF – chỉ số tài chính</a> ·
+  <a href="https://cafef.vn/du-lieu/Ajax/PageNew/LichSuKien.ashx?Symbol=KDH">CafeF – lịch sự kiện</a> ·
+  <a href="https://thuongtruong.com.vn/news/khang-dien-kdh-lai-lon-nho-thoai-von-tai-cong-ty-con-167545.html">Thương Trường – lãi từ thoái vốn</a>
+  <br>Dữ liệu và mã tính: KDH/BasicMetrics/2026-10-29_v01/ (five_year.json, inputs.json, scenarios.csv, raw/) · KDH/CafeF/2026-10-28_v01 · KDH/valuation/kdh_valuation_2026-10-28.py · Tạo bởi VNamStock (Claude).
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+# Không đưa dữ liệu và báo cáo cá nhân lên GitHub
+*/CafeF/
+*/BasicMetrics/
+*/valuation/
+*-VNamStock-*.html
+!skills/**/assets/*.html

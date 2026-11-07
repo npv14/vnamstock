@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FPT kế hoạch mua bán</title><style>:root{--bg:#f6f7f9;--card:#fff;--ink:#16191d;--mut:#5d6670;--line:#e3e6ea;--acc:#1f5fbf;--good:#1d7a46;--bad:#b4362c;--warn:#a76a00;--soft:#eef3fb;--bar1:#9aa6b2;--bar2:#1f5fbf}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1a1e24;--ink:#e8ebef;--mut:#9aa4af;--line:#2c323a;--acc:#6ea4ff;--good:#4cc283;--bad:#ff7a6e;--warn:#e6a83a;--soft:#1d2633;--bar1:#5d6670;--bar2:#6ea4ff}}
+:root[data-theme="dark"]{--bg:#111418;--card:#1a1e24;--ink:#e8ebef;--mut:#9aa4af;--line:#2c323a;--acc:#6ea4ff;--good:#4cc283;--bad:#ff7a6e;--warn:#e6a83a;--soft:#1d2633;--bar1:#5d6670;--bar2:#6ea4ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header .eyebrow{color:var(--acc);font-weight:700;letter-spacing:.06em;font-size:12px;text-transform:uppercase}
+h1{font-size:28px;margin:6px 0 4px}
+h2{font-size:19px;margin:0 0 12px}
+.sub{color:var(--mut);font-size:14px}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+nav a{color:var(--acc);text-decoration:none;font-size:13px;border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .l{color:var(--mut);font-size:12px}
+.kpi .v{font-size:22px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi .n{font-size:12px;color:var(--mut)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.verdict div{border-left:4px solid var(--line);padding:4px 12px}
+.verdict .b{border-color:var(--bad)}.verdict .w{border-color:var(--warn)}.verdict .g{border-color:var(--good)}
+.verdict strong{display:block}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--mut);font-weight:600;font-size:12px;background:var(--soft)}
+td.l{text-align:left;white-space:normal}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600}
+.p-bad{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad)}
+.p-good{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.p-warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.neg{color:var(--bad)}.pos{color:var(--good)}
+.note{color:var(--mut);font-size:13px;margin-top:10px}
+.callout{background:var(--soft);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:14px}
+svg text{fill:var(--mut);font-size:11px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mut);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+ul{margin:6px 0;padding-left:20px}
+li{margin:4px 0}
+a{color:var(--acc)}
+footer{color:var(--mut);font-size:12px;margin-top:28px}
+.gloss{margin-top:12px;padding:10px 12px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--mut)}
+.gloss b{color:var(--ink)}
+.gloss div{margin:3px 0}
+dl.g{display:grid;grid-template-columns:minmax(110px,180px) 1fr;gap:6px 14px;margin:0;font-size:14px}
+dl.g dt{font-weight:700}
+dl.g dd{margin:0;color:var(--mut)}
+.price-top{border:2px solid var(--acc)}
+.price-top td b{font-size:15px}
+.pricebox{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.pricebox div{background:var(--soft);border-radius:10px;padding:10px 12px}
+.pricebox .l{display:block;font-size:12px;color:var(--mut)}
+.pricebox .v{display:block;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+@media (max-width:560px){dl.g{grid-template-columns:1fr}dl.g dd{margin-bottom:8px}}
+tr.chg td:first-child{border-left:3px solid var(--acc)}
+tr.fix td{color:var(--mut)}
+tr.fix td[colspan]{text-align:center;white-space:normal}
+tr.fix td:first-child{border-left:3px solid var(--bar1)}
+.pricebox .l + .v + .l{margin-top:2px}
+tr.grp td{background:var(--soft);color:var(--ink);font-weight:700;text-align:left;font-size:12.5px;letter-spacing:.02em}
+table.fy td:first-child{white-space:normal;min-width:170px}
+.part{display:flex;align-items:baseline;gap:10px;margin:34px 0 4px;padding-bottom:6px;border-bottom:2px solid var(--acc)}
+.part b{color:var(--acc);font-size:12px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.part span{font-size:21px;font-weight:700}
+.part + .sub{margin-bottom:4px}
+nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4px}
+.p-acc{background:color-mix(in srgb,var(--acc) 15%,transparent);color:var(--acc);margin-left:4px}
+tr.me td{background:color-mix(in srgb,var(--acc) 9%,transparent);font-weight:600}
+tr.me td:first-child{border-left:3px solid var(--acc)}
+tr.mk td:first-child{border-left:3px solid var(--warn)}
+</style></head><body><div class="wrap">
+<header><div class="eyebrow">VNamStock · Kế hoạch mua bán 5–10 năm</div>
+<h1>FPT · CTCP FPT</h1>
+<div class="sub">Ngày lập 2026-11-07 · 1.000 cp (minh họa, thay bằng số thật), giá mua dự kiến 60.000 đ · giá thị trường 50.800 đ 2026-11-06 · cổ tức giả định 2.000 đ/cp tiền mặt + 10% cổ phiếu mỗi năm, luôn tái đầu tư · giá định bán 100.000 đ sau 5 năm</div></header>
+
+<section class="card price-top" id="tomtat"><h2>Tóm tắt kế hoạch</h2>
+<div class="pricebox">
+<div><span class="l">Vốn bỏ ra</span><span class="v">60,0 tr</span><span class="l">1.000 cp × 60.000 đ</span></div>
+<div><span class="l">Bán 100.000 đ sau 5 năm</span><span class="v">187,0 tr</span><span class="l">+212% · 25,5%/năm</span></div>
+<div><span class="l">Bán 100.000 đ sau 10 năm</span><span class="v">349,6 tr</span><span class="l">+483% · 19,3%/năm</span></div>
+<div><span class="l">Còn lại sau thuế, bán năm 5</span><span class="v">185,8 tr</span><span class="l">bán năm 10: 346,4 tr</span></div>
+</div>
+<div class="callout"><b>Điều kiện để kế hoạch đúng:</b> giá không bị giảm hẳn sau mỗi lần chia cổ phiếu, tức lợi nhuận công ty phải tăng ít nhất khoảng 10%/năm để vẫn trả 2.000 đ trên số cổ phiếu ngày càng nhiều. Tái đầu tư giả định mua lại được ở giá mua ban đầu; nếu giá tăng dần thì số cp mua thêm ít hơn.</div>
+<p class="note">Căn cứ giả định cổ tức: Số ví dụ minh họa, không phải vị thế thật</p>
+<div class="gloss"><div><b>Lãi kép/năm</b>: mức tăng đều mỗi năm để vốn ban đầu đạt tổng tiền khi bán. <b>Tái đầu tư</b>: dùng tiền cổ tức mua thêm chính cổ phiếu đó. <b>Cổ tức cổ phiếu</b>: công ty trả thêm cổ phiếu thay cho tiền; ngày chia, giá sàn tự điều chỉnh giảm nên tổng giá trị như cũ.</div></div>
+</section>
+
+
+
+<nav><a href="#b1">1 · Giữ 5 năm</a><a href="#b2">2 · Bán sau 5 năm</a><a href="#muathem">3 · Mua thêm, 5 năm</a><a href="#b3">4 · Bán sau 10 năm</a><a href="#muathem10">5 · Mua thêm, 10 năm</a><a href="#b4">6 · Giá bán ↔ năm giữ (5 năm)</a><a href="#b4b">7 · Giá bán ↔ năm giữ (10 năm)</a><a href="#thue">Thuế</a><a href="#thuatngu">Thuật ngữ</a></nav>
+<section class="card" id="b1"><h2>1 · Giữ 5 năm, giá không đổi</h2>
+<p class="sub">Giá giữ bằng giá mua; chỉ tính cổ phiếu thưởng và cổ tức tái đầu tư. Bậc giá mua kéo xuống dưới nửa giá thị trường để lên kế hoạch mua thêm.</p>
+<div class="tw"><table><tr><th>Giá mua</th><th>So với giá TT</th><th>Vốn</th><th>Số cp sau 5 năm</th><th>Tổng số tiền</th><th>Tổng tăng</th><th>Lãi kép/năm</th></tr><tr><td>75.000 </td><td>+48%</td><td>75,0 tr</td><td>1.815</td><td><b>136,2 tr</b></td><td><b>+82%</b></td><td>~12,7%</td></tr><tr><td>70.000 </td><td>+38%</td><td>70,0 tr</td><td>1.831</td><td><b>128,2 tr</b></td><td><b>+83%</b></td><td>~12,9%</td></tr><tr><td>65.000 </td><td>+28%</td><td>65,0 tr</td><td>1.849</td><td><b>120,2 tr</b></td><td><b>+85%</b></td><td>~13,1%</td></tr><tr class="me"><td>60.000 <span class="pill p-acc">giá mua dự kiến</span></td><td>+18%</td><td>60,0 tr</td><td>1.870</td><td><b>112,2 tr</b></td><td><b>+87%</b></td><td>~13,3%</td></tr><tr><td>55.000 </td><td>+8%</td><td>55,0 tr</td><td>1.895</td><td><b>104,2 tr</b></td><td><b>+89%</b></td><td>~13,6%</td></tr><tr class="mk"><td>50.800 <span class="pill p-acc">giá thị trường</span></td><td>+0%</td><td>50,8 tr</td><td>1.920</td><td><b>97,5 tr</b></td><td><b>+92%</b></td><td>~13,9%</td></tr><tr><td>50.000 </td><td>-2%</td><td>50,0 tr</td><td>1.925</td><td><b>96,3 tr</b></td><td><b>+93%</b></td><td>~14,0%</td></tr><tr><td>45.000 </td><td>-11%</td><td>45,0 tr</td><td>1.963</td><td><b>88,3 tr</b></td><td><b>+96%</b></td><td>~14,4%</td></tr><tr><td>40.000 </td><td>-21%</td><td>40,0 tr</td><td>2.011</td><td><b>80,5 tr</b></td><td><b>+101%</b></td><td>~15,0%</td></tr><tr><td>35.000 </td><td>-31%</td><td>35,0 tr</td><td>2.075</td><td><b>72,6 tr</b></td><td><b>+107%</b></td><td>~15,7%</td></tr><tr><td>30.000 </td><td>-41%</td><td>30,0 tr</td><td>2.161</td><td><b>64,8 tr</b></td><td><b>+116%</b></td><td>~16,7%</td></tr><tr><td>25.000 </td><td>-51%</td><td>25,0 tr</td><td>2.288</td><td><b>57,2 tr</b></td><td><b>+129%</b></td><td>~18,0%</td></tr></table></div>
+<div class="gloss"><div><b>Tổng số tiền</b>: số cp sau 5 năm × giá mua. <b>Tổng tăng</b>: (tổng số tiền − vốn) ÷ vốn. <b>So với giá TT</b>: giá mua cao/thấp hơn giá thị trường hiện tại bao nhiêu %. Số liệu trước thuế.</div></div></section>
+<section class="card" id="b2"><h2>2 · Bán sau 5 năm, giá 100.000 đ</h2>
+<p class="sub">Cổ tức tiền mặt luôn tái đầu tư ở giá mua.</p>
+<div class="tw"><table><tr><th>Giá mua</th><th>Vốn</th><th>Số cp khi bán</th><th>Tổng tiền khi bán</th><th>Tổng lãi</th><th>Lãi kép/năm</th></tr><tr><td>75.000 </td><td>75,0 tr</td><td>1.815</td><td><b>181,5 tr</b></td><td>+142%</td><td>~19,3%</td></tr><tr><td>70.000 </td><td>70,0 tr</td><td>1.831</td><td><b>183,1 tr</b></td><td>+162%</td><td>~21,2%</td></tr><tr><td>65.000 </td><td>65,0 tr</td><td>1.849</td><td><b>184,9 tr</b></td><td>+184%</td><td>~23,3%</td></tr><tr class="me"><td>60.000 <span class="pill p-acc">giá mua dự kiến</span></td><td>60,0 tr</td><td>1.870</td><td><b>187,0 tr</b></td><td>+212%</td><td>~25,5%</td></tr><tr><td>55.000 </td><td>55,0 tr</td><td>1.895</td><td><b>189,5 tr</b></td><td>+245%</td><td>~28,1%</td></tr><tr class="mk"><td>50.800 <span class="pill p-acc">giá thị trường</span></td><td>50,8 tr</td><td>1.920</td><td><b>192,0 tr</b></td><td>+278%</td><td>~30,5%</td></tr><tr><td>50.000 </td><td>50,0 tr</td><td>1.925</td><td><b>192,5 tr</b></td><td>+285%</td><td>~31,0%</td></tr><tr><td>45.000 </td><td>45,0 tr</td><td>1.963</td><td><b>196,3 tr</b></td><td>+336%</td><td>~34,3%</td></tr><tr><td>40.000 </td><td>40,0 tr</td><td>2.011</td><td><b>201,1 tr</b></td><td>+403%</td><td>~38,1%</td></tr><tr><td>35.000 </td><td>35,0 tr</td><td>2.075</td><td><b>207,5 tr</b></td><td>+493%</td><td>~42,7%</td></tr><tr><td>30.000 </td><td>30,0 tr</td><td>2.161</td><td><b>216,1 tr</b></td><td>+620%</td><td>~48,4%</td></tr><tr><td>25.000 </td><td>25,0 tr</td><td>2.288</td><td><b>228,8 tr</b></td><td>+815%</td><td>~55,7%</td></tr></table></div>
+<p class="note">Tổng tiền = số cp khi bán × 100.000 đ.</p>
+<div class="gloss"><div><b>Tổng lãi</b>: (tổng tiền khi bán − vốn) ÷ vốn. <b>Lãi kép/năm</b>: mức tăng đều mỗi năm để đạt tổng tiền đó. Số liệu trước thuế.</div></div></section>
+<section class="card" id="muathem"><h2>3 · Mua thêm 50,0 tr, bán sau 5 năm giá 100.000 đ</h2>
+<p class="sub">Mua thêm theo lô 100 cp; chỉ tính phần tiền mới. Cổ tức tiền mặt luôn tái đầu tư ở giá mua.</p>
+<div class="tw"><table><tr><th>Giá mua</th><th>Cp mua thêm</th><th>Vốn</th><th>Số cp khi bán</th><th>Tổng tiền khi bán</th><th>Tổng lãi</th><th>Lãi kép/năm</th></tr><tr><td>75.000 </td><td><b>600</b></td><td>45,0 tr</td><td>1.089</td><td><b>108,9 tr</b></td><td>+142%</td><td>~19,3%</td></tr><tr><td>70.000 </td><td><b>700</b></td><td>49,0 tr</td><td>1.282</td><td><b>128,2 tr</b></td><td>+162%</td><td>~21,2%</td></tr><tr><td>65.000 </td><td><b>700</b></td><td>45,5 tr</td><td>1.294</td><td><b>129,4 tr</b></td><td>+184%</td><td>~23,3%</td></tr><tr class="me"><td>60.000 <span class="pill p-acc">giá mua dự kiến</span></td><td><b>800</b></td><td>48,0 tr</td><td>1.496</td><td><b>149,6 tr</b></td><td>+212%</td><td>~25,5%</td></tr><tr><td>55.000 </td><td><b>900</b></td><td>49,5 tr</td><td>1.705</td><td><b>170,5 tr</b></td><td>+245%</td><td>~28,1%</td></tr><tr class="mk"><td>50.800 <span class="pill p-acc">giá thị trường</span></td><td><b>900</b></td><td>45,7 tr</td><td>1.728</td><td><b>172,8 tr</b></td><td>+278%</td><td>~30,5%</td></tr><tr><td>50.000 </td><td><b>1.000</b></td><td>50,0 tr</td><td>1.925</td><td><b>192,5 tr</b></td><td>+285%</td><td>~31,0%</td></tr><tr><td>45.000 </td><td><b>1.100</b></td><td>49,5 tr</td><td>2.160</td><td><b>216,0 tr</b></td><td>+336%</td><td>~34,3%</td></tr><tr><td>40.000 </td><td><b>1.200</b></td><td>48,0 tr</td><td>2.414</td><td><b>241,4 tr</b></td><td>+403%</td><td>~38,1%</td></tr><tr><td>35.000 </td><td><b>1.400</b></td><td>49,0 tr</td><td>2.904</td><td><b>290,4 tr</b></td><td>+493%</td><td>~42,7%</td></tr><tr><td>30.000 </td><td><b>1.600</b></td><td>48,0 tr</td><td>3.458</td><td><b>345,8 tr</b></td><td>+620%</td><td>~48,4%</td></tr><tr><td>25.000 </td><td><b>2.000</b></td><td>50,0 tr</td><td>4.576</td><td><b>457,6 tr</b></td><td>+815%</td><td>~55,7%</td></tr></table></div>
+<p class="note">Tiền lẻ không đủ lô không tính. Tổng tiền = số cp khi bán × 100.000 đ.</p>
+<div class="gloss"><div><b>Tổng lãi</b>: (tổng tiền khi bán − vốn) ÷ vốn. <b>Lãi kép/năm</b>: mức tăng đều mỗi năm để đạt tổng tiền đó. <b>Lô</b>: lệnh khớp chẵn trên HOSE là bội số 100 cp. Số liệu trước thuế.</div></div></section>
+<section class="card" id="b3"><h2>4 · Bán sau 10 năm, giá 100.000 đ</h2>
+<p class="sub">Cổ tức tiền mặt luôn tái đầu tư ở giá mua.</p>
+<div class="tw"><table><tr><th>Giá mua</th><th>Vốn</th><th>Số cp khi bán</th><th>Tổng tiền khi bán</th><th>Tổng lãi</th><th>Lãi kép/năm</th></tr><tr><td>75.000 </td><td>75,0 tr</td><td>3.296</td><td><b>329,6 tr</b></td><td>+339%</td><td>~16,0%</td></tr><tr><td>70.000 </td><td>70,0 tr</td><td>3.352</td><td><b>335,2 tr</b></td><td>+379%</td><td>~17,0%</td></tr><tr><td>65.000 </td><td>65,0 tr</td><td>3.418</td><td><b>341,8 tr</b></td><td>+426%</td><td>~18,1%</td></tr><tr class="me"><td>60.000 <span class="pill p-acc">giá mua dự kiến</span></td><td>60,0 tr</td><td>3.496</td><td><b>349,6 tr</b></td><td>+483%</td><td>~19,3%</td></tr><tr><td>55.000 </td><td>55,0 tr</td><td>3.591</td><td><b>359,1 tr</b></td><td>+553%</td><td>~20,6%</td></tr><tr class="mk"><td>50.800 <span class="pill p-acc">giá thị trường</span></td><td>50,8 tr</td><td>3.687</td><td><b>368,7 tr</b></td><td>+626%</td><td>~21,9%</td></tr><tr><td>50.000 </td><td>50,0 tr</td><td>3.707</td><td><b>370,7 tr</b></td><td>+641%</td><td>~22,2%</td></tr><tr><td>45.000 </td><td>45,0 tr</td><td>3.854</td><td><b>385,4 tr</b></td><td>+757%</td><td>~24,0%</td></tr><tr><td>40.000 </td><td>40,0 tr</td><td>4.046</td><td><b>404,6 tr</b></td><td>+911%</td><td>~26,0%</td></tr><tr><td>35.000 </td><td>35,0 tr</td><td>4.304</td><td><b>430,4 tr</b></td><td>+1.130%</td><td>~28,5%</td></tr><tr><td>30.000 </td><td>30,0 tr</td><td>4.672</td><td><b>467,2 tr</b></td><td>+1.457%</td><td>~31,6%</td></tr><tr><td>25.000 </td><td>25,0 tr</td><td>5.234</td><td><b>523,4 tr</b></td><td>+1.994%</td><td>~35,5%</td></tr></table></div>
+<p class="note">Tổng tiền = số cp khi bán × 100.000 đ.</p>
+<div class="gloss"><div><b>Tổng lãi</b>: (tổng tiền khi bán − vốn) ÷ vốn. <b>Lãi kép/năm</b>: mức tăng đều mỗi năm để đạt tổng tiền đó. Số liệu trước thuế.</div></div></section>
+<section class="card" id="muathem10"><h2>5 · Mua thêm 50,0 tr, bán sau 10 năm giá 100.000 đ</h2>
+<p class="sub">Mua thêm theo lô 100 cp; chỉ tính phần tiền mới. Cổ tức tiền mặt luôn tái đầu tư ở giá mua.</p>
+<div class="tw"><table><tr><th>Giá mua</th><th>Cp mua thêm</th><th>Vốn</th><th>Số cp khi bán</th><th>Tổng tiền khi bán</th><th>Tổng lãi</th><th>Lãi kép/năm</th></tr><tr><td>75.000 </td><td><b>600</b></td><td>45,0 tr</td><td>1.977</td><td><b>197,7 tr</b></td><td>+339%</td><td>~16,0%</td></tr><tr><td>70.000 </td><td><b>700</b></td><td>49,0 tr</td><td>2.346</td><td><b>234,6 tr</b></td><td>+379%</td><td>~17,0%</td></tr><tr><td>65.000 </td><td><b>700</b></td><td>45,5 tr</td><td>2.392</td><td><b>239,2 tr</b></td><td>+426%</td><td>~18,1%</td></tr><tr class="me"><td>60.000 <span class="pill p-acc">giá mua dự kiến</span></td><td><b>800</b></td><td>48,0 tr</td><td>2.797</td><td><b>279,7 tr</b></td><td>+483%</td><td>~19,3%</td></tr><tr><td>55.000 </td><td><b>900</b></td><td>49,5 tr</td><td>3.232</td><td><b>323,2 tr</b></td><td>+553%</td><td>~20,6%</td></tr><tr class="mk"><td>50.800 <span class="pill p-acc">giá thị trường</span></td><td><b>900</b></td><td>45,7 tr</td><td>3.318</td><td><b>331,8 tr</b></td><td>+626%</td><td>~21,9%</td></tr><tr><td>50.000 </td><td><b>1.000</b></td><td>50,0 tr</td><td>3.707</td><td><b>370,7 tr</b></td><td>+641%</td><td>~22,2%</td></tr><tr><td>45.000 </td><td><b>1.100</b></td><td>49,5 tr</td><td>4.240</td><td><b>424,0 tr</b></td><td>+757%</td><td>~24,0%</td></tr><tr><td>40.000 </td><td><b>1.200</b></td><td>48,0 tr</td><td>4.855</td><td><b>485,5 tr</b></td><td>+911%</td><td>~26,0%</td></tr><tr><td>35.000 </td><td><b>1.400</b></td><td>49,0 tr</td><td>6.026</td><td><b>602,6 tr</b></td><td>+1.130%</td><td>~28,5%</td></tr><tr><td>30.000 </td><td><b>1.600</b></td><td>48,0 tr</td><td>7.475</td><td><b>747,5 tr</b></td><td>+1.457%</td><td>~31,6%</td></tr><tr><td>25.000 </td><td><b>2.000</b></td><td>50,0 tr</td><td>10.468</td><td><b>1,05 tỷ</b></td><td>+1.994%</td><td>~35,5%</td></tr></table></div>
+<p class="note">Tiền lẻ không đủ lô không tính. Tổng tiền = số cp khi bán × 100.000 đ.</p>
+<div class="gloss"><div><b>Tổng lãi</b>: (tổng tiền khi bán − vốn) ÷ vốn. <b>Lãi kép/năm</b>: mức tăng đều mỗi năm để đạt tổng tiền đó. <b>Lô</b>: lệnh khớp chẵn trên HOSE là bội số 100 cp. Số liệu trước thuế.</div></div></section>
+<section class="card" id="b4"><h2>6 · Giá bán ↔ số năm giữ, mốc 5 năm</h2>
+<p class="sub">Mốc: giữ <b>5 năm</b>, bán <b>100.000 đ</b>, tổng thu về <b>187,0 tr</b>. Số năm cần giữ ở mỗi giá bán để có đúng số tiền đó (theo giá vốn 60.000 đ).</p>
+<div class="tw"><table><tr><th>Giá bán</th><th>Số năm giữ tương đương</th><th>So với mốc 5 năm</th><th>Lãi kép/năm</th></tr><tr><td>140.000</td><td><b>~2 năm 4 tháng</b></td><td>sớm 2 năm 8 tháng</td><td>~63,5%</td></tr><tr><td>130.000</td><td><b>~2 năm 11 tháng</b></td><td>sớm 2 năm 1 tháng</td><td>~47,9%</td></tr><tr><td>120.000</td><td><b>~3 năm 7 tháng</b></td><td>sớm 1 năm 5 tháng</td><td>~37,8%</td></tr><tr><td>110.000</td><td><b>~4 năm 3 tháng</b></td><td>sớm 9 tháng</td><td>~30,8%</td></tr><tr class="me"><td>100.000</td><td><b>5 năm</b></td><td>mốc</td><td>~25,5%</td></tr><tr><td>90.000</td><td><b>~5 năm 10 tháng</b></td><td>lâu hơn 10 tháng</td><td>~21,5%</td></tr><tr><td>80.000</td><td><b>~6 năm 9 tháng</b></td><td>lâu hơn 1 năm 9 tháng</td><td>~18,2%</td></tr><tr><td>70.000</td><td><b>~7 năm 10 tháng</b></td><td>lâu hơn 2 năm 10 tháng</td><td>~15,6%</td></tr></table></div>
+<p class="note">Mỗi năm giữ thêm, số cp tăng khoảng 13,3% (cổ phiếu thưởng + cổ tức tái đầu tư), bù cho giá bán thấp hơn.</p>
+<div class="gloss"><div><b>Số năm giữ tương đương</b>: thời gian cần giữ để số cp × giá bán bằng kịch bản bán 100.000 đ sau 5 năm. <b>Lãi kép/năm</b>: cùng số tiền 187,0 tr nhưng đạt sớm hay muộn, tính trên vốn 60,0 tr. Chưa trừ thuế.</div></div></section>
+<section class="card" id="b4b"><h2>7 · Giá bán ↔ số năm giữ, mốc 10 năm</h2>
+<p class="sub">Mốc: giữ <b>10 năm</b>, bán <b>100.000 đ</b>, tổng thu về <b>349,6 tr</b>. Số năm cần giữ ở mỗi giá bán để có đúng số tiền đó (theo giá vốn 60.000 đ).</p>
+<div class="tw"><table><tr><th>Giá bán</th><th>Số năm giữ tương đương</th><th>So với mốc 10 năm</th><th>Lãi kép/năm</th></tr><tr><td>140.000</td><td><b>~7 năm 4 tháng</b></td><td>sớm 2 năm 8 tháng</td><td>~27,3%</td></tr><tr><td>130.000</td><td><b>~7 năm 11 tháng</b></td><td>sớm 2 năm 1 tháng</td><td>~25,0%</td></tr><tr><td>120.000</td><td><b>~8 năm 7 tháng</b></td><td>sớm 1 năm 5 tháng</td><td>~22,9%</td></tr><tr><td>110.000</td><td><b>~9 năm 3 tháng</b></td><td>sớm 9 tháng</td><td>~21,0%</td></tr><tr class="me"><td>100.000</td><td><b>10 năm</b></td><td>mốc</td><td>~19,3%</td></tr><tr><td>90.000</td><td><b>~10 năm 10 tháng</b></td><td>lâu hơn 10 tháng</td><td>~17,7%</td></tr><tr><td>80.000</td><td><b>~11 năm 9 tháng</b></td><td>lâu hơn 1 năm 9 tháng</td><td>~16,1%</td></tr><tr><td>70.000</td><td><b>~12 năm 10 tháng</b></td><td>lâu hơn 2 năm 10 tháng</td><td>~14,7%</td></tr></table></div>
+<p class="note">Mỗi năm giữ thêm, số cp tăng khoảng 13,3% (cổ phiếu thưởng + cổ tức tái đầu tư), bù cho giá bán thấp hơn.</p>
+<div class="gloss"><div><b>Số năm giữ tương đương</b>: thời gian cần giữ để số cp × giá bán bằng kịch bản bán 100.000 đ sau 10 năm. <b>Lãi kép/năm</b>: cùng số tiền 349,6 tr nhưng đạt sớm hay muộn, tính trên vốn 60,0 tr. Chưa trừ thuế.</div></div></section>
+<section class="card" id="thue"><h2>Thuế ước tính với giá vốn</h2>
+<div class="tw"><table><tr><th>Kịch bản</th><th>Thuế cổ tức tiền 5%</th><th>Thuế bán 0,1%</th><th>Thuế cp thưởng 5% × mệnh giá</th><th>Tổng thuế</th><th>Còn lại sau thuế</th><th>Lãi sau thuế</th></tr><tr><td>Bán 100.000 đ sau 5 năm</td><td>0,7 tr</td><td>0,2 tr</td><td>0,3 tr</td><td>1,2 tr</td><td><b>185,8 tr</b></td><td>+210%</td></tr><tr><td>Bán 100.000 đ sau 10 năm</td><td>1,9 tr</td><td>0,3 tr</td><td>0,9 tr</td><td>3,2 tr</td><td><b>346,4 tr</b></td><td>+477%</td></tr></table></div>
+<div class="gloss"><div><b>Mệnh giá</b>: 10.000 đ/cp; thuế cổ phiếu thưởng tính 5% trên mệnh giá khi bán. Thuế cổ tức tiền bị trừ trước khi tái đầu tư nên thực tế mua thêm được ít hơn một chút. Mức thuế theo quy định hiện hành, có thể thay đổi.</div></div></section>
+
+<section class="card" id="thuatngu"><h2>Giải thích thuật ngữ</h2><dl class="g">
+<dt>Cổ tức tiền mặt</dt><dd>Tiền công ty trả cho mỗi cổ phiếu; % cổ tức ở Việt Nam tính trên mệnh giá 10.000 đ (20% = 2.000 đ/cp).</dd>
+<dt>Cổ tức cổ phiếu</dt><dd>Công ty trả thêm cổ phiếu (10% = 100 cp nhận thêm 10 cp); giá được điều chỉnh giảm nên tự nó không tạo ra tiền.</dd>
+<dt>Tái đầu tư</dt><dd>Dùng tiền cổ tức mua thêm chính cổ phiếu đó.</dd>
+<dt>Lãi kép</dt><dd>Lãi năm trước được đầu tư tiếp để năm sau sinh thêm lãi.</dd>
+<dt>CAGR</dt><dd>Tăng trưởng kép bình quân mỗi năm (Compound Annual Growth Rate).</dd>
+</dl></section>
+<footer>Phép tính minh họa theo giả định đã nêu, không phải tư vấn đầu tư cá nhân. Dữ liệu: report-template-KeHoachMuaBan-FPT.json.</footer>
+</div></body></html>

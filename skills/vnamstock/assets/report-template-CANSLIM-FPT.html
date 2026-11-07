@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FPT CAN SLIM</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16191d;--mut:#5d6670;--line:#e3e6ea;--acc:#1f5fbf;--good:#1d7a46;--bad:#b4362c;--warn:#a76a00;--soft:#eef3fb;--bar1:#9aa6b2;--bar2:#1f5fbf}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1a1e24;--ink:#e8ebef;--mut:#9aa4af;--line:#2c323a;--acc:#6ea4ff;--good:#4cc283;--bad:#ff7a6e;--warn:#e6a83a;--soft:#1d2633;--bar1:#5d6670;--bar2:#6ea4ff}}
+:root[data-theme="dark"]{--bg:#111418;--card:#1a1e24;--ink:#e8ebef;--mut:#9aa4af;--line:#2c323a;--acc:#6ea4ff;--good:#4cc283;--bad:#ff7a6e;--warn:#e6a83a;--soft:#1d2633;--bar1:#5d6670;--bar2:#6ea4ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header .eyebrow{color:var(--acc);font-weight:700;letter-spacing:.06em;font-size:12px;text-transform:uppercase}
+h1{font-size:28px;margin:6px 0 4px}
+h2{font-size:19px;margin:0 0 12px}
+.sub{color:var(--mut);font-size:14px}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+nav a{color:var(--acc);text-decoration:none;font-size:13px;border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .l{color:var(--mut);font-size:12px}
+.kpi .v{font-size:22px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi .n{font-size:12px;color:var(--mut)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.verdict div{border-left:4px solid var(--line);padding:4px 12px}
+.verdict .b{border-color:var(--bad)}.verdict .w{border-color:var(--warn)}.verdict .g{border-color:var(--good)}
+.verdict strong{display:block}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--mut);font-weight:600;font-size:12px;background:var(--soft)}
+td.l{text-align:left;white-space:normal}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600}
+.p-bad{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad)}
+.p-good{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.p-warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.neg{color:var(--bad)}.pos{color:var(--good)}
+.note{color:var(--mut);font-size:13px;margin-top:10px}
+.callout{background:var(--soft);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:14px}
+svg text{fill:var(--mut);font-size:11px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mut);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+ul{margin:6px 0;padding-left:20px}
+li{margin:4px 0}
+a{color:var(--acc)}
+footer{color:var(--mut);font-size:12px;margin-top:28px}
+.gloss{margin-top:12px;padding:10px 12px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--mut)}
+.gloss b{color:var(--ink)}
+.gloss div{margin:3px 0}
+dl.g{display:grid;grid-template-columns:minmax(110px,180px) 1fr;gap:6px 14px;margin:0;font-size:14px}
+dl.g dt{font-weight:700}
+dl.g dd{margin:0;color:var(--mut)}
+.price-top{border:2px solid var(--acc)}
+.price-top td b{font-size:15px}
+.pricebox{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.pricebox div{background:var(--soft);border-radius:10px;padding:10px 12px}
+.pricebox .l{display:block;font-size:12px;color:var(--mut)}
+.pricebox .v{display:block;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+@media (max-width:560px){dl.g{grid-template-columns:1fr}dl.g dd{margin-bottom:8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">VNamStock · Báo cáo CAN SLIM</div>
+  <h1>BÁO CÁO CAN SLIM — FPT | HOSE</h1>
+  <div class="sub">Ngày đánh giá 28/10/2026 · Giá 54.000 đ (đóng cửa 28/10/2026) · Giá/khối lượng 247 phiên (28/10/2025–28/10/2026, giá điều chỉnh CafeF) · Lợi nhuận tới Q3/2026 (KQKD 9T, 21/10/2026) · Chuẩn so sánh: VN-Index</div>
+</header>
+
+<section class="card price-top" id="ketluan">
+  <h2>Kết luận: <span class="pill p-bad">Chưa phù hợp bộ lọc CAN SLIM</span> <span class="pill p-warn">Chờ thị trường</span></h2>
+  <div class="tw"><table>
+    <tr><th>Thị trường chung</th><th>Bằng chứng</th><th>Độ tin cậy</th><th>Hành động phù hợp</th></tr>
+    <tr><td><span class="pill p-warn">Đang điều chỉnh</span></td><td class="l">VN-Index 1.766,65 dưới MA50 (1.772) và MA200 (1.796), cách đỉnh 52 tuần (1.927,94 ngày 18/05/2026) −8,4%. Hồi từ 1.689,8 (19/10) nhưng chưa vượt MA50. Khối ngoại bán ròng gần 1 tỷ USD trong tháng sau nâng hạng.</td><td>Trung bình</td><td class="l">Bảo toàn vốn, chưa mở vị thế CAN SLIM mới; chờ chỉ số vượt lại MA50/MA200 với khối lượng tốt.</td></tr>
+  </table></div>
+  <div class="pricebox">
+    <div><span class="l">Tổng kết 7 tiêu chí</span><span class="v">0 Đạt · 1 Một phần</span><span class="l">6 Không đạt · 0 thiếu dữ liệu</span></div>
+    <div><span class="l">Tăng trưởng LN quý gần nhất</span><span class="v">+11,8%</span><span class="l">ngưỡng C ≥ 25%</span></div>
+    <div><span class="l">Sức mạnh giá 12 tháng so với VN-Index</span><span class="v neg">−45,6%</span><span class="l">FPT −40,5% · VN-Index +5,1%</span></div>
+    <div><span class="l">Cách đỉnh 52 tuần</span><span class="v neg">−43,1%</span><span class="l">đáy mới ngày 28/10/2026</span></div>
+  </div>
+  <p class="note">FPT vẫn là doanh nghiệp tăng trưởng tốt (~20%/năm, ROE ~28%), nhưng <b>không phải cổ phiếu dẫn dắt</b> theo CAN SLIM lúc này: lợi nhuận tăng dưới 25%, giá giảm mạnh hơn thị trường, khối ngoại bán ra và thị trường chung đang điều chỉnh. Kết luận này không có nghĩa doanh nghiệp xấu — chỉ là không đạt bộ lọc tăng trưởng–động lượng.</p>
+  <div class="gloss">
+    <div><b>CAN SLIM</b> (William O'Neil): C – lợi nhuận quý, A – lợi nhuận năm, N – điều mới, S – cung cầu cổ phiếu, L – dẫn dắt, I – tổ chức mua, M – thị trường chung. <b>MA50/MA200</b>: giá trung bình 50/200 phiên; nằm dưới là xu hướng yếu.</div>
+    <div><b>Đỉnh 52 tuần</b>: giá cao nhất 1 năm qua. <b>Sức mạnh giá so với VN-Index</b>: FPT tăng/giảm hơn hay kém chỉ số bao nhiêu điểm %. <b>ROE</b>: lãi trên 100 đồng vốn chủ. <b>Khối ngoại bán ròng</b>: nước ngoài bán nhiều hơn mua.</div>
+  </div>
+</section>
+
+<section class="card" id="bang7">
+  <h2>Bảng 7 tiêu chí</h2>
+  <div class="tw"><table>
+    <tr><th>Tiêu chí</th><th>Yêu cầu</th><th>Số liệu / bằng chứng</th><th>Kỳ / nguồn</th><th>Trạng thái</th><th>Nhận định</th></tr>
+    <tr><td><b>M</b> — Thị trường</td><td>Xu hướng tăng xác nhận</td><td class="l">VN-Index dưới MA50/MA200, −8,4% từ đỉnh; proxy 8 ngày phân phối/25 phiên</td><td class="l">CafeF, 28/10/2026</td><td><span class="pill p-bad">Không đạt</span></td><td class="l">Đang điều chỉnh; ưu tiên chờ</td></tr>
+    <tr><td><b>L</b> — Dẫn dắt</td><td>Mạnh hơn thị trường, RS ≥ 80</td><td class="l">Chênh lệch so với VN-Index: 3T −10,8 điểm %, 6T −13,2, 12T −45,6</td><td class="l">Proxy tự tính, 247 phiên</td><td><span class="pill p-bad">Không đạt</span></td><td class="l">Cổ phiếu kém dẫn dắt; không có RS Rating chính thức</td></tr>
+    <tr><td><b>C</b> — LN quý</td><td>EPS quý +25% YoY, tăng tốc</td><td class="l">LN mẹ Q3/26 +11,8%; 4 quý: +19,9% → +14,4% → +13,7% → +11,8% (giảm tốc). EPS 9T +12,8%</td><td class="l">CafeF; KQKD 9T2026 FPT</td><td><span class="pill p-bad">Không đạt</span></td><td class="l">Tăng đều nhưng dưới ngưỡng và đang chậm lại</td></tr>
+    <tr><td><b>A</b> — LN năm</td><td>EPS +25%/năm, 3 năm liền</td><td class="l">LN mẹ 2023 +21,8%, 2024 +21,5%, 2025 +19,3%; CAGR 2021–25 21,3%; ROE ~28%</td><td class="l">CafeF BCTC năm</td><td><span class="pill p-bad">Không đạt</span></td><td class="l">Tốt nhưng chưa năm nào đạt 25%; ROE hỗ trợ</td></tr>
+    <tr><td><b>N</b> — Điều mới</td><td>Sản phẩm/thị trường mới, đỉnh giá mới</td><td class="l">AI-First: đối tác OpenAI, mở rộng hợp tác NVIDIA; AI/Data +55%. Không có đỉnh giá mới (giá ở đáy 52 tuần)</td><td class="l">KQKD 9T2026</td><td><span class="pill p-warn">Một phần</span></td><td class="l">Có câu chuyện mới, chưa được giá xác nhận</td></tr>
+    <tr><td><b>S</b> — Cung cầu</td><td>Cầu mạnh ở phiên tăng, ít pha loãng</td><td class="l">1.885,7 triệu cp; thưởng 10:1, ESOP ~0,6%/năm. 50 phiên: 29 phiên giảm, 18 phiên tăng; phiên 28/10 khối lượng 13,2 triệu (2,2 lần TB50) khi giá giảm</td><td class="l">CafeF; FPT CBTT</td><td><span class="pill p-bad">Không đạt</span></td><td class="l">Áp lực bán chiếm ưu thế</td></tr>
+    <tr><td><b>I</b> — Tổ chức</td><td>Tổ chức chất lượng tăng nắm giữ</td><td class="l">Khối ngoại bán ròng ~180 triệu cp (~14.700 tỷ) từ đầu năm tới 13/10; tiếp tục bán ~260 tỷ/phiên cuối 10; SIC chỉ mua 250.000 cp đầu năm</td><td class="l">Index.vn, CafeF, Vietstock</td><td><span class="pill p-bad">Không đạt</span></td><td class="l">Tổ chức đang giảm nắm giữ</td></tr>
+  </table></div>
+  <div class="gloss">
+    <div><b>RS Rating</b>: thang xếp hạng sức mạnh giá của IBD (≥80 là mạnh); ở đây dùng proxy tự tính, không phải RS Rating chính thức. <b>Proxy</b>: chỉ số thay thế gần đúng. <b>Ngày phân phối</b>: phiên chỉ số giảm với khối lượng cao hơn phiên trước — dấu hiệu tổ chức bán.</div>
+    <div><b>LN mẹ</b>: lợi nhuận sau thuế thuộc cổ đông mẹ. <b>EPS</b>: lợi nhuận mỗi cổ phiếu. <b>YoY</b>: so với cùng kỳ năm trước. <b>CAGR</b>: tăng trưởng bình quân/năm. <b>Pha loãng</b>: số cổ phiếu tăng làm phần lãi mỗi cổ phiếu giảm. <b>ESOP</b>: cổ phiếu ưu đãi cho nhân viên. <b>SIC</b>: công ty đầu tư thuộc SCIC (vốn nhà nước).</div>
+  </div>
+</section>
+
+<section class="card" id="kichban">
+  <h2>Minh họa 4 kịch bản giao dịch CAN SLIM (giả định)</h2>
+  <div class="callout"><strong>Đây là hình minh họa giả định, không phải dự báo giá.</strong> FPT hiện chưa có nền giá; biểu đồ giả sử giá tạo nền khoảng 6 tuần trong vùng 54.000–58.200 đ rồi vượt pivot, để cho thấy trước các mức hành động. Chỉ hành động khi điều kiện thật xảy ra và thị trường chung (M) đã thuận lợi.</div>
+  <svg viewBox="0 0 760 380" width="100%" role="img" aria-label="Minh họa kịch bản CAN SLIM FPT">
+<line x1="58" y1="312.0" x2="740" y2="312.0" style="stroke:var(--line)"/>
+<text x="52" y="316.0" text-anchor="end">54k</text>
+<line x1="58" y1="283.7" x2="740" y2="283.7" style="stroke:var(--line)"/>
+<text x="52" y="287.7" text-anchor="end">56k</text>
+<line x1="58" y1="255.4" x2="740" y2="255.4" style="stroke:var(--line)"/>
+<text x="52" y="259.4" text-anchor="end">58k</text>
+<line x1="58" y1="227.0" x2="740" y2="227.0" style="stroke:var(--line)"/>
+<text x="52" y="231.0" text-anchor="end">60k</text>
+<line x1="58" y1="198.7" x2="740" y2="198.7" style="stroke:var(--line)"/>
+<text x="52" y="202.7" text-anchor="end">62k</text>
+<line x1="58" y1="170.4" x2="740" y2="170.4" style="stroke:var(--line)"/>
+<text x="52" y="174.4" text-anchor="end">64k</text>
+<line x1="58" y1="142.0" x2="740" y2="142.0" style="stroke:var(--line)"/>
+<text x="52" y="146.0" text-anchor="end">66k</text>
+<line x1="58" y1="113.7" x2="740" y2="113.7" style="stroke:var(--line)"/>
+<text x="52" y="117.7" text-anchor="end">68k</text>
+<line x1="58" y1="85.4" x2="740" y2="85.4" style="stroke:var(--line)"/>
+<text x="52" y="89.4" text-anchor="end">70k</text>
+<line x1="58" y1="57.0" x2="740" y2="57.0" style="stroke:var(--line)"/>
+<text x="52" y="61.0" text-anchor="end">72k</text>
+<line x1="58" y1="28.7" x2="740" y2="28.7" style="stroke:var(--line)"/>
+<text x="52" y="32.7" text-anchor="end">74k</text>
+<rect x="611.0" y="209.8" width="129.0" height="41.3" style="fill:var(--acc);opacity:.14"/>
+<text x="603.0" y="234.5" text-anchor="end" style="fill:var(--acc);paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round">Vùng mua 58.3–61.2k</text>
+<rect x="611.0" y="308.9" width="129.0" height="8.3" style="fill:var(--bad);opacity:.14"/>
+<text x="603.0" y="317.1" text-anchor="end" style="fill:var(--bad);paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round">Cắt lỗ 7–8%: 53.6–54.2k</text>
+<rect x="611.0" y="44.6" width="129.0" height="41.3" style="fill:var(--good);opacity:.14"/>
+<text x="603.0" y="69.3" text-anchor="end" style="fill:var(--good);paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round">Chốt lời 20–25%: 70.0–72.9k</text>
+<line x1="58" y1="251.1" x2="740" y2="251.1" style="stroke:var(--acc);stroke-dasharray:6 4"/>
+<text x="62" y="246.1" style="fill:var(--acc);paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round">Pivot giả định 58.3k</text>
+<line x1="496.7" y1="24" x2="496.7" y2="340" style="stroke:var(--mut);stroke-dasharray:2 4"/>
+<text x="492.7" y="34" text-anchor="end">Thực tế ← | → Giả định</text>
+<polyline points="58.0,187.8 61.7,180.2 65.4,178.9 69.1,138.2 72.7,151.0 76.4,125.5 80.1,130.6 83.8,89.9 87.5,105.2 91.2,123.1 94.9,143.3 98.6,130.6 102.2,142.0 105.9,160.0 109.6,154.9 113.3,138.2 117.0,113.7 120.7,91.8 124.4,97.0 128.0,111.2 131.7,138.2 135.4,127.9 139.1,121.4 142.8,135.5 146.5,130.4 150.2,129.2 153.8,134.3 157.5,145.9 161.2,154.9 164.9,156.2 168.6,167.8 172.3,165.3 176.0,165.3 179.7,162.6 183.3,165.3 187.0,170.4 190.7,172.9 194.4,138.2 198.1,143.3 201.8,145.9 205.5,136.9 209.1,134.3 212.8,148.4 216.5,148.4 220.2,167.8 223.9,169.1 227.6,171.7 231.3,216.7 235.0,201.3 238.6,214.2 242.3,212.9 246.0,242.5 249.7,245.0 253.4,243.8 257.1,267.0 260.8,275.9 264.4,265.7 268.1,238.7 271.8,214.2 275.5,212.9 279.2,153.7 282.9,156.2 286.6,171.7 290.2,166.6 293.9,165.3 297.6,152.4 301.3,160.0 305.0,165.3 308.7,185.8 312.4,197.4 316.1,190.9 319.7,188.4 323.4,189.6 327.1,178.0 330.8,149.7 334.5,157.5 338.2,166.6 341.9,142.0 345.5,147.1 349.2,134.3 352.9,147.1 356.6,139.5 360.3,144.6 364.0,147.1 367.7,144.6 371.4,117.5 375.0,140.8 378.7,144.6 382.4,140.8 386.1,126.6 389.8,120.1 393.5,153.7 397.2,136.4 400.8,133.5 404.5,140.6 408.2,152.0 411.9,160.5 415.6,174.6 419.3,181.7 423.0,184.5 426.6,188.8 430.3,197.3 434.0,200.1 437.7,221.4 441.4,231.3 445.1,231.3 448.8,256.8 452.5,268.1 456.1,279.5 459.8,268.1 463.5,255.4 467.2,252.5 470.9,268.1 474.6,263.9 478.3,263.9 481.9,263.9 485.6,269.5 489.3,283.7 493.0,292.2 496.7,312.0" fill="none" style="stroke:var(--ink);stroke-width:1.8"/>
+<polyline points="496.7,312.0 500.4,310.9 504.1,304.8 507.8,299.8 511.4,293.8 515.1,287.4 518.8,281.1 522.5,275.7 526.2,271.4 529.9,268.8 533.6,268.0 537.2,268.9 540.9,271.3 544.6,275.0 548.3,279.4 552.0,284.1 555.7,288.6 559.4,292.3 563.0,294.9 566.7,296.1 570.4,295.9 574.1,294.1 577.8,291.1 581.5,287.1 585.2,282.5 588.9,277.7 592.5,273.0 596.2,268.9 599.9,265.7 603.6,263.4 607.3,262.3 611.0,234.6" fill="none" style="stroke:var(--mut);stroke-width:1.6" stroke-dasharray="4 3"/>
+<polyline points="238.6,147.5 242.3,148.0 246.0,149.2 249.7,150.5 253.4,152.6 257.1,155.0 260.8,158.0 264.4,160.7 268.1,163.6 271.8,165.8 275.5,167.6 279.2,167.8 282.9,168.3 286.6,168.9 290.2,169.1 293.9,169.3 297.6,169.5 301.3,170.5 305.0,171.9 308.7,173.7 312.4,175.4 316.1,176.5 319.7,177.7 323.4,179.1 327.1,179.9 330.8,180.3 334.5,180.9 338.2,181.5 341.9,181.4 345.5,181.3 349.2,180.9 352.9,180.4 356.6,179.9 360.3,179.5 364.0,179.2 367.7,178.8 371.4,177.7 375.0,177.1 378.7,177.2 382.4,177.2 386.1,176.8 389.8,176.4 393.5,176.8 397.2,176.6 400.8,176.3 404.5,175.7 408.2,175.4 411.9,175.2 415.6,174.3 419.3,173.9 423.0,173.4 426.6,172.9 430.3,172.0 434.0,171.1 437.7,170.6 441.4,169.9 445.1,169.0 448.8,168.8 452.5,169.4 456.1,170.7 459.8,171.8 463.5,173.9 467.2,175.8 470.9,177.7 474.6,179.7 478.3,181.7 481.9,183.9 485.6,186.1 489.3,188.4 493.0,190.6 496.7,192.9 500.4,195.3 504.1,197.6 507.8,199.8 511.4,202.1 515.1,204.9 518.8,207.3 522.5,209.5 526.2,212.1 529.9,214.5 533.6,217.2 537.2,219.6 540.9,222.3 544.6,224.9 548.3,227.5 552.0,230.3 555.7,233.7 559.4,236.8 563.0,239.8 566.7,242.9 570.4,246.3 574.1,249.8 577.8,252.5 581.5,255.5 585.2,258.5 588.9,261.2 592.5,263.7 596.2,265.8 599.9,267.7 603.6,269.3 607.3,270.8 611.0,271.8 614.7,272.5 618.3,273.2 622.0,273.3 625.7,272.9 629.4,272.3 633.1,271.5 636.8,270.4 640.5,268.9 644.2,267.3 647.8,265.9 651.5,264.8 655.2,263.3 658.9,261.7 662.6,259.7 666.3,257.8 670.0,255.9 673.6,253.7 677.3,251.0 681.0,247.7 684.7,244.5 688.4,241.7 692.1,239.1 695.8,237.0 699.4,235.1 703.1,233.6 706.8,232.5 710.5,231.6 714.2,230.9" fill="none" style="stroke:var(--warn);stroke-width:1;opacity:.7" stroke-dasharray="1 3"/>
+<polyline points="611.0,234.6 614.7,220.4 618.3,230.8 622.0,233.1 625.7,216.8 629.4,198.8 633.1,198.7 636.8,209.8 640.5,209.0 644.2,190.4 647.8,174.2 651.5,177.4 655.2,188.5 658.9,184.3 662.6,163.9 666.3,150.2 670.0,156.5 673.6,166.8 677.3,159.0 681.0,137.4 684.7,126.8 688.4,135.9 692.1,144.6 695.8,133.1 699.4,111.2 703.1,104.1 706.8,115.4 710.5,121.7 714.2,106.8 717.9,85.4 721.6,82.0 725.3,94.9 728.9,98.2 732.6,80.1 736.3,60.0 740.0,69.4" fill="none" style="stroke:var(--good);stroke-width:2"/>
+<polyline points="611.0,234.6 614.7,232.1 618.3,236.5 622.0,226.1 625.7,209.9 629.4,205.7 633.1,213.6 636.8,216.1 640.5,203.3 644.2,187.9 647.8,186.4 651.5,195.1 655.2,195.2 658.9,180.4 662.6,166.3 666.3,167.5 670.0,176.4 673.6,173.8 677.3,157.4 681.0,145.1 684.7,152.0 688.4,163.1 692.1,174.1 695.8,184.9 699.4,195.6 703.1,206.2 706.8,216.7 710.5,227.0 714.2,237.2" fill="none" style="stroke:var(--warn);stroke-width:2"/>
+<polyline points="611.0,234.6 614.7,233.4 618.3,248.0 622.0,263.1 625.7,266.6 629.4,263.7 633.1,268.7 636.8,284.2 640.5,297.5 644.2,299.4 647.8,297.2 651.5,304.3 655.2,317.2" fill="none" style="stroke:var(--bad);stroke-width:2"/>
+<circle cx="611.0" cy="234.6" r="5" style="fill:var(--acc);stroke:var(--card);stroke-width:1.5"/>
+<text x="603.0" y="226.6" text-anchor="end" style="fill:var(--acc);font-weight:700;paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round">① Mua</text>
+<circle cx="655.2" cy="317.2" r="5" style="fill:var(--bad);stroke:var(--card);stroke-width:1.5"/>
+<text x="655.2" y="337.2" text-anchor="middle" style="fill:var(--bad);font-weight:700;paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round">② Cắt lỗ</text>
+<circle cx="717.9" cy="85.4" r="5" style="fill:var(--good);stroke:var(--card);stroke-width:1.5"/>
+<text x="708.9" y="89.4" text-anchor="end" style="fill:var(--good);font-weight:700;paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round">③ Chốt lời</text>
+<circle cx="714.2" cy="237.2" r="5" style="fill:var(--warn);stroke:var(--card);stroke-width:1.5"/>
+<text x="714.2" y="257.2" text-anchor="middle" style="fill:var(--warn);font-weight:700;paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round">④ Tín hiệu xấu</text>
+<text x="58.0" y="368">11/05/2026</text>
+<text x="496.7" y="368" text-anchor="middle">28/10/2026</text>
+<text x="740.0" y="368" text-anchor="end">+66 phiên giả định</text>
+</svg>
+  <div class="legend"><span><i style="background:var(--ink)"></i>Giá thực tế 120 phiên</span><span><i style="background:var(--mut)"></i>Nền giá giả định</span><span><i style="background:var(--good)"></i>Chốt lời</span><span><i style="background:var(--warn)"></i>Tín hiệu xấu (chấm: MA50)</span><span><i style="background:var(--bad)"></i>Cắt lỗ</span></div>
+  <div class="tw" style="margin-top:14px"><table>
+    <tr><th>Kịch bản</th><th>Điều kiện kích hoạt</th><th>Mức giá</th><th>So với giá mua</th><th>Hành động</th></tr>
+    <tr><td><b>① Điểm mua</b></td><td class="l">Thị trường tăng trở lại; FPT tạo nền ≥5–7 tuần; vượt pivot 58.300 đ với khối lượng ≥ 1,4–1,5 lần TB 50 phiên</td><td>58.300 – 61.215 đ</td><td>0% → +5%</td><td class="l">Mua trong vùng; quá 61.215 đ thì không mua đuổi</td></tr>
+    <tr><td><b>② Bán cắt lỗ</b></td><td class="l">Giá đóng cửa giảm 7–8% từ giá mua thực tế</td><td>54.219 / 53.636 đ</td><td class="neg">−7% / −8%</td><td class="l">Bán ngay, không chờ hồi, không bình quân giá xuống</td></tr>
+    <tr><td><b>③ Bán chốt lời</b></td><td class="l">Lãi 20–25% (ngoại lệ: tăng ≥20% trong 3 tuần đầu → giữ tối thiểu 8 tuần)</td><td>69.960 – 72.875 đ</td><td class="pos">+20% → +25%</td><td class="l">Chốt phần lớn vị thế</td></tr>
+    <tr><td><b>④ Bán vì tín hiệu xấu</b></td><td class="l">Giá thủng MA50 với khối lượng lớn; tăng vọt cao trào; hoặc thị trường chuyển sang điều chỉnh. Hai quy tắc bổ sung của chuyên gia (2–3 quý không tăng trưởng, nội bộ bán nhiều) cũng kích hoạt bán</td><td class="l">Minh họa: ≈ 59.300 đ (MA50 ≈ 59.700 đ)</td><td>≈ +1,7%</td><td class="l">Bán/giảm vị thế dù chưa chạm cắt lỗ hay chốt lời</td></tr>
+  </table></div>
+  <p class="note">Pivot giả định = đỉnh nhịp hồi 16/10/2026 (58.200 đ) + 100 đ bước giá. Các mức cắt lỗ/chốt lời tính từ giá mua = pivot; nếu mua cao hơn trong vùng mua, tính lại theo giá khớp thực tế. Gap giá, thanh khoản và biên độ ±7% có thể làm giá khớp khác mức dự kiến. Số phiên trong hình chỉ để minh họa. Dữ liệu: CANSLIM/scenario_levels_2026-10-28.json.</p>
+  <div class="gloss">
+    <div><b>Pivot</b>: mức giá thoát khỏi nền tích lũy — điểm mua chuẩn. <b>Vùng mua</b>: từ pivot đến +5%. <b>Mua đuổi</b>: mua khi giá đã chạy xa điểm mua. <b>Cắt lỗ</b>: bán để giới hạn thua lỗ. <b>Chốt lời</b>: bán để giữ phần lãi.</div>
+    <div><b>MA50</b>: giá trung bình 50 phiên; thủng MA50 với khối lượng lớn thường là dấu hiệu tổ chức bán. <b>Tăng vọt cao trào</b>: giá tăng rất mạnh với khối lượng kỷ lục, hay xuất hiện gần đỉnh. <b>Gap</b>: giá mở cửa cách xa giá đóng cửa hôm trước.</div>
+  </div>
+</section>
+
+<section class="card" id="neusai">
+  <h2>Kế hoạch nếu sai (quy tắc cắt lỗ của chuyên gia)</h2>
+  <div class="tw"><table>
+    <tr><th>Mục</th><th>Giá trị</th><th>Ghi chú</th></tr>
+    <tr><td>Giá mua</td><td>Chưa có</td><td class="l">Chưa có giá mua; chưa có pivot hợp lệ nên chưa có điểm mua CAN SLIM.</td></tr>
+    <tr><td>Công thức stop</td><td>Giá stop = giá mua × (1 − 7% hoặc 8%)</td><td class="l">Mặc định 7–8% từ giá khớp thực tế; không tự nới tới 10%.</td></tr>
+    <tr><td>Minh họa nếu mua ở 54.000 đ</td><td>Stop 7%: 50.220 đ · Stop 8%: 49.680 đ</td><td class="l">Chỉ là ví dụ tham khảo, không phải lệnh đã đặt.</td></tr>
+    <tr><td>Điểm vô hiệu</td><td>N/A</td><td class="l">Chưa có nền giá; giá đang lập đáy mới nên chưa xác định được mức vô hiệu theo mẫu hình.</td></tr>
+    <tr><td>Tình trạng giá</td><td><span class="pill p-bad">Xu hướng giảm</span></td><td class="l">Dưới MA20 58.140, MA50 62.410, MA200 68.960.</td></tr>
+  </table></div>
+  <p class="note">Theo nguyên tắc của chuyên gia: không bắt đáy chỉ vì giá đã giảm sâu và không bình quân giá xuống trong chiến lược CAN SLIM. Giá trị DCF (báo cáo định giá cùng ngày) không được dùng để bỏ qua stop của vị thế CAN SLIM.</p>
+  <div class="gloss">
+    <div><b>Stop / cắt lỗ</b>: mức giá bán để giới hạn thua lỗ. <b>Pivot</b>: mức giá vượt khỏi nền tích lũy, điểm mua chuẩn của CAN SLIM. <b>Điểm vô hiệu</b>: mức giá mà nếu thủng thì luận điểm mua sai. <b>Bình quân giá xuống</b>: mua thêm khi giá thấp hơn giá mua cũ. <b>DCF</b>: định giá chiết khấu dòng tiền.</div>
+  </div>
+</section>
+
+<section class="card" id="quy">
+  <h2>Lợi nhuận theo quý và năm</h2>
+  <div class="tw"><table>
+    <tr><th>Quý</th><th>LN mẹ (tỷ)</th><th>Cùng kỳ (tỷ)</th><th>YoY</th><th>Doanh thu YoY</th><th>Khoản bất thường</th></tr>
+    <tr><td>Q4/2025</td><td>2.502,7</td><td>2.087,0</td><td class="pos">+19,9%</td><td>+14,9%*</td><td class="l">—</td></tr>
+    <tr><td>Q1/2026</td><td>2.487,4</td><td>2.174,3</td><td class="pos">+14,4%</td><td class="l" rowspan="2">6T ≈ +12,6%**</td><td class="l">Tách FPT Telecom</td></tr>
+    <tr><td>Q2/2026</td><td>2.567,7</td><td>2.257,4</td><td class="pos">+13,7%</td><td class="l">—</td></tr>
+    <tr><td>Q3/2026</td><td>2.722,9</td><td>2.434,8</td><td class="pos">+11,8%</td><td>+12,1%</td><td class="l">—</td></tr>
+  </table></div>
+  <div class="tw" style="margin-top:12px"><table>
+    <tr><th>Năm</th><th>LN mẹ (tỷ)</th><th>YoY</th><th>Doanh thu (tỷ)</th><th>ROE</th><th>CFO (tỷ)</th></tr>
+    <tr><td>2021</td><td>4.337,4</td><td>+22,6%</td><td>35.657</td><td>—</td><td>5.840</td></tr>
+    <tr><td>2022</td><td>5.310,1</td><td>+22,4%</td><td>44.010</td><td>—</td><td>5.054</td></tr>
+    <tr><td>2023</td><td>6.465,2</td><td>+21,8%</td><td>52.618</td><td>28,1%</td><td>9.517</td></tr>
+    <tr><td>2024</td><td>7.856,8</td><td>+21,5%</td><td>62.849</td><td>28,7%</td><td>11.704</td></tr>
+    <tr><td>2025</td><td>9.376,1</td><td>+19,3%</td><td>70.113</td><td>28,3%</td><td>10.136</td></tr>
+  </table></div>
+  <p class="note">CafeF trả EPS = 0 cho các kỳ này (trường thiếu), nên bảng dùng LN mẹ; tăng trưởng EPS thực tế thấp hơn một chút do ESOP pha loãng ~0,6%/năm (thưởng cổ phiếu không ảnh hưởng khi điều chỉnh). EPS 9T2026 theo FPT: 4.142 đ (+12,8%). *Doanh thu 2025 trên CafeF còn gồm FPT Telecom. **Suy từ số so sánh đã điều chỉnh của FPT.</p>
+  <div class="gloss">
+    <div><b>Doanh thu YoY</b>: tăng trưởng doanh thu so với cùng kỳ. <b>CFO</b>: tiền thực thu từ kinh doanh. <b>Tách FPT Telecom</b>: từ 2026 FPT chỉ ghi phần lãi FPT Telecom theo tỷ lệ sở hữu.</div>
+  </div>
+</section>
+
+<section class="card" id="gia">
+  <h2>Giá, khối lượng và sức mạnh tương đối</h2>
+  <div class="tw"><table>
+    <tr><th>Chỉ báo</th><th>FPT</th><th>VN-Index</th></tr>
+    <tr><td>Giá 28/10/2026</td><td>54.000</td><td>1.766,65</td></tr>
+    <tr><td>MA20 / MA50 / MA200</td><td>58.140 / 62.410 / 68.960</td><td>1.736 / 1.772 / 1.796</td></tr>
+    <tr><td>Đỉnh 52 tuần (khoảng cách)</td><td>94.870 ngày 19/01/2026 (−43,1%)</td><td>1.927,94 ngày 18/05/2026 (−8,4%)</td></tr>
+    <tr><td>Đáy 52 tuần</td><td>54.000 ngày 28/10/2026 (đáy mới)</td><td>1.580,54 ngày 10/11/2025</td></tr>
+    <tr><td>Tăng/giảm 3 · 6 · 12 tháng</td><td class="neg">−5,7% · −19,1% · −40,5%</td><td>+5,1% · −5,8% · +5,1%</td></tr>
+    <tr><td>Khối lượng 28/10 so với TB 50 phiên</td><td>13,2 triệu vs 5,9 triệu (×2,2) khi giảm 2,5%</td><td>—</td></tr>
+    <tr><td>Nền giá / pivot</td><td>N/A — chưa có nền</td><td>—</td></tr>
+  </table></div>
+  <p class="note">Điều kiện để xem xét lại: VN-Index vượt lại MA50 và MA200; FPT ngừng lập đáy mới, tạo nền ít nhất 5–7 tuần với khối lượng giảm dần, sức mạnh giá so với VN-Index cải thiện; lợi nhuận quý quay lại tăng tốc. Giá điều chỉnh theo sự kiện cổ phiếu của CafeF.</p>
+  <div class="gloss">
+    <div><b>MA20/50/200</b>: giá trung bình 20/50/200 phiên. <b>TB 50 phiên</b>: khối lượng trung bình 50 phiên trước đó. <b>Nền giá</b>: giai đoạn giá đi ngang tích lũy trước khi tăng. <b>Giá điều chỉnh</b>: giá lịch sử đã tính lại theo cổ tức, thưởng cổ phiếu để so sánh đúng.</div>
+  </div>
+</section>
+
+<section class="card" id="pe">
+  <h2>P/E và PEG (bổ sung)</h2>
+  <div class="tw"><table>
+    <tr><th>P/E TTM</th><th>Tăng trưởng</th><th>PEG</th><th>Ghi chú</th></tr>
+    <tr><td>9,9x</td><td>+13,3% LN mẹ 9T2026</td><td>0,74</td><td class="l">Rẻ so với tăng trưởng, nhưng PEG &lt;1 không thay thế M/L/điểm mua trong CAN SLIM</td></tr>
+  </table></div>
+  <div class="gloss"><div><b>P/E</b>: giá ÷ lợi nhuận mỗi cổ phiếu. <b>TTM</b>: 12 tháng gần nhất. <b>PEG</b>: P/E ÷ tốc độ tăng trưởng (%).</div></div>
+</section>
+
+<section class="card" id="quytac">
+  <h2>Quy tắc bán của chuyên gia (tách riêng tín hiệu CAN SLIM)</h2>
+  <div class="tw"><table>
+    <tr><th>Quy tắc</th><th>Trạng thái</th><th>Bằng chứng</th></tr>
+    <tr><td>Tăng trưởng cốt lõi đình trệ 2–3 quý</td><td><span class="pill p-good">Chưa vi phạm</span></td><td class="l">4 quý LN mẹ đều tăng YoY, nhưng giảm tốc</td></tr>
+    <tr><td>Người nội bộ/liên quan bán nhiều</td><td><span class="pill p-good">Không có tín hiệu</span></td><td class="l">Không có báo cáo giao dịch nội bộ 30/07–28/10/2026</td></tr>
+    <tr><td>Tín hiệu kỹ thuật CAN SLIM</td><td><span class="pill p-bad">Tiêu cực</span></td><td class="l">Đáy mới, dưới mọi MA, khối lượng bán lớn — nếu đang có vị thế CAN SLIM, kiểm tra ngay mức stop 7–8% từ giá mua</td></tr>
+  </table></div>
+  <div class="gloss"><div><b>Người nội bộ</b>: HĐQT, tổng giám đốc, kế toán trưởng và người thân được công bố. <b>HĐQT</b>: hội đồng quản trị.</div></div>
+</section>
+
+<section class="card" id="kiemdinh">
+  <h2>Kiểm định</h2>
+  <div class="tw"><table>
+    <tr><th>Hạng mục</th><th>Trạng thái</th><th>Ghi chú</th></tr>
+    <tr><td>Đủ 7 tiêu chí C–A–N–S–L–I–M</td><td><span class="pill p-good">Đủ</span></td><td class="l">Có bằng chứng và nguồn cho từng mục</td></tr>
+    <tr><td>Dữ liệu giá</td><td><span class="pill p-warn">247/252 phiên</span></td><td class="l">CafeF; khối lượng VN-Index dùng cho proxy ngày phân phối có độ tin cậy thấp</td></tr>
+    <tr><td>EPS quý/năm điều chỉnh</td><td><span class="pill p-warn">Dùng LN mẹ</span></td><td class="l">CafeF thiếu EPS; FPT công bố EPS 9T</td></tr>
+    <tr><td>RS Rating</td><td><span class="pill p-warn">Proxy</span></td><td class="l">Excess return so với VN-Index, không phải IBD RS Rating</td></tr>
+    <tr><td>Số học</td><td><span class="pill p-good">Đã kiểm</span></td><td class="l">canslim_fpt_2026-10-28.py</td></tr>
+  </table></div>
+  <p class="note">Mức đạt: <strong>đạt trong phạm vi dữ liệu</strong>. Đây là phân tích theo khung CAN SLIM và ghi chú của chuyên gia, không phải tư vấn đầu tư cá nhân hóa. Chiến lược CAN SLIM tách biệt với chiến lược tích trữ 4M.</p>
+  <div class="gloss"><div><b>IBD</b>: Investor's Business Daily, nơi phát triển CAN SLIM và RS Rating. <b>Excess return</b>: lợi suất vượt so với chỉ số.</div></div>
+</section>
+
+<section class="card" id="thuatngu">
+  <h2>Giải thích thuật ngữ</h2>
+  <dl class="g">
+    <dt>CAN SLIM</dt><dd>Bộ lọc cổ phiếu tăng trưởng của William O'Neil: C, A, N, S, L, I, M.</dd>
+    <dt>C · A</dt><dd>Lợi nhuận quý gần nhất · lợi nhuận các năm gần đây.</dd>
+    <dt>N · S</dt><dd>Điều mới (sản phẩm, đỉnh giá mới) · cung cầu cổ phiếu.</dd>
+    <dt>L · I · M</dt><dd>Cổ phiếu dẫn dắt · tổ chức mua · xu hướng thị trường chung.</dd>
+    <dt>MA</dt><dd>Giá trung bình N phiên gần nhất.</dd>
+    <dt>Pivot · nền giá</dt><dd>Mức vượt khỏi vùng tích lũy · giai đoạn giá đi ngang.</dd>
+    <dt>Stop</dt><dd>Mức giá cắt lỗ.</dd>
+    <dt>RS</dt><dd>Sức mạnh giá tương đối so với thị trường.</dd>
+    <dt>Ngày phân phối</dt><dd>Phiên chỉ số giảm với khối lượng tăng.</dd>
+    <dt>EPS · LN mẹ</dt><dd>Lợi nhuận mỗi cổ phiếu · lợi nhuận thuộc cổ đông mẹ.</dd>
+    <dt>YoY · CAGR</dt><dd>So với cùng kỳ · tăng trưởng bình quân/năm.</dd>
+    <dt>ROE · CFO</dt><dd>Lãi trên vốn chủ · tiền thu từ kinh doanh.</dd>
+    <dt>P/E · PEG</dt><dd>Giá ÷ EPS · P/E ÷ tốc độ tăng.</dd>
+    <dt>Khối ngoại</dt><dd>Nhà đầu tư nước ngoài.</dd>
+  </dl>
+</section>
+
+<footer>
+  <strong>Nguồn:</strong>
+  <a href="https://marketsmith.hk/can-slim-overview/?lang=en">MarketSmith – CAN SLIM</a> ·
+  <a href="https://cafef.vn/du-lieu/hose/fpt-cong-ty-co-phan-fpt.chn">CafeF – FPT</a> ·
+  <a href="https://cafef.vn/du-lieu/hose/fpt-tai-chinh.chn">CafeF – BCTC</a> ·
+  <a href="https://fpt.com/vi/nha-dau-tu/thong-tin-cong-bo">FPT – Công bố thông tin</a> ·
+  <a href="https://cafebiz.vn/fpt-lai-hon-2700-ty-trong-quy-3-tiep-tuc-lap-ky-luc-moi-176261021093706321.chn">CafeBiz – KQKD Q3</a> ·
+  <a href="https://index.vn/tin-tuc/khoi-ngoai-tiep-tuc-ban-rong-468-ty-dong-fpt-bi-xa-manh-nhat-tren-ho-se">Index.vn – khối ngoại</a> ·
+  <a href="https://cafef.vn/phien-28-10-khoi-ngoai-tiep-da-ban-rong-mot-co-phieu-bluechip-bi-xa-260-ty-dong-188261028151246116.chn">CafeF – 28/10</a> ·
+  <a href="https://cafef.vn/khoi-ngoai.html">CafeF – khối ngoại sau nâng hạng</a> ·
+  <a href="https://mekongasean.vn/cong-ty-dau-tu-cua-scic-mua-thanh-cong-250000-co-phieu-fpt-53269.html">MekongAsean – SIC</a>
+  <br>Dữ liệu: FPT/CANSLIM/price_history_FPT_VNINDEX_2026-10-28.json, canslim_fpt_2026-10-28.py · Tạo bởi VNamStock (Claude) ngày 28/10/2026.
+</footer>
+</div>
+</body>
+</html>

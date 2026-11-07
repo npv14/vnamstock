@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FPT 4M 29/10/2026</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16191d;--mut:#5d6670;--line:#e3e6ea;--acc:#1f5fbf;--good:#1d7a46;--bad:#b4362c;--warn:#a76a00;--soft:#eef3fb;--bar1:#9aa6b2;--bar2:#1f5fbf}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1a1e24;--ink:#e8ebef;--mut:#9aa4af;--line:#2c323a;--acc:#6ea4ff;--good:#4cc283;--bad:#ff7a6e;--warn:#e6a83a;--soft:#1d2633;--bar1:#5d6670;--bar2:#6ea4ff}}
+:root[data-theme="dark"]{--bg:#111418;--card:#1a1e24;--ink:#e8ebef;--mut:#9aa4af;--line:#2c323a;--acc:#6ea4ff;--good:#4cc283;--bad:#ff7a6e;--warn:#e6a83a;--soft:#1d2633;--bar1:#5d6670;--bar2:#6ea4ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 60px}
+header .eyebrow{color:var(--acc);font-weight:700;letter-spacing:.06em;font-size:12px;text-transform:uppercase}
+h1{font-size:28px;margin:6px 0 4px}
+h2{font-size:19px;margin:0 0 12px}
+.sub{color:var(--mut);font-size:14px}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+nav a{color:var(--acc);text-decoration:none;font-size:13px;border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .l{color:var(--mut);font-size:12px}
+.kpi .v{font-size:22px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi .n{font-size:12px;color:var(--mut)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.verdict div{border-left:4px solid var(--line);padding:4px 12px}
+.verdict .b{border-color:var(--bad)}.verdict .w{border-color:var(--warn)}.verdict .g{border-color:var(--good)}
+.verdict strong{display:block}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--mut);font-weight:600;font-size:12px;background:var(--soft)}
+td.l{text-align:left;white-space:normal}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600}
+.p-bad{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad)}
+.p-good{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.p-warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.neg{color:var(--bad)}.pos{color:var(--good)}
+.note{color:var(--mut);font-size:13px;margin-top:10px}
+.callout{background:var(--soft);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:14px}
+svg text{fill:var(--mut);font-size:11px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mut);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+ul{margin:6px 0;padding-left:20px}
+li{margin:4px 0}
+a{color:var(--acc)}
+footer{color:var(--mut);font-size:12px;margin-top:28px}
+.gloss{margin-top:12px;padding:10px 12px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--mut)}
+.gloss b{color:var(--ink)}
+.gloss div{margin:3px 0}
+dl.g{display:grid;grid-template-columns:minmax(110px,180px) 1fr;gap:6px 14px;margin:0;font-size:14px}
+dl.g dt{font-weight:700}
+dl.g dd{margin:0;color:var(--mut)}
+.price-top{border:2px solid var(--acc)}
+.price-top td b{font-size:15px}
+.pricebox{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.pricebox div{background:var(--soft);border-radius:10px;padding:10px 12px}
+.pricebox .l{display:block;font-size:12px;color:var(--mut)}
+.pricebox .v{display:block;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+@media (max-width:560px){dl.g{grid-template-columns:1fr}dl.g dd{margin-bottom:8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">VNamStock · Báo cáo 4M (Phil Town)</div>
+  <h1>4M — FPT (HOSE) — 29/10/2026</h1>
+  <div class="sub">Giá tham chiếu 54.000 đ (đóng cửa 28/10/2026, thấp nhất khoảng 3 năm) · Số liệu: BCTC Q2/2026, KQKD 9T2026 (21/10/2026), vĩ mô Q3/2026 · Định giá lấy từ báo cáo VNamStock FPT ngày 28/10 · Bản 29/10 bổ sung bảng 5 loại Moat</div>
+</header>
+
+<section class="card price-top" id="ketluan">
+  <h2>Kết luận 4M: <span class="pill p-warn">Chờ nền</span></h2>
+  <div class="tw"><table>
+    <tr><th>Hạng mục</th><th>Đánh giá</th><th>Ý chính</th></tr>
+    <tr><td><b>Meaning</b> — hiểu doanh nghiệp</td><td><span class="pill p-good">Đạt</span></td><td class="l">Bán dịch vụ phần mềm/CNTT cho khách nước ngoài (Nhật, Mỹ…) là chính, cộng giáo dục và phần lãi từ FPT Telecom, FPT Retail.</td></tr>
+    <tr><td><b>Moat</b> — lợi thế cạnh tranh</td><td><span class="pill p-good">Đạt</span> <span class="pill p-warn">có rủi ro AI</span></td><td class="l">5 loại moat: <b>Switching mạnh</b>; Brand, Low cost khá; Secret, Toll yếu. ROE ~28% ổn định, LN mẹ tăng ~21%/năm (2021–2025). Rủi ro: AI làm giảm khối lượng outsourcing và bào mòn lợi thế chi phí.</td></tr>
+    <tr><td><b>Management</b> — ban lãnh đạo</td><td><span class="pill p-good">Đạt</span></td><td class="l">Người sáng lập vẫn điều hành, chia cổ tức tiền 42–49% lợi nhuận, không có người nội bộ bán; ESOP pha loãng nhỏ (~0,6%/năm), lãnh đạo bị khóa tới 10 năm.</td></tr>
+    <tr><td><b>Margin of Safety</b> — biên an toàn</td><td><span class="pill p-warn">Một phần</span></td><td class="l">DCF cơ sở 70.943 đ → MOS 23,9%; Owner Earnings cơ sở 81.358 đ → MOS 33,6%. Chưa đạt MOS 30% theo DCF; kịch bản bi quan DCF (35.988 đ) thấp hơn giá.</td></tr>
+    <tr><td><b>Timing</b> (ghi chú của chuyên gia)</td><td><span class="pill p-bad">Chưa đạt</span></td><td class="l">Giá đang giảm, lập đáy mới, chưa tạo nền; khối ngoại bán ròng mạnh; chưa xác minh lực cầu tổ chức. Tín dụng không ở pha thắt chặt.</td></tr>
+  </table></div>
+  <div class="pricebox">
+    <div><span class="l">Giá 28/10/2026</span><span class="v">54.000 đ</span></div>
+    <div><span class="l">Giá trị cơ sở (DCF – OE)</span><span class="v">70.900 – 81.400 đ</span></div>
+    <div><span class="l">Vùng mua theo giá trị (MOS 25–30% DCF)</span><span class="v">49.700 – 53.200 đ</span></div>
+    <div><span class="l">Vùng giá trị/cân nhắc bán</span><span class="v">≥ 71.000 – 81.000 đ</span></div>
+  </div>
+  <p class="note">Doanh nghiệp đạt 3/4 M; giá đã gần vùng mua theo giá trị, nhưng theo ghi chú của chuyên gia cần thêm <b>nền giá và bằng chứng lực cầu tổ chức</b> trước khi tích trữ. Đây là phân tích theo khung của chuyên gia, không phải tư vấn đầu tư cá nhân hóa.</p>
+  <div class="gloss">
+    <div><b>4M</b> (Phil Town): Meaning – hiểu doanh nghiệp; Moat – lợi thế cạnh tranh bền vững; Management – ban lãnh đạo; Margin of Safety – biên an toàn. <b>MOS</b>: mua thấp hơn giá trị ước tính bao nhiêu %. <b>ROE</b>: lãi trên mỗi 100 đồng vốn chủ.</div>
+    <div><b>Nền giá</b>: giá đi ngang, ngừng giảm một thời gian. <b>Lực cầu tổ chức</b>: quỹ/tổ chức lớn mua vào. <b>DCF</b>: giá trị hôm nay của tiền doanh nghiệp làm ra trong tương lai. <b>OE</b> (Owner Earnings): tiền chủ doanh nghiệp rút ra được. <b>Outsourcing</b>: làm phần mềm thuê cho khách nước ngoài. <b>ESOP</b>: cổ phiếu ưu đãi cho nhân viên.</div>
+  </div>
+</section>
+
+<nav>
+  <a href="#ketluan">Kết luận</a><a href="#vimo">Lãi suất · tín dụng</a><a href="#chuky">Chu kỳ</a><a href="#4m">4M chi tiết</a><a href="#moat5">5 loại Moat</a><a href="#mos">Định giá · MOS</a><a href="#nen">Nền · tổ chức</a><a href="#kehoach">Kế hoạch có điều kiện</a><a href="#quytac">Quy tắc chuyên gia</a><a href="#kiemdinh">Kiểm định</a><a href="#thuatngu">Giải thích thuật ngữ</a>
+</nav>
+
+<section class="card" id="vimo">
+  <h2>1. Lãi suất, tín dụng và vĩ mô (kiểm tra bắt buộc)</h2>
+  <div class="tw"><table>
+    <tr><th>Chỉ báo</th><th>Số liệu</th><th>Kỳ / ngày công bố</th><th>Nguồn</th><th>Tác động đến FPT</th></tr>
+    <tr><td>Lãi suất điều hành NHNN</td><td>Giữ nguyên</td><td>Họp báo 07/10/2026</td><td class="l">VNBA</td><td class="l">Trung tính</td></tr>
+    <tr><td>Chỉ đạo lãi suất</td><td>Giảm huy động ≥0,5 điểm % (kỳ hạn ≥6 tháng), giảm cho vay ưu tiên 1,5–2 điểm %</td><td>CV 9608 ngày 18/10, CV 9736 ngày 21/10/2026</td><td class="l">Vietstock, CafeF</td><td class="l">Nới lỏng; lãi tiền gửi của FPT giảm nhẹ</td></tr>
+    <tr><td>Lãi suất huy động 12 tháng</td><td>≈ 6,05–6,8%/năm</td><td>20–26/10/2026</td><td class="l">VietnamNet</td><td class="l">Chi phí cơ hội vẫn khá cao</td></tr>
+    <tr><td>Lãi suất qua đêm liên ngân hàng</td><td>4,31%</td><td>22/10/2026</td><td class="l">Báo Mới</td><td class="l">Thanh khoản ổn</td></tr>
+    <tr><td>Tăng trưởng tín dụng</td><td>+11,59% so với cuối 2025 (dư nợ 20,75 triệu tỷ); mục tiêu năm ~15%</td><td>Cuối 09/2026</td><td class="l">Thị trường Tài chính Tiền tệ</td><td class="l">Tín dụng mở rộng, nhưng NHNN siết kiểm soát rủi ro</td></tr>
+    <tr><td>Lạm phát (CPI)</td><td>Tháng 9: +5,08% YoY; 9T: +4,52%</td><td>NSO, 03/10/2026</td><td class="l">NSO</td><td class="l">Áp lực tăng lương kỹ sư, có thể hạn chế nới lỏng tiếp</td></tr>
+    <tr><td>GDP</td><td>Q3: +9,95%; 9T: +9,01%</td><td>NSO, 03/10/2026</td><td class="l">NSO</td><td class="l">Tốt cho CNTT trong nước (+29,8%)</td></tr>
+    <tr><td>Tỷ giá USD/VND</td><td>25.750–26.170, −0,8% so với đầu năm</td><td>Cuối 09/2026</td><td class="l">CafeF</td><td class="l">VND mạnh lên nhẹ — bất lợi nhỏ cho doanh thu xuất khẩu</td></tr>
+    <tr><td>Khối ngoại với FPT</td><td>Bán ròng ~180 triệu cp (~14.700 tỷ) từ đầu năm; vẫn bán 258–260 tỷ/phiên cuối 10</td><td>13/10 và 26–28/10/2026</td><td class="l">Index.vn, Vietstock, CafeF</td><td class="l">Áp lực giá ngắn hạn mạnh nhất</td></tr>
+  </table></div>
+  <div class="callout"><strong>Đánh giá chu kỳ tiền tệ: <span class="pill p-warn">Hỗn hợp, nghiêng nới lỏng</span>.</strong> NHNN giữ lãi suất điều hành, chỉ đạo giảm lãi suất và tín dụng vẫn tăng nhanh; ngược lại lạm phát lên trên 5% và NHNN siết kiểm soát rủi ro. Theo ghi chú của chuyên gia, đây <b>không phải pha thắt chặt</b> để mở danh sách tích trữ theo chu kỳ. Giá FPT giảm vì lý do riêng (khối ngoại bán, lo ngại AI, hợp đồng mới chậm lại), không phải do tín dụng.</div>
+  <div class="gloss">
+    <div><b>NHNN</b>: Ngân hàng Nhà nước. <b>CV</b>: công văn. <b>Điểm %</b>: ví dụ 6,5% xuống 6,0% là giảm 0,5 điểm %. <b>Liên ngân hàng qua đêm</b>: lãi các ngân hàng vay nhau 1 ngày — thấp là tiền dồi dào.</div>
+    <div><b>CPI</b>: chỉ số giá tiêu dùng (lạm phát). <b>YoY</b>: so với cùng kỳ năm trước. <b>GDP</b>: tổng sản phẩm quốc nội (quy mô nền kinh tế). <b>NSO</b>: Cục Thống kê. <b>Khối ngoại bán ròng</b>: nhà đầu tư nước ngoài bán nhiều hơn mua.</div>
+  </div>
+</section>
+
+<section class="card" id="chuky">
+  <h2>2. Hai trục: chu kỳ và phụ thuộc tín dụng</h2>
+  <div class="tw"><table>
+    <tr><th>Trục</th><th>Mức độ</th><th>Bằng chứng</th></tr>
+    <tr><td>Nhạy với chu kỳ kinh tế</td><td><span class="pill p-warn">Trung bình</span></td><td class="l">Phụ thuộc ngân sách CNTT của khách Nhật, Mỹ, châu Á; hợp đồng mới Q3 chỉ tăng ~3,7% (ước tính của Elibook), cả 9T +23,1%.</td></tr>
+    <tr><td>Phụ thuộc tín dụng / tái cấp vốn</td><td><span class="pill p-good">Thấp</span></td><td class="l">Tiền và tiền gửi 28.972 tỷ &gt; nợ vay 18.448 tỷ (tiền ròng 10.523 tỷ, 30/06/2026). Khách hàng không cần vay để mua dịch vụ.</td></tr>
+  </table></div>
+  <div class="callout"><strong>Điều kiện "mùa xuân" cho FPT</strong> (quan sát được, không đoán ngày đáy): (1) hợp đồng ký mới CNTT nước ngoài quay lại tăng &gt;20%/quý; (2) khối ngoại ngừng bán ròng liên tục; (3) giá ngừng lập đáy mới và đi ngang; (4) BCTC Q3–Q4/2026 cho thấy dòng tiền kinh doanh dương trở lại.</div>
+  <div class="gloss">
+    <div><b>Tái cấp vốn</b>: vay mới để trả nợ cũ. <b>Tiền ròng</b>: tiền và tiền gửi trừ nợ vay. <b>Mùa xuân</b>: ẩn dụ của chuyên gia cho giai đoạn phục hồi có bằng chứng. <b>9T</b>: 9 tháng đầu năm. <b>BCTC</b>: báo cáo tài chính.</div>
+  </div>
+</section>
+
+<section class="card" id="4m">
+  <h2>3. 4M chi tiết</h2>
+  <div class="tw"><table>
+    <tr><th>M</th><th>Bằng chứng</th><th>Kết quả</th><th>Rủi ro</th></tr>
+    <tr><td><b>Meaning</b></td><td class="l">Khối Công nghệ chiếm 89% doanh thu, 58% LNTT 9T2026: CNTT nước ngoài 28.538 tỷ (+11,6%; Nhật +17,2%), CNTT trong nước 6.977 tỷ (+29,8%). Khối Giáo dục, Đầu tư &amp; Khác: LNTT 3.719 tỷ (+17,6%), chủ yếu lãi từ FPT Telecom, FPT Retail theo tỷ lệ sở hữu.</td><td><span class="pill p-good">Đạt</span></td><td class="l">Từ 2026 cách ghi nhận FPT Telecom thay đổi — doanh thu, biên lợi nhuận không so trực tiếp với 2025 trên CafeF.</td></tr>
+    <tr><td><b>Moat</b></td><td class="l">ROE 2023/2024/2025: 28,1% / 28,7% / 28,3%. LN mẹ 2.620 tỷ (2018) → 9.376 tỷ (2025), ~20%/năm. CFO dương liên tục 2018–2025. Biên gộp 39,0% → 36,9% (2022→2025, cơ sở cũ). Hợp đồng dài hạn với khách Nhật tạo chi phí chuyển đổi; 16 dự án &gt;10 triệu USD trong 9T2026; AI/Data +55%.</td><td><span class="pill p-good">Đạt</span></td><td class="l">AI có thể làm giảm khối lượng outsourcing (Vietcap hạ dự báo LN mảng CNTT nước ngoài 2026–2031 15%). Biên gộp giảm dần.</td></tr>
+    <tr><td><b>Management</b></td><td class="l">Người sáng lập Trương Gia Bình là Chủ tịch, gia đình nắm 8,39%. Cổ tức tiền/LN mẹ 42–49% (2022–2025) và thưởng cổ phiếu 10:1 năm 2026. ESOP ~10,8 triệu cp/năm (~0,6%), lãnh đạo bị hạn chế chuyển nhượng tới 10 năm. Không có giao dịch nội bộ 07–10/2026.</td><td><span class="pill p-good">Đạt</span></td><td class="l">Có quyết định xử phạt hành chính về thuế (CBTT 01/07/2026, chưa đọc chi tiết). Thay đổi phương pháp hợp nhất làm số liệu khó so sánh.</td></tr>
+    <tr><td><b>Margin of Safety</b></td><td class="l">Giá 54.000 đ so với DCF cơ sở 70.943 đ (MOS 23,9%) và OE cơ sở 81.358 đ (MOS 33,6%). P/E 9,9x, PEG 0,74. Giá mục tiêu CTCK trung bình ~78.350 đ (Vietcap, SSI, BSC, VCBS).</td><td><span class="pill p-warn">Một phần</span></td><td class="l">Dòng tiền cơ sở là giả định; kịch bản bi quan DCF 35.988 đ; CFO 6T2026 âm 1.145 tỷ cần BCTC Q3 để giải thích.</td></tr>
+  </table></div>
+  <div class="gloss">
+    <div><b>LNTT</b>: lợi nhuận trước thuế. <b>LN mẹ</b>: lợi nhuận sau thuế thuộc cổ đông công ty mẹ. <b>CFO</b>: tiền thực thu từ kinh doanh. <b>Biên gộp</b>: (doanh thu − giá vốn) ÷ doanh thu.</div>
+    <div><b>Chi phí chuyển đổi</b>: khách khó đổi nhà cung cấp vì tốn kém, rủi ro. <b>CBTT</b>: công bố thông tin. <b>CTCK</b>: công ty chứng khoán. <b>P/E</b>: giá ÷ lợi nhuận mỗi cổ phiếu. <b>PEG</b>: P/E ÷ tốc độ tăng trưởng (%).</div>
+  </div>
+</section>
+
+<section class="card" id="moat5">
+  <h2>3b. Moat — 5 loại lợi thế cạnh tranh (Phil Town)</h2>
+  <div class="tw"><table>
+    <tr><th>Loại moat</th><th>Câu hỏi kiểm tra</th><th>Bằng chứng ở FPT</th><th>Mức độ</th><th>Rủi ro làm moat yếu đi</th></tr>
+    <tr><td><b>1. Brand</b><br>Thương hiệu</td><td class="l">Khách có chịu trả giá cao hơn hoặc ưu tiên chọn vì tên tuổi không?</td><td class="l">Thương hiệu công nghệ tư nhân lớn nhất Việt Nam: giúp thắng hợp đồng chuyển đổi số trong nước (CNTT trong nước +29,8% 9T2026), tuyển sinh khối giáo dục và tuyển kỹ sư. Ở nước ngoài, khách chọn chủ yếu theo năng lực và giá, ít vì thương hiệu.</td><td><span class="pill p-warn">Khá</span></td><td class="l">Không bán được giá cao hơn đối thủ Ấn Độ chỉ nhờ tên tuổi.</td></tr>
+    <tr><td><b>2. Secret</b><br>Bí mật / bằng sáng chế</td><td class="l">Có công nghệ, bằng sáng chế hay bí quyết mà đối thủ không sao chép được không?</td><td class="l">Dịch vụ phần mềm dựa trên con người và quy trình, không có bằng sáng chế quyết định doanh thu. AI/Data tăng 55%, có nhà máy AI hợp tác NVIDIA, nhưng đối thủ lớn cũng đầu tư tương tự.</td><td><span class="pill p-bad">Yếu</span></td><td class="l">Công nghệ AI thay đổi nhanh, lợi thế đi trước dễ bị san bằng.</td></tr>
+    <tr><td><b>3. Toll</b><br>Trạm thu phí</td><td class="l">Có giấy phép, độc quyền hay vị trí "trạm thu phí" mà ai cũng phải đi qua không?</td><td class="l">Không có độc quyền hay giấy phép hạn chế cạnh tranh trong mảng chính. Mảng có tính hạ tầng/giấy phép là FPT Telecom đã thôi hợp nhất từ 2026, FPT chỉ còn ghi nhận phần lãi theo tỷ lệ sở hữu.</td><td><span class="pill p-bad">Yếu</span></td><td class="l">—</td></tr>
+    <tr><td><b>4. Switching</b><br>Chi phí chuyển đổi</td><td class="l">Khách có tốn kém, rủi ro lớn khi đổi sang nhà cung cấp khác không?</td><td class="l">FPT vận hành và nâng cấp hệ thống lõi cho khách Nhật, Mỹ theo hợp đồng nhiều năm; đổi nhà cung cấp phải chuyển giao dữ liệu, quy trình, nhân sự am hiểu nghiệp vụ. Khách Nhật vẫn tăng 17,2%; 16 dự án trên 10 triệu USD trong 9T2026.</td><td><span class="pill p-good">Mạnh</span></td><td class="l">AI giúp khách tự làm hoặc chuyển giao dễ hơn; hợp đồng ký mới Q3 chậm lại (~3,7%).</td></tr>
+    <tr><td><b>5. Low cost</b><br>Chi phí thấp</td><td class="l">Có làm ra sản phẩm/dịch vụ rẻ hơn đối thủ mà vẫn lãi tốt không?</td><td class="l">Chi phí kỹ sư Việt Nam thấp hơn Nhật, Mỹ; quy mô lớn giúp nhận dự án lớn. Biên gộp vẫn 36,9–39,0% và ROE 26–29% suốt 5 năm.</td><td><span class="pill p-warn">Khá, đang mòn</span></td><td class="l">Biên gộp giảm dần (39,0% → 36,9%, 2022→2025); lạm phát trên 5% đẩy lương lên; AI làm giảm giá trị lợi thế nhân công rẻ.</td></tr>
+  </table></div>
+  <div class="callout"><strong>Kết luận Moat: <span class="pill p-good">Đạt</span> — 1 loại mạnh, 2 loại khá, 2 loại yếu.</strong> Moat của FPT dựa chủ yếu vào <b>chi phí chuyển đổi</b> (Switching), được hỗ trợ bởi <b>chi phí thấp</b> và <b>thương hiệu</b> trong nước. Số liệu 5 năm xác nhận moat đang giữ được: LN mẹ tăng 21,3%/năm, BVPS 19,4%/năm, doanh thu 18,4%/năm (2021–2025), ROE 25,8–28,7%, CFO dương mọi năm. Điểm cần theo dõi: biên gộp và hợp đồng ký mới — nếu cả hai cùng giảm 2–3 quý, moat đang bị AI bào mòn.</div>
+  <div class="gloss">
+    <div><b>Moat</b> ("hào nước bảo vệ lâu đài"): lợi thế giúp doanh nghiệp giữ lợi nhuận cao nhiều năm, đối thủ khó chiếm. Phil Town chia 5 loại: <b>Brand</b> – thương hiệu khiến khách chịu trả nhiều hơn; <b>Secret</b> – bằng sáng chế, bí quyết; <b>Toll</b> – vị trí độc quyền/giấy phép như trạm thu phí; <b>Switching</b> – khách đổi nhà cung cấp rất tốn kém; <b>Low cost</b> – làm rẻ hơn đối thủ mà vẫn lãi.</div>
+    <div><b>Mức độ</b>: Mạnh = lợi thế rõ, có số liệu chứng minh; Khá = có nhưng không chắc bền; Yếu = gần như không có. <b>BVPS</b>: giá trị sổ sách mỗi cổ phiếu. <b>CFO</b>: tiền thực thu từ kinh doanh. <b>9T</b>: 9 tháng đầu năm.</div>
+  </div>
+</section>
+
+<section class="card" id="mos">
+  <h2>4. Định giá ba kịch bản và biên an toàn</h2>
+  <div class="tw"><table>
+    <tr><th>Phương pháp</th><th>Bi quan</th><th>Cơ sở</th><th>Lạc quan</th><th>MOS tại 54.000 (cơ sở)</th></tr>
+    <tr><td>DCF 10 năm</td><td>35.988</td><td><b>70.943</b></td><td>122.270</td><td>23,9%</td></tr>
+    <tr><td>Owner Earnings</td><td>51.465</td><td><b>81.358</b></td><td>120.388</td><td>33,6%</td></tr>
+    <tr><td>NCAV (tham khảo)</td><td>4.705</td><td>5.515</td><td>6.325</td><td>không áp dụng</td></tr>
+  </table></div>
+  <div class="tw" style="margin-top:12px"><table>
+    <tr><th>Thời gian hoàn vốn (cơ sở)</th><th>Không tăng trưởng</th><th>Tăng trưởng, không chiết khấu</th><th>Chiết khấu</th></tr>
+    <tr><td>FCFE</td><td>14,1 năm</td><td>8,1 năm</td><td class="l">chưa hoàn vốn trong 10 năm</td></tr>
+    <tr><td>Owner Earnings</td><td>9,9 năm</td><td>7,0 năm</td><td class="l">chưa hoàn vốn trong 10 năm</td></tr>
+  </table></div>
+  <p class="note">Chi tiết giả định, độ nhạy và định giá ngược: xem báo cáo FPT-VNamStock-Valuation-2026-10-28.html. Không lấy trung bình các phương pháp. Với chân trời 5–10 năm: FPT không vay ròng nên khả năng chịu đựng chu kỳ tốt, nhưng không bảo đảm hồi vốn hay có lãi trong 10 năm.</p>
+  <div class="gloss">
+    <div><b>NCAV</b>: tài sản ngắn hạn trừ toàn bộ nợ — không phù hợp công ty công nghệ. <b>FCFE</b>: dòng tiền tự do thuộc cổ đông. <b>Hoàn vốn chiết khấu</b>: tính theo giá trị hôm nay của tiền nên lâu hơn.</div>
+  </div>
+</section>
+
+<section class="card" id="nen">
+  <h2>5. Vùng giá, nền và bằng chứng tổ chức</h2>
+  <div class="tw"><table>
+    <tr><th>Khái niệm</th><th>Mức</th><th>Căn cứ</th></tr>
+    <tr><td>(a) Vùng mua theo giá trị</td><td>49.660 – 53.208 đ</td><td class="l">DCF cơ sở 70.943 đ với MOS 30% / 25%</td></tr>
+    <tr><td>(b) Đồ thị giá</td><td class="l">Giảm liên tục: 62.700 (01/10) → 54.000 (28/10); MA20 58.140, MA60 62.710; đỉnh 60 phiên 67.730</td><td class="l">Lịch sử giá CafeF (90 phiên). <b>Chưa có nền</b> — giá đang lập đáy mới.</td></tr>
+    <tr><td>(c) Giá sàn/trần phiên 29/10</td><td>±7% quanh 54.000 (≈ 50.300 – 57.700, làm tròn bước giá 100 đ)</td><td class="l">Biên độ HOSE; không phải vùng giá trị</td></tr>
+    <tr><td>Vùng giá trị / cân nhắc bán</td><td>71.000 – 81.000 đ</td><td class="l">DCF – OE kịch bản cơ sở</td></tr>
+  </table></div>
+  <div class="tw" style="margin-top:12px"><table>
+    <tr><th>Bằng chứng tổ chức</th><th>Trạng thái</th></tr>
+    <tr><td class="l">Khối ngoại bán ròng ~14.700 tỷ từ đầu năm, tiếp tục bán mạnh cuối tháng 10; nguy cơ rời rổ VN-Diamond (theo BSC)</td><td><span class="pill p-bad">Cung lớn</span></td></tr>
+    <tr><td class="l">SIC (thuộc SCIC) mua 250.000 cp đầu 2026 — quy mô rất nhỏ so với lượng khối ngoại bán</td><td><span class="pill p-warn">Không đủ</span></td></tr>
+    <tr><td class="l">Kết luận</td><td><span class="pill p-warn">Chưa xác minh lực cầu tổ chức</span></td></tr>
+  </table></div>
+  <div class="gloss">
+    <div><b>MA20/MA60</b>: giá trung bình 20/60 phiên gần nhất; giá nằm dưới MA là đang trong xu hướng giảm. <b>Giá sàn/trần</b>: mức giảm/tăng tối đa trong một phiên (±7% ở HOSE). <b>VN-Diamond</b>: rổ chỉ số các cổ phiếu hết room ngoại, có quỹ ETF mô phỏng. <b>SCIC</b>: Tổng công ty Đầu tư và Kinh doanh vốn nhà nước.</div>
+  </div>
+</section>
+
+<section class="card" id="kehoach">
+  <h2>6. Kế hoạch tích trữ có điều kiện</h2>
+  <ul>
+    <li><strong>Hiện tại:</strong> đưa FPT vào <b>danh sách theo dõi</b>, chưa tích trữ. Lý do: chưa có nền, khối ngoại vẫn bán, MOS theo DCF chưa đạt 30%.</li>
+    <li><strong>Điều kiện bắt đầu mua đợt đầu</strong> (cần đủ): giá đi ngang ≥4–6 tuần không lập đáy mới, khối lượng bán giảm; khối ngoại giảm bán ròng rõ rệt; giá trong vùng 49.700–53.200 đ hoặc DCF cập nhật cho MOS ≥25%.</li>
+    <li><strong>Đợt tiếp theo</strong> chỉ khi BCTC Q3 cho thấy CFO cải thiện và hợp đồng ký mới Q4 tăng tốc; mỗi đợt phải cập nhật lại định giá.</li>
+    <li><strong>Dừng mua</strong>: hợp đồng ký mới giảm so với cùng kỳ 2 quý liên tiếp; LN mẹ tăng trưởng ≤0%; giá trị nội tại cập nhật giảm.</li>
+    <li><strong>Vốn:</strong> Chưa có ngân sách và giới hạn tỷ trọng — chưa đề xuất số tiền/số cổ phiếu. Không dùng margin hay tiền cần dùng ngắn hạn.</li>
+    <li><strong>Thoát vị thế:</strong> moat hoặc quản trị suy yếu; quy tắc bán của chuyên gia kích hoạt; giá vượt vùng giá trị 71.000–81.000 đ mà không có dữ liệu mới nâng giá trị.</li>
+  </ul>
+  <div class="gloss">
+    <div><b>Tích trữ</b>: mua nhiều đợt ở vùng giá thấp có luận điểm, khác bình quân giá xuống mù quáng. <b>Margin</b>: vay tiền công ty chứng khoán để mua cổ phiếu. <b>Tỷ trọng</b>: phần trăm vốn dành cho một cổ phiếu.</div>
+  </div>
+</section>
+
+<section class="card" id="quytac">
+  <h2>7. Quy tắc bán của chuyên gia</h2>
+  <div class="tw"><table>
+    <tr><th>Quy tắc</th><th>Trạng thái</th><th>Bằng chứng</th></tr>
+    <tr><td>Tăng trưởng đình trệ 2–3 quý</td><td><span class="pill p-good">Chưa vi phạm</span></td><td class="l">LN mẹ YoY: Q4/25 +19,9% · Q1/26 +14,4% · Q2/26 +13,7% · Q3/26 +11,8% — tăng nhưng chậm dần</td></tr>
+    <tr><td>Người nội bộ/liên quan bán nhiều</td><td><span class="pill p-good">Không có tín hiệu</span></td><td class="l">Không có báo cáo giao dịch nội bộ 30/07–28/10/2026 trên trang công bố thông tin FPT</td></tr>
+  </table></div>
+  <div class="gloss">
+    <div><b>Quy tắc đình trệ</b>: 2 quý liên tiếp lợi nhuận cốt lõi không tăng so với cùng kỳ là tín hiệu bán; 3 quý là xác nhận bán. <b>Người nội bộ</b>: HĐQT, tổng giám đốc, kế toán trưởng và người thân được công bố.</div>
+  </div>
+</section>
+
+<section class="card" id="kiemdinh">
+  <h2>Kiểm định</h2>
+  <div class="tw"><table>
+    <tr><th>Hạng mục</th><th>Trạng thái</th><th>Ghi chú</th></tr>
+    <tr><td>Lãi suất, tín dụng, vĩ mô</td><td><span class="pill p-good">Đã kiểm tra</span></td><td class="l">Mức lãi suất tái cấp vốn cụ thể chưa xác minh từ văn bản NHNN</td></tr>
+    <tr><td>Đủ 4M</td><td><span class="pill p-good">Đủ</span></td><td class="l">Meaning, Moat, Management, MOS có bằng chứng và nguồn</td></tr>
+    <tr><td>Định giá</td><td><span class="pill p-warn">Ước tính có giả định</span></td><td class="l">Dùng kết quả báo cáo định giá cùng ngày</td></tr>
+    <tr><td>Nền giá</td><td><span class="pill p-good">Đã kiểm tra</span></td><td class="l">90 phiên giá CafeF; chỉ có giá đóng cửa và khối lượng</td></tr>
+    <tr><td>Lực cầu tổ chức</td><td><span class="pill p-bad">Chưa xác minh</span></td><td class="l">Chưa có số liệu quỹ ETF/tổ chức trong nước mua vào</td></tr>
+  </table></div>
+  <p class="note">Mức đạt: <strong>đạt một phần trong phạm vi dữ liệu</strong>. Đây là phân tích theo khung 4M và ghi chú của chuyên gia, không phải tư vấn đầu tư cá nhân hóa.</p>
+  <div class="gloss">
+    <div><b>Lãi suất tái cấp vốn</b>: lãi NHNN cho ngân hàng thương mại vay — một trong các lãi suất điều hành. <b>ETF</b>: quỹ mua cổ phiếu theo một rổ chỉ số.</div>
+  </div>
+</section>
+
+<section class="card" id="thuatngu">
+  <h2>Giải thích thuật ngữ</h2>
+  <dl class="g">
+    <dt>4M</dt><dd>Meaning, Moat, Management, Margin of Safety — bộ lọc đầu tư giá trị của Phil Town.</dd>
+    <dt>Moat</dt><dd>Lợi thế cạnh tranh giúp doanh nghiệp giữ lợi nhuận cao lâu dài.</dd>
+    <dt>Brand · Secret · Toll</dt><dd>Thương hiệu · bằng sáng chế/bí quyết · vị trí độc quyền như trạm thu phí.</dd>
+    <dt>Switching · Low cost</dt><dd>Chi phí chuyển đổi nhà cung cấp cao · làm rẻ hơn đối thủ mà vẫn lãi.</dd>
+    <dt>MOS</dt><dd>Biên an toàn: mua thấp hơn giá trị ước tính bao nhiêu %.</dd>
+    <dt>NHNN · CPI · GDP</dt><dd>Ngân hàng Nhà nước · lạm phát giá tiêu dùng · quy mô nền kinh tế.</dd>
+    <dt>Tín dụng</dt><dd>Tổng tiền ngân hàng cho vay; tăng nhanh là tiền dồi dào.</dd>
+    <dt>Thắt chặt / nới lỏng</dt><dd>Ngân hàng trung ương làm tiền khó vay hơn (tăng lãi suất) / dễ vay hơn.</dd>
+    <dt>ROE</dt><dd>Lợi nhuận ÷ vốn chủ sở hữu.</dd>
+    <dt>LN mẹ · LNTT</dt><dd>Lợi nhuận sau thuế thuộc cổ đông mẹ · lợi nhuận trước thuế.</dd>
+    <dt>CFO</dt><dd>Dòng tiền từ hoạt động kinh doanh.</dd>
+    <dt>DCF · OE · FCFE</dt><dd>Chiết khấu dòng tiền · Owner Earnings · dòng tiền tự do thuộc cổ đông.</dd>
+    <dt>P/E · PEG</dt><dd>Giá ÷ lợi nhuận mỗi cổ phiếu · P/E ÷ tốc độ tăng trưởng.</dd>
+    <dt>MA20 · MA60</dt><dd>Giá trung bình 20 · 60 phiên.</dd>
+    <dt>Nền giá</dt><dd>Giai đoạn giá đi ngang, ngừng giảm.</dd>
+    <dt>Khối ngoại</dt><dd>Nhà đầu tư nước ngoài.</dd>
+    <dt>ESOP</dt><dd>Cổ phiếu ưu đãi cho nhân viên/lãnh đạo.</dd>
+    <dt>Outsourcing</dt><dd>Làm phần mềm/dịch vụ CNTT thuê cho khách hàng nước ngoài.</dd>
+    <dt>Tích trữ</dt><dd>Mua nhiều đợt có điều kiện ở vùng giá thấp.</dd>
+  </dl>
+</section>
+
+<footer>
+  <strong>Nguồn:</strong>
+  <a href="https://www.ruleoneinvesting.com/blog/how-to-invest/the-4ms-for-successful-investing/">Rule #1 – 4Ms</a> ·
+  <a href="https://vietstock.vn/2026/10/nhnn-chi-dao-moi-ve-viec-giam-mat-bang-lai-suat-757-1505200.htm">Vietstock – chỉ đạo lãi suất</a> ·
+  <a href="https://cafef.vn/ngan-hang-nha-nuoc-co-chi-dao-moi-ve-lai-suat-188261021150259725.chn">CafeF – chỉ đạo 21/10</a> ·
+  <a href="https://vietnamnet.vn/lai-suat-ngan-hang-hom-nay-26-10-2026-ong-lon-giam-lan-thu-hai-trong-vai-ngay-2568406.html">VietnamNet – lãi suất 26/10</a> ·
+  <a href="https://baomoi.com/nhnn-hut-rong-tro-lai-hon-9-800-ty-lai-suat-qua-dem-dao-dong-duoi-4-5-nam-c56353985.epi">Báo Mới – liên ngân hàng</a> ·
+  <a href="https://thitruongtaichinhtiente.vn/tin-dung-ngan-hang-9-thang-nam-2026-dong-luc-quan-trong-thuc-day-tang-truong-kinh-te-hai-con-so-86122.html">Tín dụng 9T2026</a> ·
+  <a href="https://vnba.org.vn/vi/tin-dung-ngan-hang-9-thang-nam-2026--dong-luc-quan-trong-thuc-day-tang-truong-kinh-te-hai-con-so-23832.htm">VNBA – họp báo NHNN</a> ·
+  <a href="https://www.nso.gov.vn/bai-top/2026/10/bao-cao-tinh-hinh-kinh-te-xa-hoi-quy-iii-va-9-thang-nam-2026/">NSO – kinh tế Q3</a> ·
+  <a href="https://www.nso.gov.vn/tin-tuc-thong-ke/2026/10/thong-cao-bao-chi-ve-tinh-hinh-gia-thang-chin-quy-iii-va-9-thang-nam-2026/">NSO – CPI</a> ·
+  <a href="https://cafef.vn/gdp-quy-iii-tang-gan-10-ky-vong-ba-dong-luc-tang-truong-trong-quy-iv-188261023070050928.chn">CafeF – tỷ giá</a> ·
+  <a href="https://index.vn/tin-tuc/khoi-ngoai-tiep-tuc-ban-rong-468-ty-dong-fpt-bi-xa-manh-nhat-tren-ho-se">Index.vn – khối ngoại</a> ·
+  <a href="https://vietstock.vn/2026/10/theo-dau-dong-tien-ca-map-2610-khoi-ngoai-tiep-dien-chuoi-ban-rong-voi-fpt-tu-doanh-bat-ngo-xa-manh-eib-830-1507176.htm">Vietstock – 26/10</a> ·
+  <a href="https://cafef.vn/phien-28-10-khoi-ngoai-tiep-da-ban-rong-mot-co-phieu-bluechip-bi-xa-260-ty-dong-188261028151246116.chn">CafeF – 28/10</a> ·
+  <a href="https://cafebiz.vn/fpt-vua-cham-dut-mot-ky-luc-buon-176261008164644348.chn">CafeBiz – VN-Diamond</a> ·
+  <a href="https://elibook.vn/2026/10/22/fpt-quy-3-truot-du-bao-2-co-may-ky-hop-dong-bat-ngo-hut-hoi/">Elibook – hợp đồng mới Q3</a> ·
+  <a href="https://fpt.com/vi/nha-dau-tu/thong-tin-cong-bo">FPT – Công bố thông tin</a> ·
+  <a href="https://mekongasean.vn/cong-ty-dau-tu-cua-scic-mua-thanh-cong-250000-co-phieu-fpt-53269.html">MekongAsean – SIC mua</a>
+  <br>Dữ liệu: FPT/CafeF/2026-10-28_v02, FPT/price_history_2026-10-28.json, FPT/valuation/ · Tạo bởi VNamStock (Claude) ngày 28/10/2026.
+</footer>
+</div>
+</body>
+</html>
