@@ -4,9 +4,11 @@ description: Kế hoạch mua bán cổ phiếu của người dùng trong VNamS
 ---
 
 # Kế hoạch mua bán (VNamStock)
-Version: 1.3.0
+Tên cũ: Kế hoạch giữ 5–10 năm (vnamstock-hold-plan), đổi tên ngày 07/11/2026 theo yêu cầu người dùng.
+Version: 1.3.0 (07/11/2026: đổi tên thành Kế hoạch mua bán, file báo cáo KeHoachMuaBan)
+Trước đó: 1.2.0 (06/11/2026: thêm Kịch bản cổ tức + lịch sử cổ tức + cổ tức tiền tăng dần; 1.1.0 cùng ngày: Tỷ lệ Kelly và chế độ "chưa mua", theo yêu cầu người dùng với BID). Bản 1.1.0 lưu ở `scripts/hold_plan_v1.1.0_backup.py`. Bản 1.0.0 (02/11/2026, FPT) lưu ở `SKILL_v1.0.0_backup.md` và `scripts/hold_plan_v1.0.0_backup.py`.
 
-Trả lời tiếng Việt. Người dùng thường định giữ **5–10 năm**. Skill này chỉ tính kế hoạch theo giả định của người dùng; không thay thế định giá (vnamstock-full-report) và không phải tư vấn đầu tư cá nhân. Áp dụng quy tắc "Giải thích thuật ngữ cho người dùng" của `../vnamstock/SKILL.md`.
+Trả lời tiếng Việt. Người dùng luôn định giữ **5–10 năm**. Skill này chỉ tính kế hoạch theo giả định của người dùng; không thay thế định giá (vnamstock-full-report) và không phải tư vấn đầu tư cá nhân. Áp dụng quy tắc "Giải thích thuật ngữ cho người dùng" của `../vnamstock/SKILL.md`.
 
 ## 1. Thu thập đầu vào
 Hỏi người dùng (AskUserQuestion hoặc trong chat) những gì chưa có trong tin nhắn:
@@ -23,7 +25,7 @@ Tự tìm, rồi xác nhận lại với người dùng nếu không chắc:
 ## 2. Tính và lập báo cáo
 Chạy script (không tính tay):
 ```bash
-python -I ~/.claude/skills/vnamstock-buy-sell-plan/scripts/buy_sell_plan.py --symbol FPT --name "FPT Corp" \
+python -I <SKILLS>/vnamstock-buy-sell-plan/scripts/buy_sell_plan.py --symbol FPT --name "FPT Corp" \
   --buy-price 50000 --shares 2000 --dps 2000 --stock-pct 10 --sell-price 100000 \
   --market-price 52700 --market-date 30/10/2026 --shares-out 1885.727648 --ttm-profit 10280.9 \
   --add-amount 100000000 --div-note "..." --sources "Tên::https://..." \
@@ -35,7 +37,7 @@ Tham số Kelly (bật mục Kelly khi có `--kelly-p` và `--kelly-down`): `--k
 
 Mô hình Kelly (2 kết cục cho cả kỳ N năm, chỉ tính giá):
 - Mua ở P: lãi nếu đúng b = giá_lên/P − 1, lỗ nếu sai l = 1 − giá_xuống/P. f* = p/l − (1 − p)/b (Kelly cho tài sản, Thorp). Kỳ vọng = p·b − (1 − p)·l. p hòa vốn = l/(l + b).
-- f* ≤ 0 → "không mua". f* > 100% → công thức muốn vay; mặc định không dùng margin nên trần 100%. Luôn hiện ½ Kelly (khuyên dùng) và ¼ Kelly vì p là ước đoán chủ quan.
+- f* ≤ 0 → "không mua". f* > 100% → công thức muốn vay; người dùng không dùng margin nên trần 100%. Luôn hiện ½ Kelly (khuyên dùng) và ¼ Kelly vì p là ước đoán chủ quan.
 - Lãi kép/năm kỳ vọng = e^(tăng trưởng log kỳ vọng ÷ N) − 1 trên tổng vốn khi đặt ½ Kelly (phần còn lại coi như tiền mặt 0%).
 - Luôn có 2 bảng độ nhạy ở giá giữa vùng mua: (a) xác suất p ± 5–20 điểm × giá nếu sai; (b) giá nếu đúng ±10–20%.
 - Bắt buộc đối chiếu giá nếu đúng/xác suất với định giá VNamStock cùng ngày (DCF/OE/MOS, 4M, CAN SLIM) trong `--value-notes`; nếu giá mục tiêu cao hơn kịch bản lạc quan, nói rõ p 50% là lạc quan.
@@ -47,13 +49,13 @@ Kịch bản cổ tức (bắt buộc từ 1.2.0 khi doanh nghiệp trả cổ t
 - `--dps-growth 10`: cổ tức tiền mặt đ/cp tăng %/năm cho bảng chính (năm 1 = `--dps`). Mặc định 0. Bảng "giá bán ↔ năm giữ" vẫn dùng tốc độ tăng cp năm đầu (xấp xỉ khi có dps-growth).
 - Dòng trùng tham số bảng chính được gắn nhãn "bảng chính". Nói rõ bảng chính lạc quan hay thận trọng so với lịch sử.
 
-Mô hình cố định — **Luôn tái đầu tư cổ tức**, không làm cột A/B hay kịch bản không tái đầu tư:
+Mô hình cố định — **người dùng luôn tái đầu tư cổ tức**, không làm cột A/B hay kịch bản không tái đầu tư:
 - Mỗi năm, trên số cp đầu năm: nhận cổ phiếu thưởng (× % cp) và tiền mặt (× cổ tức) rồi mua thêm cp ở giá mua → số cp × (1 + % cp + cổ tức/giá mua). Số cp của người dùng dùng chung cho mọi giá mua so sánh.
 - Tổng tiền khi bán = số cp cuối kỳ × giá bán. Ghi rõ giả định mua lại ở giá mua ban đầu (lạc quan nếu giá tăng dần).
-- Giá bán ↔ năm giữ: số năm (lẻ, quy ra năm/tháng) để tổng tiền ở giá bán ×0,7…×1,4 bằng tổng tiền khi bán giá mốc sau 5 năm, tính theo giá vốn của người dùng.
+- Giá bán ↔ năm giữ: số năm (lẻ, quy ra năm/tháng) để tổng tiền ở giá bán ×0,7…×1,4 bằng tổng tiền khi bán giá mốc sau 5 năm, tính theo giá vốn.
 
 ## 3. Báo cáo HTML (thứ tự cố định)
-Lưu `<ROOT>/<MA>/<MA>-VNamStock-KeHoachMuaBan-YYYY-MM-DD.html`, không ghi đè (thêm `_vNN`). CSS ở `assets/style.css` (cùng bộ với báo cáo tổng hợp, có sáng/tối, cuộn ngang trên điện thoại). Mẫu đã duyệt: `assets/report-template-KeHoachMuaBan-FPT.html`.
+Lưu `<ROOT>/<MA>/<MA>-VNamStock-KeHoachMuaBan-YYYY-MM-DD.html`, không ghi đè (thêm `_vNN`). CSS ở `assets/style.css` (cùng bộ với báo cáo tổng hợp, giao diện "Bảng giá" nền đen – cam – xanh/đỏ rực, chỉ nền tối, cuộn ngang trên điện thoại; khối `THEME: BANG GIA` cuối file phải giữ). Mẫu đã duyệt: `assets/report-template-KeHoachMuaBan-FPT.html`.
 1. Tiêu đề + **tóm tắt kế hoạch của người dùng** (vốn, tổng tiền bán sau 5 và 10 năm, sau thuế) + điều kiện để kế hoạch đúng.
 1b. **Tỷ lệ Kelly** (khi có tham số Kelly, viền nổi bật, đặt ngay sau tóm tắt, trước thanh menu): 4 ô (Kelly ở giữa vùng mua, kỳ vọng, ½ và ¼ Kelly, p hòa vốn), bảng theo giá mua (lãi nếu đúng | lỗ nếu sai | kỳ vọng | Kelly đầy đủ | ½ | ¼ | lãi kép/năm kỳ vọng | p hòa vốn), khung cách đọc, đối chiếu định giá, 2 bảng độ nhạy, chú thích.
 1c. **Kịch bản cổ tức** (khi có `--div-scenarios`, ngay sau mục Kelly): bảng lịch sử cổ tức đã trả, bảng kịch bản, khung "đọc đúng" (cổ phiếu thưởng không tạo ra tiền).
@@ -66,13 +68,17 @@ Lưu `<ROOT>/<MA>/<MA>-VNamStock-KeHoachMuaBan-YYYY-MM-DD.html`, không ghi đè
 7b. **7 · Giá bán ↔ năm giữ, mốc 10 năm** – như trên, mốc bán giá định bán sau 10 năm.
 Số mục tự đánh lại (có mua thêm: 1–7, không: 1–5). Tiêu đề ngắn gọn, vd "2 · Bán sau 5 năm, giá 100.000 đ", "3 · Mua thêm 100,0 tr, bán sau 5 năm giá 100.000 đ".
 8. Khả thi (nếu có dữ liệu): tương đương giá hôm nay, vốn hóa, lợi nhuận cần tăng/năm ở P/E giả định và P/E hiện tại.
-9. Thuế ước tính cho dòng giá vốn của người dùng (5% cổ tức tiền, 0,1% giá bán, 5% × mệnh giá cp thưởng).
+9. Thuế ước tính cho dòng giá vốn (5% cổ tức tiền, 0,1% giá bán, 5% × mệnh giá cp thưởng).
 10. Giải thích thuật ngữ, nguồn.
-Dòng giá vốn của người dùng được tô nổi; dòng giá thị trường có viền vàng. Mỗi bảng có khung `.gloss` chú thích ngay dưới.
+Dòng giá vốn được tô nổi; dòng giá thị trường có viền vàng. Mỗi bảng có khung `.gloss` chú thích ngay dưới.
 
-Mở thử ở 375px: không tràn ngang trang, bảng cuộn trong khung, đọc được ở sáng/tối.
+Mở thử ở 375px: không tràn ngang trang, bảng cuộn trong khung, đọc rõ trên nền tối.
 
 ## 4. Trả lời trong chat
-- Đưa 4 bảng rút gọn theo cùng thứ tự (có thể chỉ giữ dòng giá vốn của người dùng và 2–3 dòng so sánh), chú thích thuật ngữ dưới mỗi bảng.
+- Đưa 4 bảng rút gọn theo cùng thứ tự (có thể chỉ giữ dòng giá vốn và 2–3 dòng so sánh), chú thích thuật ngữ dưới mỗi bảng.
 - Luôn nhắc: cổ tức cổ phiếu tự nó không tạo ra tiền; kế hoạch chỉ đúng nếu lợi nhuận tăng ≥ % cổ phiếu chia mỗi năm. Nối với hai quy tắc bán của chuyên gia (tăng trưởng đình trệ 2–3 quý, người nội bộ bán nhiều): giữ 5–10 năm không có nghĩa bỏ qua tín hiệu bán.
 - Gửi đường dẫn file HTML. Không đặt lệnh, không gửi email, không lập lịch.
+
+## Bảng không được tràn ngang (bắt buộc, từ 11/11/2026)
+
+Mở báo cáo HTML trên máy tính thì mọi bảng phải nằm gọn trong khung, không được có thanh kéo ngang (Người dùng: phải kéo trái/phải rất khó theo dõi). Quy tắc: (1) giữ nguyên khối `THEME: BANG GIA` bản v2 — trong đó ô bảng tự xuống dòng (`th,td{white-space:normal}`) và trang rộng 1200px; không thêm `white-space:nowrap`, `min-width` hay chiều rộng cố định cho bảng/ô, kể cả style viết thẳng trong thẻ; (2) bảng nhiều hơn khoảng 8 cột thì tách thành hai bảng hoặc xoay bảng (chỉ tiêu thành dòng, năm/kịch bản thành cột), rút gọn tiêu đề cột và đưa đơn vị lên tiêu đề (ví dụ "Vốn (tỷ đ)") thay vì lặp trong từng ô; (3) chữ dài để trong cột đầu hoặc ghi chú dưới bảng, không nhồi vào ô số; (4) sau khi tạo file, mở thử ở bề rộng máy tính (1366px và 1024px) và kiểm tra không bảng nào rộng hơn khung chứa nó (`table.scrollWidth <= parentElement.clientWidth`) rồi mới gửi. Trên điện thoại bảng quá nhiều cột vẫn được phép kéo ngang trong khung `.tw`. Cập nhật giao diện cho file cũ: `python <SKILLS>/vnamstock/scripts/apply_theme.py <file hoặc thư mục>`.

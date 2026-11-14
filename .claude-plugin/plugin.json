@@ -1,6 +1,6 @@
 {
   "name": "vnamstock",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Trợ lý phân tích cổ phiếu Việt Nam cho Claude Code: định giá NCAV/DCF/Owner Earnings, phân tích cơ bản 5 năm từ CafeF, CAN SLIM, 4M và kế hoạch mua bán dài hạn. Báo cáo HTML tiếng Việt.",
   "author": { "name": "VNamStock" },
   "license": "MIT",

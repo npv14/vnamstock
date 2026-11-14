@@ -25,7 +25,7 @@ Người dùng yêu cầu định giá, phân tích doanh nghiệp, “báo cáo
 4. Đối chiếu chéo trước khi viết: LN mẹ bình quân/nền dòng tiền ở DCF khớp bảng 5 năm; cột TTM bảng 5 năm khớp bảng 12 chỉ số; EPS/BVPS/P/E/P/B giống nhau ở mọi phần; số ở Phần 1 đúng bằng số cơ sở/bi quan/lạc quan ở Phần 3. Lệch thì sửa nguồn số, không sửa chữ.
 
 ## Thứ tự báo cáo (cố định)
-Mẫu: `assets/report-template-TongHop-KDH.html` (ví dụ KDH, ghép từ mẫu KDH định giá + KDH cơ bản). Đọc file mẫu trước khi viết; giữ nguyên CSS, biến màu sáng/tối, `.part` chia phần, thanh menu chia 3 nhóm, cách bảng cuộn ngang trong khung trên điện thoại. Không ép số liệu hay nhận định của KDH sang mã khác.
+Mẫu: `assets/report-template-TongHop-KDH.html` (ví dụ KDH, ghép từ mẫu KDH định giá + KDH cơ bản). Đọc file mẫu trước khi viết; giữ nguyên CSS (kể cả khối `THEME: BANG GIA` cuối `<style>`), giao diện "Bảng giá" nền tối, `.part` chia phần, thanh menu chia 3 nhóm, cách bảng cuộn ngang trong khung trên điện thoại. Không ép số liệu hay nhận định của KDH sang mã khác.
 
 **Tiêu đề** — mã, tên, sàn, ngày phân tích, giá tham chiếu (ngày, nguồn), kỳ dữ liệu, số cổ phiếu.
 
@@ -36,7 +36,7 @@ Mẫu: `assets/report-template-TongHop-KDH.html` (ví dụ KDH, ghép từ mẫu
 
 **Phần 2 · Phân tích cơ bản** (`#phan2`)
 4. `#coban` — thẻ chỉ số chính (giá, BVPS/P/B, NCAV, DCF cơ sở, P/E TTM/cốt lõi, nợ).
-5. `#namnam` — bảng 5 năm tài chính gần nhất + TTM + CAGR/TB 5 năm (tăng trưởng, hiệu quả, mỗi cổ phiếu, định giá cuối năm, sức khỏe gồm **tổng nợ phải trả và Nợ/Doanh thu**) + khung “Đọc nhanh 5 năm”. Dán đoạn `five_year_table.html` của script (đã chạy với `--section-class card`, không có viền `price-top` vì viền nổi bật dành cho bảng giá Phần 1).
+5. `#namnam` — bảng 5 năm tài chính gần nhất + TTM + CAGR/TB 5 năm (tăng trưởng, hiệu quả gồm ROE · ROA · **ROIC**, mỗi cổ phiếu, định giá cuối năm, sức khỏe gồm **tổng nợ phải trả và Nợ/Doanh thu**) + khung “Đọc nhanh 5 năm” (có một ý về ROIC so ngưỡng 10% và so với ROE). Dán đoạn `five_year_table.html` của script (đã chạy với `--section-class card`, không có viền `price-top` vì viền nổi bật dành cho bảng giá Phần 1).
 6. `#bang` — 12 chỉ số × 5 kịch bản giá −40% / −20% / hiện tại / +20% / +40% (k = 0,6/0,8/1/1,2/1,4); thêm P/E cốt lõi khi có lãi bất thường lớn.
 7. `#the` — thẻ tóm tắt từng kịch bản (đọc dễ trên điện thoại).
 8. `#doichieu` — đối chiếu số CafeF với số tự tính.
@@ -62,3 +62,15 @@ Mỗi phần có khung `.gloss` chú thích nhỏ ngay bên dưới, chỉ cho t
 - Mở thử: không tràn ngang ở 375px, đọc được ở chế độ sáng và tối, mọi liên kết `#...` trong menu trỏ đúng id.
 - Trả lời chat theo cùng thứ tự: bảng giá định giá trước (kèm chú thích thuật ngữ), vài dòng cơ bản, rồi tóm tắt chi tiết/rủi ro; gửi đường dẫn file HTML.
 - Đây là phân tích theo khung quy tắc của chuyên gia, không phải tư vấn đầu tư cá nhân hóa; không đặt lệnh, không tự gửi email hay lập lịch.
+
+## Màu theo dấu của số phần trăm (bắt buộc, từ 11/11/2026)
+
+Trong mọi báo cáo HTML: số % có dấu trừ đứng trước phải là chữ đỏ, có dấu cộng đứng trước phải là chữ xanh — ở mọi chỗ (bảng, ô KPI, đoạn văn, ghi chú), không được để chữ thường. Sau khi viết xong file HTML, luôn chạy `python <SKILLS>/vnamstock/scripts/colorize_signs.py <file.html>` (tự bọc `<span class="sg neg|pos">`, chạy lại nhiều lần vẫn an toàn) rồi mới mở kiểm tra và gửi. Các script dựng báo cáo (`build_report.py`, `hold_plan.py`, `buy_sell_plan.py`, `basic_metrics.py`) đã tự gọi bước này. Số tăng trưởng dương nên viết kèm dấu `+` để được tô xanh.
+
+## Logo doanh nghiệp (bắt buộc, từ 13/11/2026)
+
+Mọi báo cáo HTML về một mã có logo công ty trước tên trong `<h1>` và làm biểu tượng tab trình duyệt (favicon). Báo cáo viết tay: sau bước tô màu dấu, chạy `python <SKILLS>/vnamstock/scripts/add_logo.py <file.html> --ticker <MA> --market vn` (mã Việt Nam lấy logo từ CDN Simplize; mã Mỹ dùng `--market us`, lấy biểu tượng trang web công ty). Logo lưu đệm ở `logo.png` cạnh báo cáo và nhúng base64; chạy lại nhiều lần an toàn. Các script dựng báo cáo (`build_report.py`, `buy_sell_plan.py`, `hold_plan.py`, `basic_metrics.py`) đã tự gắn logo. Không lấy được logo thì vẫn gửi báo cáo, ghi một dòng cho người dùng biết.
+
+## Bảng không được tràn ngang (bắt buộc, từ 11/11/2026)
+
+Mở báo cáo HTML trên máy tính thì mọi bảng phải nằm gọn trong khung, không được có thanh kéo ngang (Người dùng: phải kéo trái/phải rất khó theo dõi). Quy tắc: (1) giữ nguyên khối `THEME: BANG GIA` bản v2 — trong đó ô bảng tự xuống dòng (`th,td{white-space:normal}`) và trang rộng 1200px; không thêm `white-space:nowrap`, `min-width` hay chiều rộng cố định cho bảng/ô, kể cả style viết thẳng trong thẻ; (2) bảng nhiều hơn khoảng 8 cột thì tách thành hai bảng hoặc xoay bảng (chỉ tiêu thành dòng, năm/kịch bản thành cột), rút gọn tiêu đề cột và đưa đơn vị lên tiêu đề (ví dụ "Vốn (tỷ đ)") thay vì lặp trong từng ô; (3) chữ dài để trong cột đầu hoặc ghi chú dưới bảng, không nhồi vào ô số; (4) sau khi tạo file, mở thử ở bề rộng máy tính (1366px và 1024px) và kiểm tra không bảng nào rộng hơn khung chứa nó (`table.scrollWidth <= parentElement.clientWidth`) rồi mới gửi. Trên điện thoại bảng quá nhiều cột vẫn được phép kéo ngang trong khung `.tw`. Cập nhật giao diện cho file cũ: `python <SKILLS>/vnamstock/scripts/apply_theme.py <file hoặc thư mục>`.

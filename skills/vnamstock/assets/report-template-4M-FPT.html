@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,6 +60,178 @@ dl.g dd{margin:0;color:var(--mut)}
 .pricebox .l{display:block;font-size:12px;color:var(--mut)}
 .pricebox .v{display:block;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
 @media (max-width:560px){dl.g{grid-template-columns:1fr}dl.g dd{margin-bottom:8px}}
+tr.chg td{color:var(--mut);font-size:.92em}
+
+/* ==== THEME: BANG GIA (den - cam - xanh/do ruc) v1 11/11/2026 — giao dien chuan, chi co nen toi ==== */
+:root{
+  --bg:#f4f1ea;--card:#fffdf8;--ink:#14213d;--mut:#5f6675;--line:#e3dccd;
+  --acc:#14213d;--gold:#a8834a;--gold2:#c9a96e;--good:#0b7a3b;--bad:#c1121f;--warn:#9a6a12;
+  --soft:#f3ede1;--bar1:#b9b2a3;--bar2:#a8834a;--hero1:#0f1a30;--hero2:#1d2f55;--heroink:#f5efe2
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b1120;--card:#121a2c;--ink:#ece6d8;--mut:#9aa1b0;--line:#26304a;
+  --acc:#e2c690;--gold:#d4b27a;--gold2:#e2c690;--good:#2fd07a;--bad:#ff5a5f;--warn:#e0b05a;
+  --soft:#18223a;--bar1:#4a5470;--bar2:#d4b27a;--hero1:#070c18;--hero2:#16223f;--heroink:#f5efe2}}
+:root[data-theme="dark"]{
+  --bg:#0b1120;--card:#121a2c;--ink:#ece6d8;--mut:#9aa1b0;--line:#26304a;
+  --acc:#e2c690;--gold:#d4b27a;--gold2:#e2c690;--good:#2fd07a;--bad:#ff5a5f;--warn:#e0b05a;
+  --soft:#18223a;--bar1:#4a5470;--bar2:#d4b27a;--hero1:#070c18;--hero2:#16223f;--heroink:#f5efe2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.6 Roboto,"Segoe UI",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px 64px}
+
+/* Bìa báo cáo */
+header{margin:0 -16px;padding:40px 28px 30px;color:var(--heroink);
+  background:radial-gradient(120% 140% at 100% 0%,var(--hero2) 0%,var(--hero1) 60%);
+  border-bottom:3px solid var(--gold2);position:relative}
+header::after{content:"";position:absolute;left:28px;right:28px;bottom:14px;height:1px;
+  background:linear-gradient(90deg,var(--gold2),transparent)}
+header .eyebrow{color:var(--gold2);font-weight:600;letter-spacing:.22em;font-size:11px;text-transform:uppercase}
+header h1{color:#fff}
+header .sub{color:#c8c2b4}
+h1,h2,.part span,.kpi .v,.pricebox .v{font-family:Roboto,"Segoe UI",Arial,sans-serif}
+h1{font-size:34px;font-weight:600;margin:10px 0 6px;letter-spacing:.005em;line-height:1.2}
+h2{font-size:20px;font-weight:600;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.sub{color:var(--mut);font-size:14px}
+
+/* Mục lục */
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 8px}
+nav a{color:var(--ink);text-decoration:none;font-size:12.5px;border:1px solid var(--line);background:var(--card);
+  padding:6px 12px;border-radius:2px;transition:border-color .15s,color .15s}
+nav a:hover{border-color:var(--gold);color:var(--gold)}
+nav .pl{width:100%;color:var(--gold);font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-top:6px}
+
+/* Thẻ nội dung */
+.card{background:var(--card);border:1px solid var(--line);border-top:2px solid var(--gold);border-radius:4px;
+  padding:22px 22px 20px;margin:18px 0;box-shadow:0 1px 2px rgba(20,33,61,.04),0 8px 24px -16px rgba(20,33,61,.18)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px;position:relative}
+.kpi::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;background:var(--gold)}
+.kpi .l{color:var(--mut);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.kpi .v{font-size:26px;font-weight:600;margin-top:4px;font-variant-numeric:lining-nums tabular-nums}
+.kpi .n{font-size:12px;color:var(--mut)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.verdict div{border-left:3px solid var(--line);padding:6px 14px;background:var(--soft)}
+.verdict .b{border-color:var(--bad)}.verdict .w{border-color:var(--warn)}.verdict .g{border-color:var(--good)}
+.verdict strong{display:block;font-family:Roboto,"Segoe UI",Arial,sans-serif;font-size:16px}
+
+/* Bảng */
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:lining-nums tabular-nums}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--gold);font-weight:600;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  background:transparent;border-bottom:1.5px solid var(--ink)}
+tbody tr:hover td{background:color-mix(in srgb,var(--gold) 6%,transparent)}
+td.l{text-align:left;white-space:normal}
+tr.grp td{background:var(--soft);color:var(--ink);font-weight:600;text-align:left;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+table.fy td:first-child{white-space:normal;min-width:170px}
+tr.chg td:first-child{border-left:3px solid var(--gold)}
+tr.fix td{color:var(--mut)}
+tr.fix td[colspan]{text-align:center;white-space:normal}
+tr.fix td:first-child{border-left:3px solid var(--bar1)}
+
+.pill{display:inline-block;padding:2px 10px;border-radius:2px;font-size:11px;font-weight:600;letter-spacing:.04em}
+.p-bad{background:var(--bad);color:#fff}
+.p-good{background:var(--good);color:#fff}
+.p-warn{background:color-mix(in srgb,var(--warn) 14%,transparent);color:var(--warn)}
+.neg{color:var(--bad);font-weight:600}.pos{color:var(--good);font-weight:600}
+.note{color:var(--mut);font-size:13px;margin-top:10px}
+.callout{background:var(--soft);border-left:3px solid var(--gold);border-radius:0 4px 4px 0;padding:12px 16px;margin-top:14px;font-size:14px}
+svg text{fill:var(--mut);font-size:11px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mut);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:1px;margin-right:6px;vertical-align:-1px}
+ul{margin:6px 0;padding-left:20px}
+li{margin:4px 0}
+li::marker{color:var(--gold)}
+a{color:var(--gold)}
+footer{color:var(--mut);font-size:12px;margin-top:36px;padding-top:14px;border-top:1px solid var(--line)}
+
+/* Chú thích thuật ngữ */
+.gloss{margin-top:14px;padding:12px 14px;border-top:1px dashed var(--gold2);font-size:12.5px;color:var(--mut);background:color-mix(in srgb,var(--soft) 60%,transparent)}
+.gloss b{color:var(--ink)}
+.gloss div{margin:3px 0}
+dl.g{display:grid;grid-template-columns:minmax(110px,180px) 1fr;gap:6px 14px;margin:0;font-size:14px}
+dl.g dt{font-weight:600}
+dl.g dd{margin:0;color:var(--mut)}
+
+/* Khối giá mua — điểm nhấn chính */
+.price-top{border:1px solid var(--gold);border-top:3px solid var(--gold);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 7%,var(--card)),var(--card) 140px)}
+.price-top td b{font-size:15px}
+.pricebox{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.pricebox div{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:12px 14px}
+.pricebox .l{display:block;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+.pricebox .v{display:block;font-size:22px;font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+.pricebox .l + .v + .l{margin-top:2px}
+
+/* Tiêu đề phần lớn */
+.part{display:flex;align-items:baseline;gap:14px;margin:44px 0 6px;padding-bottom:8px;border-bottom:1px solid var(--gold)}
+.part b{color:var(--gold);font-size:11px;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}
+.part span{font-size:24px;font-weight:600}
+.part + .sub{margin-bottom:4px}
+
+@media (max-width:560px){
+  header{padding:30px 20px 26px}header::after{left:20px;right:20px}
+  h1{font-size:27px}.card{padding:18px 16px}
+  dl.g{grid-template-columns:1fr}dl.g dd{margin-bottom:8px}}
+@media print{body{background:#fff}.card{box-shadow:none;break-inside:avoid}header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* === Mẫu D: kiểu bảng giá chứng khoán — nền đen, cam, xanh/đỏ/vàng rực. Chỉ có chế độ tối. === */
+:root,:root[data-theme="dark"],:root[data-theme="light"]{--bg:#000;--card:#101114;--ink:#f1f1f1;--mut:#a4a7ad;--line:#2a2c31;--acc:#f7941d;--gold:#f7941d;--gold2:#f7941d;--good:#00e33d;--bad:#ff2d2d;--warn:#ffd60a;--soft:#1b1d21;--bar1:#5a5d64;--bar2:#f7941d;--hero1:#0b0b0c;--hero2:#1a1b1e;--heroink:#fff;--ceil:#ff40ff;--floor:#19d3ff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--card:#101114;--ink:#f1f1f1;--mut:#a4a7ad;--line:#2a2c31;--acc:#f7941d;--gold:#f7941d;--gold2:#f7941d;--good:#00e33d;--bad:#ff2d2d;--warn:#ffd60a;--soft:#1b1d21;--bar1:#5a5d64;--bar2:#f7941d;--hero1:#0b0b0c;--hero2:#1a1b1e;--heroink:#fff;--ceil:#ff40ff;--floor:#19d3ff}}
+body{font:14px/1.5 Roboto,"Segoe UI",Arial,system-ui,sans-serif}
+h1,h2,.part span,.kpi .v,.pricebox .v,.verdict strong{font-family:Roboto,"Segoe UI",Arial,sans-serif;font-weight:700;letter-spacing:0}
+header{background:var(--hero1);border-bottom:2px solid var(--acc);padding:22px 20px 18px}
+header::after{display:none}
+header .eyebrow{display:inline-block;background:var(--acc);color:#000;padding:3px 10px;border-radius:999px;letter-spacing:.06em;font-weight:700}
+h1{font-size:26px;margin:10px 0 4px}
+h2{font-size:16px;color:var(--acc);border-bottom:1px solid var(--line);padding-bottom:8px;text-transform:uppercase;letter-spacing:.03em}
+nav a{background:var(--soft);border:0;border-radius:3px;color:var(--ink);font-weight:500}
+nav a:hover{background:var(--acc);color:#000}
+nav .pl{color:var(--acc);letter-spacing:.06em}
+.card{border-radius:2px;border:1px solid var(--line);border-top:2px solid var(--acc);box-shadow:none;padding:16px}
+.kpi{border-radius:2px;background:var(--card)}
+.kpi::before{background:var(--acc)}
+.kpi .v,.pricebox .v{font-size:24px;color:var(--warn)}
+.kpi .v.neg{color:var(--bad)}.kpi .v.pos{color:var(--good)}
+table{font-size:13.5px}
+th,td{padding:7px 10px;border-bottom:0;border-right:1px solid #1d1f23}
+th{background:#24262b;color:#fff;font-size:12px;font-weight:700;letter-spacing:0;text-transform:none;border-bottom:1px solid var(--line)}
+tbody tr:nth-child(odd) td{background:#0a0a0b}
+tbody tr:nth-child(even) td{background:#17181b}
+tbody tr:hover td{background:#2a2c31}
+td:first-child{font-weight:700}
+td b{color:var(--warn)}
+tr.grp td{background:#24262b!important;color:var(--acc);letter-spacing:.04em}
+tr.chg td:first-child{border-left:3px solid var(--acc)}
+.neg{color:var(--bad);font-weight:700}.pos{color:var(--good);font-weight:700}
+.pill{border-radius:999px}
+.p-good{background:transparent;color:var(--good);border:1px solid var(--good)}
+.p-bad{background:transparent;color:var(--bad);border:1px solid var(--bad)}
+.p-warn{background:transparent;color:var(--warn);border:1px solid var(--warn)}
+.callout{border-left:3px solid var(--acc);border-radius:0}
+.verdict div{background:var(--soft)}
+.price-top{background:var(--card);border:1px solid var(--acc);border-top:3px solid var(--acc)}
+.pricebox div{background:var(--soft);border:0;border-radius:2px}
+.part{border-bottom:2px solid var(--acc);margin-top:32px}
+.part b{background:var(--acc);color:#000;padding:2px 8px;border-radius:999px;letter-spacing:.04em}
+.part span{font-size:20px}
+.gloss{background:transparent;border-top:1px dashed var(--line)}
+a{color:var(--acc)}
+
+.p-acc{background:transparent;color:var(--acc);border:1px solid var(--acc);margin-left:4px}
+.bars{border-bottom:1px solid var(--line)}
+.bars i{border-radius:0}
+@media print{body{background:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+/* Bảng không tràn ngang (v2, 11/11/2026): chữ trong ô tự xuống dòng, trang rộng hơn trên máy tính — không phải kéo ngang để đọc */
+.wrap{max-width:1200px}
+th,td{white-space:normal;overflow-wrap:break-word;word-break:normal;vertical-align:top}
+th{vertical-align:bottom}
+table.fy td:first-child{min-width:120px}
+.sg,.pill{white-space:nowrap}
+/* ==== END THEME ==== */
 </style>
 </head>
 <body>
@@ -94,7 +266,7 @@ dl.g dd{margin:0;color:var(--mut)}
 </section>
 
 <nav>
-  <a href="#ketluan">Kết luận</a><a href="#vimo">Lãi suất · tín dụng</a><a href="#chuky">Chu kỳ</a><a href="#4m">4M chi tiết</a><a href="#moat5">5 loại Moat</a><a href="#mos">Định giá · MOS</a><a href="#nen">Nền · tổ chức</a><a href="#kehoach">Kế hoạch có điều kiện</a><a href="#quytac">Quy tắc chuyên gia</a><a href="#kiemdinh">Kiểm định</a><a href="#thuatngu">Giải thích thuật ngữ</a>
+  <a href="#ketluan">Kết luận</a><a href="#vimo">Lãi suất · tín dụng</a><a href="#chuky">Chu kỳ</a><a href="#4m">4M chi tiết</a><a href="#moat5">5 loại Moat</a><a href="#bigfive">5 con số lớn</a><a href="#mos">Định giá · MOS</a><a href="#nen">Nền · tổ chức</a><a href="#kehoach">Kế hoạch có điều kiện</a><a href="#quytac">Quy tắc chuyên gia</a><a href="#kiemdinh">Kiểm định</a><a href="#thuatngu">Giải thích thuật ngữ</a>
 </nav>
 
 <section class="card" id="vimo">
@@ -105,10 +277,10 @@ dl.g dd{margin:0;color:var(--mut)}
     <tr><td>Chỉ đạo lãi suất</td><td>Giảm huy động ≥0,5 điểm % (kỳ hạn ≥6 tháng), giảm cho vay ưu tiên 1,5–2 điểm %</td><td>CV 9608 ngày 18/10, CV 9736 ngày 21/10/2026</td><td class="l">Vietstock, CafeF</td><td class="l">Nới lỏng; lãi tiền gửi của FPT giảm nhẹ</td></tr>
     <tr><td>Lãi suất huy động 12 tháng</td><td>≈ 6,05–6,8%/năm</td><td>20–26/10/2026</td><td class="l">VietnamNet</td><td class="l">Chi phí cơ hội vẫn khá cao</td></tr>
     <tr><td>Lãi suất qua đêm liên ngân hàng</td><td>4,31%</td><td>22/10/2026</td><td class="l">Báo Mới</td><td class="l">Thanh khoản ổn</td></tr>
-    <tr><td>Tăng trưởng tín dụng</td><td>+11,59% so với cuối 2025 (dư nợ 20,75 triệu tỷ); mục tiêu năm ~15%</td><td>Cuối 09/2026</td><td class="l">Thị trường Tài chính Tiền tệ</td><td class="l">Tín dụng mở rộng, nhưng NHNN siết kiểm soát rủi ro</td></tr>
-    <tr><td>Lạm phát (CPI)</td><td>Tháng 9: +5,08% YoY; 9T: +4,52%</td><td>NSO, 03/10/2026</td><td class="l">NSO</td><td class="l">Áp lực tăng lương kỹ sư, có thể hạn chế nới lỏng tiếp</td></tr>
-    <tr><td>GDP</td><td>Q3: +9,95%; 9T: +9,01%</td><td>NSO, 03/10/2026</td><td class="l">NSO</td><td class="l">Tốt cho CNTT trong nước (+29,8%)</td></tr>
-    <tr><td>Tỷ giá USD/VND</td><td>25.750–26.170, −0,8% so với đầu năm</td><td>Cuối 09/2026</td><td class="l">CafeF</td><td class="l">VND mạnh lên nhẹ — bất lợi nhỏ cho doanh thu xuất khẩu</td></tr>
+    <tr><td>Tăng trưởng tín dụng</td><td><span class="sg pos">+11,59%</span> so với cuối 2025 (dư nợ 20,75 triệu tỷ); mục tiêu năm ~15%</td><td>Cuối 09/2026</td><td class="l">Thị trường Tài chính Tiền tệ</td><td class="l">Tín dụng mở rộng, nhưng NHNN siết kiểm soát rủi ro</td></tr>
+    <tr><td>Lạm phát (CPI)</td><td>Tháng 9: <span class="sg pos">+5,08%</span> YoY; 9T: <span class="sg pos">+4,52%</span></td><td>NSO, 03/10/2026</td><td class="l">NSO</td><td class="l">Áp lực tăng lương kỹ sư, có thể hạn chế nới lỏng tiếp</td></tr>
+    <tr><td>GDP</td><td>Q3: <span class="sg pos">+9,95%</span>; 9T: <span class="sg pos">+9,01%</span></td><td>NSO, 03/10/2026</td><td class="l">NSO</td><td class="l">Tốt cho CNTT trong nước (<span class="sg pos">+29,8%</span>)</td></tr>
+    <tr><td>Tỷ giá USD/VND</td><td>25.750–26.170, <span class="sg neg">−0,8%</span> so với đầu năm</td><td>Cuối 09/2026</td><td class="l">CafeF</td><td class="l">VND mạnh lên nhẹ — bất lợi nhỏ cho doanh thu xuất khẩu</td></tr>
     <tr><td>Khối ngoại với FPT</td><td>Bán ròng ~180 triệu cp (~14.700 tỷ) từ đầu năm; vẫn bán 258–260 tỷ/phiên cuối 10</td><td>13/10 và 26–28/10/2026</td><td class="l">Index.vn, Vietstock, CafeF</td><td class="l">Áp lực giá ngắn hạn mạnh nhất</td></tr>
   </table></div>
   <div class="callout"><strong>Đánh giá chu kỳ tiền tệ: <span class="pill p-warn">Hỗn hợp, nghiêng nới lỏng</span>.</strong> NHNN giữ lãi suất điều hành, chỉ đạo giảm lãi suất và tín dụng vẫn tăng nhanh; ngược lại lạm phát lên trên 5% và NHNN siết kiểm soát rủi ro. Theo ghi chú của chuyên gia, đây <b>không phải pha thắt chặt</b> để mở danh sách tích trữ theo chu kỳ. Giá FPT giảm vì lý do riêng (khối ngoại bán, lo ngại AI, hợp đồng mới chậm lại), không phải do tín dụng.</div>
@@ -122,7 +294,7 @@ dl.g dd{margin:0;color:var(--mut)}
   <h2>2. Hai trục: chu kỳ và phụ thuộc tín dụng</h2>
   <div class="tw"><table>
     <tr><th>Trục</th><th>Mức độ</th><th>Bằng chứng</th></tr>
-    <tr><td>Nhạy với chu kỳ kinh tế</td><td><span class="pill p-warn">Trung bình</span></td><td class="l">Phụ thuộc ngân sách CNTT của khách Nhật, Mỹ, châu Á; hợp đồng mới Q3 chỉ tăng ~3,7% (ước tính của Elibook), cả 9T +23,1%.</td></tr>
+    <tr><td>Nhạy với chu kỳ kinh tế</td><td><span class="pill p-warn">Trung bình</span></td><td class="l">Phụ thuộc ngân sách CNTT của khách Nhật, Mỹ, châu Á; hợp đồng mới Q3 chỉ tăng ~3,7% (ước tính của Elibook), cả 9T <span class="sg pos">+23,1%</span>.</td></tr>
     <tr><td>Phụ thuộc tín dụng / tái cấp vốn</td><td><span class="pill p-good">Thấp</span></td><td class="l">Tiền và tiền gửi 28.972 tỷ &gt; nợ vay 18.448 tỷ (tiền ròng 10.523 tỷ, 30/06/2026). Khách hàng không cần vay để mua dịch vụ.</td></tr>
   </table></div>
   <div class="callout"><strong>Điều kiện "mùa xuân" cho FPT</strong> (quan sát được, không đoán ngày đáy): (1) hợp đồng ký mới CNTT nước ngoài quay lại tăng &gt;20%/quý; (2) khối ngoại ngừng bán ròng liên tục; (3) giá ngừng lập đáy mới và đi ngang; (4) BCTC Q3–Q4/2026 cho thấy dòng tiền kinh doanh dương trở lại.</div>
@@ -135,8 +307,8 @@ dl.g dd{margin:0;color:var(--mut)}
   <h2>3. 4M chi tiết</h2>
   <div class="tw"><table>
     <tr><th>M</th><th>Bằng chứng</th><th>Kết quả</th><th>Rủi ro</th></tr>
-    <tr><td><b>Meaning</b></td><td class="l">Khối Công nghệ chiếm 89% doanh thu, 58% LNTT 9T2026: CNTT nước ngoài 28.538 tỷ (+11,6%; Nhật +17,2%), CNTT trong nước 6.977 tỷ (+29,8%). Khối Giáo dục, Đầu tư &amp; Khác: LNTT 3.719 tỷ (+17,6%), chủ yếu lãi từ FPT Telecom, FPT Retail theo tỷ lệ sở hữu.</td><td><span class="pill p-good">Đạt</span></td><td class="l">Từ 2026 cách ghi nhận FPT Telecom thay đổi — doanh thu, biên lợi nhuận không so trực tiếp với 2025 trên CafeF.</td></tr>
-    <tr><td><b>Moat</b></td><td class="l">ROE 2023/2024/2025: 28,1% / 28,7% / 28,3%. LN mẹ 2.620 tỷ (2018) → 9.376 tỷ (2025), ~20%/năm. CFO dương liên tục 2018–2025. Biên gộp 39,0% → 36,9% (2022→2025, cơ sở cũ). Hợp đồng dài hạn với khách Nhật tạo chi phí chuyển đổi; 16 dự án &gt;10 triệu USD trong 9T2026; AI/Data +55%.</td><td><span class="pill p-good">Đạt</span></td><td class="l">AI có thể làm giảm khối lượng outsourcing (Vietcap hạ dự báo LN mảng CNTT nước ngoài 2026–2031 15%). Biên gộp giảm dần.</td></tr>
+    <tr><td><b>Meaning</b></td><td class="l">Khối Công nghệ chiếm 89% doanh thu, 58% LNTT 9T2026: CNTT nước ngoài 28.538 tỷ (<span class="sg pos">+11,6%</span>; Nhật <span class="sg pos">+17,2%</span>), CNTT trong nước 6.977 tỷ (<span class="sg pos">+29,8%</span>). Khối Giáo dục, Đầu tư &amp; Khác: LNTT 3.719 tỷ (<span class="sg pos">+17,6%</span>), chủ yếu lãi từ FPT Telecom, FPT Retail theo tỷ lệ sở hữu.</td><td><span class="pill p-good">Đạt</span></td><td class="l">Từ 2026 cách ghi nhận FPT Telecom thay đổi — doanh thu, biên lợi nhuận không so trực tiếp với 2025 trên CafeF.</td></tr>
+    <tr><td><b>Moat</b></td><td class="l">ROE 2023/2024/2025: 28,1% / 28,7% / 28,3%. LN mẹ 2.620 tỷ (2018) → 9.376 tỷ (2025), ~20%/năm. CFO dương liên tục 2018–2025. Biên gộp 39,0% → 36,9% (2022→2025, cơ sở cũ). Hợp đồng dài hạn với khách Nhật tạo chi phí chuyển đổi; 16 dự án &gt;10 triệu USD trong 9T2026; AI/Data <span class="sg pos">+55%</span>.</td><td><span class="pill p-good">Đạt</span></td><td class="l">AI có thể làm giảm khối lượng outsourcing (Vietcap hạ dự báo LN mảng CNTT nước ngoài 2026–2031 15%). Biên gộp giảm dần.</td></tr>
     <tr><td><b>Management</b></td><td class="l">Người sáng lập Trương Gia Bình là Chủ tịch, gia đình nắm 8,39%. Cổ tức tiền/LN mẹ 42–49% (2022–2025) và thưởng cổ phiếu 10:1 năm 2026. ESOP ~10,8 triệu cp/năm (~0,6%), lãnh đạo bị hạn chế chuyển nhượng tới 10 năm. Không có giao dịch nội bộ 07–10/2026.</td><td><span class="pill p-good">Đạt</span></td><td class="l">Có quyết định xử phạt hành chính về thuế (CBTT 01/07/2026, chưa đọc chi tiết). Thay đổi phương pháp hợp nhất làm số liệu khó so sánh.</td></tr>
     <tr><td><b>Margin of Safety</b></td><td class="l">Giá 54.000 đ so với DCF cơ sở 70.943 đ (MOS 23,9%) và OE cơ sở 81.358 đ (MOS 33,6%). P/E 9,9x, PEG 0,74. Giá mục tiêu CTCK trung bình ~78.350 đ (Vietcap, SSI, BSC, VCBS).</td><td><span class="pill p-warn">Một phần</span></td><td class="l">Dòng tiền cơ sở là giả định; kịch bản bi quan DCF 35.988 đ; CFO 6T2026 âm 1.145 tỷ cần BCTC Q3 để giải thích.</td></tr>
   </table></div>
@@ -147,10 +319,10 @@ dl.g dd{margin:0;color:var(--mut)}
 </section>
 
 <section class="card" id="moat5">
-  <h2>3b. Moat — 5 loại lợi thế cạnh tranh (Phil Town)</h2>
+  <h2>3a. Moat — 5 loại lợi thế cạnh tranh (Phil Town)</h2>
   <div class="tw"><table>
     <tr><th>Loại moat</th><th>Câu hỏi kiểm tra</th><th>Bằng chứng ở FPT</th><th>Mức độ</th><th>Rủi ro làm moat yếu đi</th></tr>
-    <tr><td><b>1. Brand</b><br>Thương hiệu</td><td class="l">Khách có chịu trả giá cao hơn hoặc ưu tiên chọn vì tên tuổi không?</td><td class="l">Thương hiệu công nghệ tư nhân lớn nhất Việt Nam: giúp thắng hợp đồng chuyển đổi số trong nước (CNTT trong nước +29,8% 9T2026), tuyển sinh khối giáo dục và tuyển kỹ sư. Ở nước ngoài, khách chọn chủ yếu theo năng lực và giá, ít vì thương hiệu.</td><td><span class="pill p-warn">Khá</span></td><td class="l">Không bán được giá cao hơn đối thủ Ấn Độ chỉ nhờ tên tuổi.</td></tr>
+    <tr><td><b>1. Brand</b><br>Thương hiệu</td><td class="l">Khách có chịu trả giá cao hơn hoặc ưu tiên chọn vì tên tuổi không?</td><td class="l">Thương hiệu công nghệ tư nhân lớn nhất Việt Nam: giúp thắng hợp đồng chuyển đổi số trong nước (CNTT trong nước <span class="sg pos">+29,8%</span> 9T2026), tuyển sinh khối giáo dục và tuyển kỹ sư. Ở nước ngoài, khách chọn chủ yếu theo năng lực và giá, ít vì thương hiệu.</td><td><span class="pill p-warn">Khá</span></td><td class="l">Không bán được giá cao hơn đối thủ Ấn Độ chỉ nhờ tên tuổi.</td></tr>
     <tr><td><b>2. Secret</b><br>Bí mật / bằng sáng chế</td><td class="l">Có công nghệ, bằng sáng chế hay bí quyết mà đối thủ không sao chép được không?</td><td class="l">Dịch vụ phần mềm dựa trên con người và quy trình, không có bằng sáng chế quyết định doanh thu. AI/Data tăng 55%, có nhà máy AI hợp tác NVIDIA, nhưng đối thủ lớn cũng đầu tư tương tự.</td><td><span class="pill p-bad">Yếu</span></td><td class="l">Công nghệ AI thay đổi nhanh, lợi thế đi trước dễ bị san bằng.</td></tr>
     <tr><td><b>3. Toll</b><br>Trạm thu phí</td><td class="l">Có giấy phép, độc quyền hay vị trí "trạm thu phí" mà ai cũng phải đi qua không?</td><td class="l">Không có độc quyền hay giấy phép hạn chế cạnh tranh trong mảng chính. Mảng có tính hạ tầng/giấy phép là FPT Telecom đã thôi hợp nhất từ 2026, FPT chỉ còn ghi nhận phần lãi theo tỷ lệ sở hữu.</td><td><span class="pill p-bad">Yếu</span></td><td class="l">—</td></tr>
     <tr><td><b>4. Switching</b><br>Chi phí chuyển đổi</td><td class="l">Khách có tốn kém, rủi ro lớn khi đổi sang nhà cung cấp khác không?</td><td class="l">FPT vận hành và nâng cấp hệ thống lõi cho khách Nhật, Mỹ theo hợp đồng nhiều năm; đổi nhà cung cấp phải chuyển giao dữ liệu, quy trình, nhân sự am hiểu nghiệp vụ. Khách Nhật vẫn tăng 17,2%; 16 dự án trên 10 triệu USD trong 9T2026.</td><td><span class="pill p-good">Mạnh</span></td><td class="l">AI giúp khách tự làm hoặc chuyển giao dễ hơn; hợp đồng ký mới Q3 chậm lại (~3,7%).</td></tr>
@@ -160,6 +332,34 @@ dl.g dd{margin:0;color:var(--mut)}
   <div class="gloss">
     <div><b>Moat</b> ("hào nước bảo vệ lâu đài"): lợi thế giúp doanh nghiệp giữ lợi nhuận cao nhiều năm, đối thủ khó chiếm. Phil Town chia 5 loại: <b>Brand</b> – thương hiệu khiến khách chịu trả nhiều hơn; <b>Secret</b> – bằng sáng chế, bí quyết; <b>Toll</b> – vị trí độc quyền/giấy phép như trạm thu phí; <b>Switching</b> – khách đổi nhà cung cấp rất tốn kém; <b>Low cost</b> – làm rẻ hơn đối thủ mà vẫn lãi.</div>
     <div><b>Mức độ</b>: Mạnh = lợi thế rõ, có số liệu chứng minh; Khá = có nhưng không chắc bền; Yếu = gần như không có. <b>BVPS</b>: giá trị sổ sách mỗi cổ phiếu. <b>CFO</b>: tiền thực thu từ kinh doanh. <b>9T</b>: 9 tháng đầu năm.</div>
+  </div>
+</section>
+
+<section class="card" id="bigfive">
+  <h2>3b. 5 con số lớn và nợ (Phil Town)</h2>
+  <p class="note">Kiểm tra doanh nghiệp hoạt động có tốt và đều không, theo quy tắc của chuyên gia. Số liệu năm 2021→2025 từ CafeF; EPS, BVPS đã quy về số cổ phiếu hiện hành nên không bị lệch vì cổ tức cổ phiếu.</p>
+  <div class="tw"><table>
+    <tr><th>Mục</th><th>Số liệu</th><th>Mức tốt</th><th>Đánh giá</th></tr>
+    <tr><td><b>1. ROIC · ROE</b></td><td class="l">ROIC 21,1%–26,4%, ROE 25,8%–28,7% (2021→2025); 4 quý gần nhất ROIC 16,8%, ROE 26,1%</td><td>≥ 10% mỗi năm</td><td>ROIC <span class="pill p-good">Tốt</span><br>ROE <span class="pill p-good">Tốt</span></td></tr><tr><td><b>2. Tăng BVPS</b></td><td class="l">19,4%/năm (2021→2025); 3 năm 20,1%; năm gần nhất 22,4%</td><td>≥ 10%/năm</td><td><span class="pill p-good">Tốt</span><br><span class="pill p-good">Ổn định</span></td></tr><tr><td><b>3. Tăng doanh thu</b></td><td class="l">18,4%/năm (2021→2025); 3 năm 16,8%; năm gần nhất 11,6%</td><td>≥ 14%/năm</td><td><span class="pill p-good">Tốt</span><br><span class="pill p-good">Ổn định</span></td></tr><tr><td><b>4. Tăng EPS</b></td><td class="l">21,3%/năm (2021→2025); 3 năm 20,9%; năm gần nhất 19,3%</td><td>≥ 24%/năm</td><td><span class="pill p-warn">Khá</span><br><span class="pill p-good">Ổn định</span></td></tr><tr><td><b>5. Tăng dòng tiền</b></td><td class="l">14,8%/năm (2021→2025); 3 năm 26,1%; năm gần nhất <span class="sg neg">-13,4%</span></td><td>≥ 11%/năm</td><td><span class="pill p-good">Tốt</span><br><span class="pill p-bad">Không ổn định</span></td></tr><tr><td><b>6. Nợ vay</b></td><td class="l">Nợ vay 16.596 tỷ (Q3-2026) = <b>1,61 lần</b> LN mẹ 4 quý; trừ tiền và đầu tư ngắn hạn còn tiền nhiều hơn nợ 12.231 tỷ</td><td>≤ 4 lần LN</td><td><span class="pill p-good">Tốt</span></td></tr>
+  </table></div>
+  
+  <div class="tw"><table>
+    <tr><th>Chi tiết</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026 ước tính*</th></tr>
+    <tr><td class="l">ROIC</td><td>21,1%</td><td>22,5%</td><td>24,8%</td><td>26,4%</td><td>22,6%</td><td><i>14,8%</i></td></tr><tr><td class="l">ROE</td><td>25,8%</td><td>27,2%</td><td>28,1%</td><td>28,7%</td><td>28,3%</td><td><i>25,9%</i></td></tr><tr><td class="l">BVPS (đ, quy về cp hiện hành)</td><td>9.514</td><td>11.161</td><td>13.244</td><td>15.800</td><td>19.347</td><td><i>23.111</i></td></tr><tr class="chg"><td class="l">&nbsp;&nbsp;tăng so với năm trước</td><td>N/A</td><td>17,3%</td><td>18,7%</td><td>19,3%</td><td>22,4%</td><td><i><span class="sg pos">+19,5%</span></i></td></tr><tr><td class="l">Doanh thu (tỷ đ)</td><td>35.657</td><td>44.010</td><td>52.618</td><td>62.849</td><td>70.113</td><td><i>53.364</i></td></tr><tr class="chg"><td class="l">&nbsp;&nbsp;tăng so với năm trước</td><td>N/A</td><td>23,4%</td><td>19,6%</td><td>19,4%</td><td>11,6%</td><td><i><span class="sg neg">-23,9%</span></i></td></tr><tr><td class="l">EPS (đ, quy về cp hiện hành)</td><td>2.300</td><td>2.816</td><td>3.428</td><td>4.166</td><td>4.972</td><td><i>5.500</i></td></tr><tr class="chg"><td class="l">&nbsp;&nbsp;tăng so với năm trước</td><td>N/A</td><td>22,4%</td><td>21,8%</td><td>21,5%</td><td>19,3%</td><td><i><span class="sg pos">+10,6%</span></i></td></tr><tr><td class="l">CFO (tỷ đ)</td><td>5.840</td><td>5.054</td><td>9.517</td><td>11.704</td><td>10.136</td><td><i>1.269</i></td></tr><tr class="chg"><td class="l">&nbsp;&nbsp;tăng so với năm trước</td><td>N/A</td><td><span class="sg neg">-13,5%</span></td><td>88,3%</td><td>23,0%</td><td><span class="sg neg">-13,4%</span></td><td><i><span class="sg neg">-87,5%</span></i></td></tr><tr><td class="l">Nợ vay cuối năm (tỷ đ)</td><td>20.096</td><td>12.382</td><td>14.046</td><td>14.947</td><td>21.073</td><td><i>16.596</i></td></tr><tr><td class="l">&nbsp;&nbsp;nợ vay ÷ LN mẹ (lần)</td><td>4,63</td><td>2,33</td><td>2,17</td><td>1,90</td><td>2,25</td><td><i>1,60</i></td></tr>
+  </table></div>
+  <p class="note">* <b>2026 ước tính</b> = số 3 quý đã công bố (Q1–Q3/2026) chia 3 nhân 4: doanh thu 9T 40.023 tỷ, LN mẹ 9T 7.778 tỷ → LN mẹ 2026 ước 10.371 tỷ. BVPS cuối 2026 = vốn chủ cuối Q3 + LN quý 4 ước tính − cổ tức tạm ứng 1.000 đ/cp (trả 10/12/2026); nợ vay là số cuối Q3/2026. Đây là ước tính, chưa phải số báo cáo — mức Tốt/Khá/Yếu ở bảng trên vẫn chấm theo năm trọn vẹn 2021–2025.</p>
+  <div class="callout"><b>Đọc cột 2026 ước tính:</b>
+  <ul>
+    <li><b>Doanh thu <span class="sg neg">-23,9%</span> và ROIC 14,8%</b> (2025: 22,6%) giảm mạnh chủ yếu vì từ 2026 FPT <b>không còn hợp nhất FPT Telecom</b>: doanh thu và lãi kinh doanh của Telecom không còn cộng vào, FPT chỉ ghi nhận phần lãi theo tỷ lệ sở hữu (nằm dưới dòng lãi kinh doanh). Theo cùng cơ sở so sánh FPT công bố, doanh thu 9T2026 vẫn tăng <span class="sg pos">+12,4%</span>. Hai con số này không so trực tiếp với các năm trước được.</li>
+    <li><b>EPS <span class="sg pos">+10,6%</span></b> và <b>BVPS <span class="sg pos">+19,5%</span></b> so được với các năm trước: EPS tăng chậm lại (2025: <span class="sg pos">+19,3%</span>), dưới mức tốt 24% nhưng vẫn trên mức tối thiểu 10%. ROE 25,9%, vẫn tốt.</li>
+    <li><b>Dòng tiền (CFO) <span class="sg neg">-87,5%</span></b>: 9 tháng chỉ thu 952 tỷ. Quý 4 thường thu tiền nhiều nhất năm nên cách nhân 4/3 có thể thấp hơn thực tế; nhưng dù quý 4 thu bằng quý 4/2025 (~4.100 tỷ), cả năm vẫn giảm hơn 50%. Đây là điểm yếu lớn nhất.</li>
+    <li><b>Nợ vay</b> 1,60 lần LN 2026 ước tính — vẫn tốt.</li>
+  </ul></div>
+  <div class="gloss">
+    <div><b>ROIC</b> (Return on Invested Capital): lãi trên mỗi 100 đồng vốn đầu tư vào kinh doanh, cả vốn chủ lẫn vốn vay; tính bằng lãi kinh doanh cốt lõi sau thuế ÷ vốn sử dụng. <b>ROE</b>: lãi trên mỗi 100 đồng vốn chủ. Cả hai ≥ 10% mỗi năm là tốt.</div>
+    <div><b>BVPS</b>: giá trị sổ sách mỗi cổ phiếu — phần tài sản thuộc về mỗi cổ phiếu. <b>EPS</b>: lợi nhuận mỗi cổ phiếu. <b>CFO</b>: tiền thực thu từ hoạt động kinh doanh.</div>
+    <div><b>Tăng trưởng kép</b>: mức tăng đều mỗi năm. <b>Ổn định</b>: tăng trưởng kép 4 năm, 3 năm và năm gần nhất đều ≥ 10%; <b>Dao động</b>: có kỳ dưới 10% nhưng không giảm; <b>Không ổn định</b>: có kỳ giảm. <b>Tốt / Khá / Yếu</b>: đạt mức tốt / từ 10% tới dưới mức tốt / dưới 10%.</div>
+    <div><b>Nợ vay</b>: vay ngân hàng và nợ thuê tài chính, ngắn và dài hạn (không tính tiền khách trả trước, phải trả người bán). <b>Nợ vay ÷ LN</b>: số năm lợi nhuận cần để trả hết nợ; trên 4 lần là nợ nhiều.</div>
   </div>
 </section>
 
@@ -221,7 +421,7 @@ dl.g dd{margin:0;color:var(--mut)}
   <h2>7. Quy tắc bán của chuyên gia</h2>
   <div class="tw"><table>
     <tr><th>Quy tắc</th><th>Trạng thái</th><th>Bằng chứng</th></tr>
-    <tr><td>Tăng trưởng đình trệ 2–3 quý</td><td><span class="pill p-good">Chưa vi phạm</span></td><td class="l">LN mẹ YoY: Q4/25 +19,9% · Q1/26 +14,4% · Q2/26 +13,7% · Q3/26 +11,8% — tăng nhưng chậm dần</td></tr>
+    <tr><td>Tăng trưởng đình trệ 2–3 quý</td><td><span class="pill p-good">Chưa vi phạm</span></td><td class="l">LN mẹ YoY: Q4/25 <span class="sg pos">+19,9%</span> · Q1/26 <span class="sg pos">+14,4%</span> · Q2/26 <span class="sg pos">+13,7%</span> · Q3/26 <span class="sg pos">+11,8%</span> — tăng nhưng chậm dần</td></tr>
     <tr><td>Người nội bộ/liên quan bán nhiều</td><td><span class="pill p-good">Không có tín hiệu</span></td><td class="l">Không có báo cáo giao dịch nội bộ 30/07–28/10/2026 trên trang công bố thông tin FPT</td></tr>
   </table></div>
   <div class="gloss">

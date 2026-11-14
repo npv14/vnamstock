@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,6 +72,177 @@ table.fy td:first-child{white-space:normal;min-width:170px}
 .part span{font-size:21px;font-weight:700}
 .part + .sub{margin-bottom:4px}
 nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4px}
+
+/* ==== THEME: BANG GIA (den - cam - xanh/do ruc) v1 11/11/2026 — giao dien chuan, chi co nen toi ==== */
+:root{
+  --bg:#f4f1ea;--card:#fffdf8;--ink:#14213d;--mut:#5f6675;--line:#e3dccd;
+  --acc:#14213d;--gold:#a8834a;--gold2:#c9a96e;--good:#0b7a3b;--bad:#c1121f;--warn:#9a6a12;
+  --soft:#f3ede1;--bar1:#b9b2a3;--bar2:#a8834a;--hero1:#0f1a30;--hero2:#1d2f55;--heroink:#f5efe2
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b1120;--card:#121a2c;--ink:#ece6d8;--mut:#9aa1b0;--line:#26304a;
+  --acc:#e2c690;--gold:#d4b27a;--gold2:#e2c690;--good:#2fd07a;--bad:#ff5a5f;--warn:#e0b05a;
+  --soft:#18223a;--bar1:#4a5470;--bar2:#d4b27a;--hero1:#070c18;--hero2:#16223f;--heroink:#f5efe2}}
+:root[data-theme="dark"]{
+  --bg:#0b1120;--card:#121a2c;--ink:#ece6d8;--mut:#9aa1b0;--line:#26304a;
+  --acc:#e2c690;--gold:#d4b27a;--gold2:#e2c690;--good:#2fd07a;--bad:#ff5a5f;--warn:#e0b05a;
+  --soft:#18223a;--bar1:#4a5470;--bar2:#d4b27a;--hero1:#070c18;--hero2:#16223f;--heroink:#f5efe2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.6 Roboto,"Segoe UI",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px 64px}
+
+/* Bìa báo cáo */
+header{margin:0 -16px;padding:40px 28px 30px;color:var(--heroink);
+  background:radial-gradient(120% 140% at 100% 0%,var(--hero2) 0%,var(--hero1) 60%);
+  border-bottom:3px solid var(--gold2);position:relative}
+header::after{content:"";position:absolute;left:28px;right:28px;bottom:14px;height:1px;
+  background:linear-gradient(90deg,var(--gold2),transparent)}
+header .eyebrow{color:var(--gold2);font-weight:600;letter-spacing:.22em;font-size:11px;text-transform:uppercase}
+header h1{color:#fff}
+header .sub{color:#c8c2b4}
+h1,h2,.part span,.kpi .v,.pricebox .v{font-family:Roboto,"Segoe UI",Arial,sans-serif}
+h1{font-size:34px;font-weight:600;margin:10px 0 6px;letter-spacing:.005em;line-height:1.2}
+h2{font-size:20px;font-weight:600;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.sub{color:var(--mut);font-size:14px}
+
+/* Mục lục */
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 8px}
+nav a{color:var(--ink);text-decoration:none;font-size:12.5px;border:1px solid var(--line);background:var(--card);
+  padding:6px 12px;border-radius:2px;transition:border-color .15s,color .15s}
+nav a:hover{border-color:var(--gold);color:var(--gold)}
+nav .pl{width:100%;color:var(--gold);font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-top:6px}
+
+/* Thẻ nội dung */
+.card{background:var(--card);border:1px solid var(--line);border-top:2px solid var(--gold);border-radius:4px;
+  padding:22px 22px 20px;margin:18px 0;box-shadow:0 1px 2px rgba(20,33,61,.04),0 8px 24px -16px rgba(20,33,61,.18)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px;position:relative}
+.kpi::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;background:var(--gold)}
+.kpi .l{color:var(--mut);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.kpi .v{font-size:26px;font-weight:600;margin-top:4px;font-variant-numeric:lining-nums tabular-nums}
+.kpi .n{font-size:12px;color:var(--mut)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.verdict div{border-left:3px solid var(--line);padding:6px 14px;background:var(--soft)}
+.verdict .b{border-color:var(--bad)}.verdict .w{border-color:var(--warn)}.verdict .g{border-color:var(--good)}
+.verdict strong{display:block;font-family:Roboto,"Segoe UI",Arial,sans-serif;font-size:16px}
+
+/* Bảng */
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:lining-nums tabular-nums}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--gold);font-weight:600;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  background:transparent;border-bottom:1.5px solid var(--ink)}
+tbody tr:hover td{background:color-mix(in srgb,var(--gold) 6%,transparent)}
+td.l{text-align:left;white-space:normal}
+tr.grp td{background:var(--soft);color:var(--ink);font-weight:600;text-align:left;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+table.fy td:first-child{white-space:normal;min-width:170px}
+tr.chg td:first-child{border-left:3px solid var(--gold)}
+tr.fix td{color:var(--mut)}
+tr.fix td[colspan]{text-align:center;white-space:normal}
+tr.fix td:first-child{border-left:3px solid var(--bar1)}
+
+.pill{display:inline-block;padding:2px 10px;border-radius:2px;font-size:11px;font-weight:600;letter-spacing:.04em}
+.p-bad{background:var(--bad);color:#fff}
+.p-good{background:var(--good);color:#fff}
+.p-warn{background:color-mix(in srgb,var(--warn) 14%,transparent);color:var(--warn)}
+.neg{color:var(--bad);font-weight:600}.pos{color:var(--good);font-weight:600}
+.note{color:var(--mut);font-size:13px;margin-top:10px}
+.callout{background:var(--soft);border-left:3px solid var(--gold);border-radius:0 4px 4px 0;padding:12px 16px;margin-top:14px;font-size:14px}
+svg text{fill:var(--mut);font-size:11px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mut);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:1px;margin-right:6px;vertical-align:-1px}
+ul{margin:6px 0;padding-left:20px}
+li{margin:4px 0}
+li::marker{color:var(--gold)}
+a{color:var(--gold)}
+footer{color:var(--mut);font-size:12px;margin-top:36px;padding-top:14px;border-top:1px solid var(--line)}
+
+/* Chú thích thuật ngữ */
+.gloss{margin-top:14px;padding:12px 14px;border-top:1px dashed var(--gold2);font-size:12.5px;color:var(--mut);background:color-mix(in srgb,var(--soft) 60%,transparent)}
+.gloss b{color:var(--ink)}
+.gloss div{margin:3px 0}
+dl.g{display:grid;grid-template-columns:minmax(110px,180px) 1fr;gap:6px 14px;margin:0;font-size:14px}
+dl.g dt{font-weight:600}
+dl.g dd{margin:0;color:var(--mut)}
+
+/* Khối giá mua — điểm nhấn chính */
+.price-top{border:1px solid var(--gold);border-top:3px solid var(--gold);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 7%,var(--card)),var(--card) 140px)}
+.price-top td b{font-size:15px}
+.pricebox{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.pricebox div{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:12px 14px}
+.pricebox .l{display:block;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+.pricebox .v{display:block;font-size:22px;font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+.pricebox .l + .v + .l{margin-top:2px}
+
+/* Tiêu đề phần lớn */
+.part{display:flex;align-items:baseline;gap:14px;margin:44px 0 6px;padding-bottom:8px;border-bottom:1px solid var(--gold)}
+.part b{color:var(--gold);font-size:11px;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}
+.part span{font-size:24px;font-weight:600}
+.part + .sub{margin-bottom:4px}
+
+@media (max-width:560px){
+  header{padding:30px 20px 26px}header::after{left:20px;right:20px}
+  h1{font-size:27px}.card{padding:18px 16px}
+  dl.g{grid-template-columns:1fr}dl.g dd{margin-bottom:8px}}
+@media print{body{background:#fff}.card{box-shadow:none;break-inside:avoid}header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* === Mẫu D: kiểu bảng giá chứng khoán — nền đen, cam, xanh/đỏ/vàng rực. Chỉ có chế độ tối. === */
+:root,:root[data-theme="dark"],:root[data-theme="light"]{--bg:#000;--card:#101114;--ink:#f1f1f1;--mut:#a4a7ad;--line:#2a2c31;--acc:#f7941d;--gold:#f7941d;--gold2:#f7941d;--good:#00e33d;--bad:#ff2d2d;--warn:#ffd60a;--soft:#1b1d21;--bar1:#5a5d64;--bar2:#f7941d;--hero1:#0b0b0c;--hero2:#1a1b1e;--heroink:#fff;--ceil:#ff40ff;--floor:#19d3ff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--card:#101114;--ink:#f1f1f1;--mut:#a4a7ad;--line:#2a2c31;--acc:#f7941d;--gold:#f7941d;--gold2:#f7941d;--good:#00e33d;--bad:#ff2d2d;--warn:#ffd60a;--soft:#1b1d21;--bar1:#5a5d64;--bar2:#f7941d;--hero1:#0b0b0c;--hero2:#1a1b1e;--heroink:#fff;--ceil:#ff40ff;--floor:#19d3ff}}
+body{font:14px/1.5 Roboto,"Segoe UI",Arial,system-ui,sans-serif}
+h1,h2,.part span,.kpi .v,.pricebox .v,.verdict strong{font-family:Roboto,"Segoe UI",Arial,sans-serif;font-weight:700;letter-spacing:0}
+header{background:var(--hero1);border-bottom:2px solid var(--acc);padding:22px 20px 18px}
+header::after{display:none}
+header .eyebrow{display:inline-block;background:var(--acc);color:#000;padding:3px 10px;border-radius:999px;letter-spacing:.06em;font-weight:700}
+h1{font-size:26px;margin:10px 0 4px}
+h2{font-size:16px;color:var(--acc);border-bottom:1px solid var(--line);padding-bottom:8px;text-transform:uppercase;letter-spacing:.03em}
+nav a{background:var(--soft);border:0;border-radius:3px;color:var(--ink);font-weight:500}
+nav a:hover{background:var(--acc);color:#000}
+nav .pl{color:var(--acc);letter-spacing:.06em}
+.card{border-radius:2px;border:1px solid var(--line);border-top:2px solid var(--acc);box-shadow:none;padding:16px}
+.kpi{border-radius:2px;background:var(--card)}
+.kpi::before{background:var(--acc)}
+.kpi .v,.pricebox .v{font-size:24px;color:var(--warn)}
+.kpi .v.neg{color:var(--bad)}.kpi .v.pos{color:var(--good)}
+table{font-size:13.5px}
+th,td{padding:7px 10px;border-bottom:0;border-right:1px solid #1d1f23}
+th{background:#24262b;color:#fff;font-size:12px;font-weight:700;letter-spacing:0;text-transform:none;border-bottom:1px solid var(--line)}
+tbody tr:nth-child(odd) td{background:#0a0a0b}
+tbody tr:nth-child(even) td{background:#17181b}
+tbody tr:hover td{background:#2a2c31}
+td:first-child{font-weight:700}
+td b{color:var(--warn)}
+tr.grp td{background:#24262b!important;color:var(--acc);letter-spacing:.04em}
+tr.chg td:first-child{border-left:3px solid var(--acc)}
+.neg{color:var(--bad);font-weight:700}.pos{color:var(--good);font-weight:700}
+.pill{border-radius:999px}
+.p-good{background:transparent;color:var(--good);border:1px solid var(--good)}
+.p-bad{background:transparent;color:var(--bad);border:1px solid var(--bad)}
+.p-warn{background:transparent;color:var(--warn);border:1px solid var(--warn)}
+.callout{border-left:3px solid var(--acc);border-radius:0}
+.verdict div{background:var(--soft)}
+.price-top{background:var(--card);border:1px solid var(--acc);border-top:3px solid var(--acc)}
+.pricebox div{background:var(--soft);border:0;border-radius:2px}
+.part{border-bottom:2px solid var(--acc);margin-top:32px}
+.part b{background:var(--acc);color:#000;padding:2px 8px;border-radius:999px;letter-spacing:.04em}
+.part span{font-size:20px}
+.gloss{background:transparent;border-top:1px dashed var(--line)}
+a{color:var(--acc)}
+
+.p-acc{background:transparent;color:var(--acc);border:1px solid var(--acc);margin-left:4px}
+.bars{border-bottom:1px solid var(--line)}
+.bars i{border-radius:0}
+@media print{body{background:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+/* Bảng không tràn ngang (v2, 11/11/2026): chữ trong ô tự xuống dòng, trang rộng hơn trên máy tính — không phải kéo ngang để đọc */
+.wrap{max-width:1200px}
+th,td{white-space:normal;overflow-wrap:break-word;word-break:normal;vertical-align:top}
+th{vertical-align:bottom}
+table.fy td:first-child{min-width:120px}
+.sg,.pill{white-space:nowrap}
+/* ==== END THEME ==== */
 </style>
 </head>
 <body>
@@ -89,9 +260,9 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
   <h2>Giá định giá KDH — 3 phương pháp</h2>
   <div class="tw"><table>
     <tr><th>Phương pháp</th><th>Bi quan</th><th>Cơ sở</th><th>Lạc quan</th><th>Cơ sở so với giá 14.250</th></tr>
-    <tr><td><b>1. NCAV</b> (tài sản ngắn hạn ròng)</td><td>4.238</td><td><b>8.029</b></td><td>11.820</td><td class="neg">−43,7%</td></tr>
-    <tr><td><b>2. DCF 10 năm</b> (chiết khấu dòng tiền)</td><td>2.689</td><td><b>6.377</b></td><td>11.555</td><td class="neg">−55,2%</td></tr>
-    <tr><td><b>3. Owner Earnings</b></td><td>3.025</td><td><b>6.377</b></td><td>10.876</td><td class="neg">−55,2%</td></tr>
+    <tr><td><b>1. NCAV</b> (tài sản ngắn hạn ròng)</td><td>4.238</td><td><b>8.029</b></td><td>11.820</td><td class="neg"><span class="sg neg">−43,7%</span></td></tr>
+    <tr><td><b>2. DCF 10 năm</b> (chiết khấu dòng tiền)</td><td>2.689</td><td><b>6.377</b></td><td>11.555</td><td class="neg"><span class="sg neg">−55,2%</span></td></tr>
+    <tr><td><b>3. Owner Earnings</b></td><td>3.025</td><td><b>6.377</b></td><td>10.876</td><td class="neg"><span class="sg neg">−55,2%</span></td></tr>
   </table></div>
   <div class="pricebox">
     <div><span class="l">Giá thị trường 28/10/2026</span><span class="v">14.250 đ</span></div>
@@ -134,7 +305,7 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
   <div class="kpi"><div class="l">Giá 28/10/2026</div><div class="v">14.250</div><div class="n">đ/cp</div></div>
   <div class="kpi"><div class="l">BVPS cổ đông mẹ</div><div class="v">15.046</div><div class="n">P/B 0,95x</div></div>
   <div class="kpi"><div class="l">NCAV sổ sách</div><div class="v">11.820</div><div class="n">2/3 NCAV: 7.880</div></div>
-  <div class="kpi"><div class="l">DCF kịch bản cơ sở</div><div class="v neg">6.377</div><div class="n">có điều kiện · −55% so với giá</div></div>
+  <div class="kpi"><div class="l">DCF kịch bản cơ sở</div><div class="v neg">6.377</div><div class="n">có điều kiện · <span class="sg neg">−55%</span> so với giá</div></div>
   <div class="kpi"><div class="l">P/E TTM bỏ one-off</div><div class="v">30,5x</div><div class="n">P/E báo cáo 10,1x</div></div>
   <div class="kpi"><div class="l">Nợ vay ròng / VCSH mẹ</div><div class="v neg">73,5%</div><div class="n">nợ vay 16.659 tỷ</div></div>
 </section>
@@ -148,7 +319,7 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
   <h2>So sánh chỉ số 5 năm (2021–2025)</h2>
   <div class="tw"><table class="fy">
     <tr><th>Chỉ số</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>TTM / hiện tại</th><th>CAGR · TB 5 năm</th></tr>
-    <tr class="grp"><td colspan="8">Tăng trưởng</td></tr><tr><td>Doanh thu thuần (tỷ đ)</td><td>3.738</td><td>2.912</td><td>2.088</td><td>3.279</td><td>4.651</td><td><b>3.357</b></td><td>CAGR 5,6%</td></tr><tr><td>Doanh thu so năm trước</td><td>-17,5%</td><td>-22,1%</td><td>-28,3%</td><td>57,0%</td><td>41,9%</td><td><b>—</b></td><td>TB 6,2%</td></tr><tr><td>LN mẹ (tỷ đ)</td><td>1.202</td><td>1.103</td><td>716</td><td>810</td><td>1.045</td><td><b>1.763</b></td><td>CAGR -3,4%</td></tr><tr><td>LN mẹ so năm trước</td><td>4,3%</td><td>-8,3%</td><td>-35,1%</td><td>13,2%</td><td>29,0%</td><td><b>—</b></td><td>TB 0,6%</td></tr><tr class="grp"><td colspan="8">Hiệu quả</td></tr><tr><td>Biên lợi nhuận gộp</td><td>48,0%</td><td>50,1%</td><td>76,0%</td><td>53,1%</td><td>59,2%</td><td><b>69,4%</b></td><td>TB 57,3%</td></tr><tr><td>Biên LN ròng (LN mẹ/doanh thu)</td><td>32,2%</td><td>37,9%</td><td>34,3%</td><td>24,7%</td><td>22,5%</td><td><b>52,5%</b></td><td>TB 30,3%</td></tr><tr><td>ROE</td><td>13,1%</td><td>10,1%</td><td>5,7%</td><td>5,3%</td><td>5,8%</td><td><b>9,7%</b></td><td>TB 8,0%</td></tr><tr><td>ROA</td><td>8,5%</td><td>6,1%</td><td>3,0%</td><td>2,8%</td><td>3,2%</td><td><b>5,0%</b></td><td>TB 4,7%</td></tr><tr class="grp"><td colspan="8">Mỗi cổ phiếu (quy về cp hiện hành)</td></tr><tr><td>EPS (đ)</td><td>966</td><td>886</td><td>575</td><td>651</td><td>840</td><td><b>1.416</b></td><td>CAGR -3,4%</td></tr><tr><td>BVPS (đ)</td><td>8.179</td><td>9.281</td><td>10.801</td><td>13.968</td><td>14.874</td><td><b>15.046</b></td><td>CAGR 16,1%</td></tr><tr class="grp"><td colspan="8">Định giá tại giá cuối năm</td></tr><tr><td>Giá đóng cửa (đ, chưa điều chỉnh)</td><td>52.100</td><td>26.500</td><td>31.400</td><td>36.100</td><td>31.500</td><td><b>14.250</b></td><td>—</td></tr><tr><td>P/E (lần)</td><td>27,9</td><td>17,2</td><td>35,1</td><td>45,0</td><td>33,8</td><td><b>10,1</b></td><td>TB 31,8</td></tr><tr><td>P/B (lần)</td><td>3,29</td><td>1,64</td><td>1,87</td><td>2,10</td><td>1,91</td><td><b>0,95</b></td><td>TB 2,16</td></tr><tr><td>Tỷ suất cổ tức tiền đã trả</td><td>0,0%</td><td>0,0%</td><td>0,0%</td><td>0,0%</td><td>0,0%</td><td><b>—</b></td><td>TB 0,0%</td></tr><tr class="grp"><td colspan="8">Sức khỏe tài chính</td></tr><tr><td>Tổng nợ phải trả cuối kỳ (tỷ đ)</td><td>4.151</td><td>9.745</td><td>10.958</td><td>11.304</td><td>12.910</td><td><b>19.497</b></td><td>CAGR 32,8%</td></tr><tr><td>Nợ phải trả / Doanh thu</td><td>111,1%</td><td>334,6%</td><td>524,9%</td><td>344,8%</td><td>277,6%</td><td><b>580,9%</b></td><td>TB 318,6%</td></tr><tr><td>Nợ phải trả / VCSH (lần)</td><td>0,41</td><td>0,83</td><td>0,71</td><td>0,58</td><td>0,61</td><td><b>0,98</b></td><td>TB 0,63</td></tr><tr><td>Dòng tiền kinh doanh CFO (tỷ đ)</td><td>-2.010</td><td>-1.047</td><td>-1.543</td><td>N/A</td><td>-2.024</td><td><b>—</b></td><td>—</td></tr><tr><td>CFO / LN mẹ (lần)</td><td>-1,7</td><td>-0,9</td><td>-2,2</td><td>N/A</td><td>-1,9</td><td><b>—</b></td><td>TB -1,7</td></tr><tr><td>FCF = CFO − đầu tư TSCĐ (tỷ đ)</td><td>-2.068</td><td>-1.108</td><td>-1.737</td><td>N/A</td><td>-2.708</td><td><b>—</b></td><td>—</td></tr>
+    <tr class="grp"><td colspan="8">Tăng trưởng</td></tr><tr><td>Doanh thu thuần (tỷ đ)</td><td>3.738</td><td>2.912</td><td>2.088</td><td>3.279</td><td>4.651</td><td><b>3.357</b></td><td>CAGR 5,6%</td></tr><tr><td>Doanh thu so năm trước</td><td><span class="sg neg">-17,5%</span></td><td><span class="sg neg">-22,1%</span></td><td><span class="sg neg">-28,3%</span></td><td>57,0%</td><td>41,9%</td><td><b>—</b></td><td>TB 6,2%</td></tr><tr><td>LN mẹ (tỷ đ)</td><td>1.202</td><td>1.103</td><td>716</td><td>810</td><td>1.045</td><td><b>1.763</b></td><td>CAGR <span class="sg neg">-3,4%</span></td></tr><tr><td>LN mẹ so năm trước</td><td>4,3%</td><td><span class="sg neg">-8,3%</span></td><td><span class="sg neg">-35,1%</span></td><td>13,2%</td><td>29,0%</td><td><b>—</b></td><td>TB 0,6%</td></tr><tr class="grp"><td colspan="8">Hiệu quả</td></tr><tr><td>Biên lợi nhuận gộp</td><td>48,0%</td><td>50,1%</td><td>76,0%</td><td>53,1%</td><td>59,2%</td><td><b>69,4%</b></td><td>TB 57,3%</td></tr><tr><td>Biên LN ròng (LN mẹ/doanh thu)</td><td>32,2%</td><td>37,9%</td><td>34,3%</td><td>24,7%</td><td>22,5%</td><td><b>52,5%</b></td><td>TB 30,3%</td></tr><tr><td>ROE</td><td>13,1%</td><td>10,1%</td><td>5,7%</td><td>5,3%</td><td>5,8%</td><td><b>9,7%</b></td><td>TB 8,0%</td></tr><tr><td>ROA</td><td>8,5%</td><td>6,1%</td><td>3,0%</td><td>2,8%</td><td>3,2%</td><td><b>5,0%</b></td><td>TB 4,7%</td></tr><tr class="grp"><td colspan="8">Mỗi cổ phiếu (quy về cp hiện hành)</td></tr><tr><td>EPS (đ)</td><td>966</td><td>886</td><td>575</td><td>651</td><td>840</td><td><b>1.416</b></td><td>CAGR <span class="sg neg">-3,4%</span></td></tr><tr><td>BVPS (đ)</td><td>8.179</td><td>9.281</td><td>10.801</td><td>13.968</td><td>14.874</td><td><b>15.046</b></td><td>CAGR 16,1%</td></tr><tr class="grp"><td colspan="8">Định giá tại giá cuối năm</td></tr><tr><td>Giá đóng cửa (đ, chưa điều chỉnh)</td><td>52.100</td><td>26.500</td><td>31.400</td><td>36.100</td><td>31.500</td><td><b>14.250</b></td><td>—</td></tr><tr><td>P/E (lần)</td><td>27,9</td><td>17,2</td><td>35,1</td><td>45,0</td><td>33,8</td><td><b>10,1</b></td><td>TB 31,8</td></tr><tr><td>P/B (lần)</td><td>3,29</td><td>1,64</td><td>1,87</td><td>2,10</td><td>1,91</td><td><b>0,95</b></td><td>TB 2,16</td></tr><tr><td>Tỷ suất cổ tức tiền đã trả</td><td>0,0%</td><td>0,0%</td><td>0,0%</td><td>0,0%</td><td>0,0%</td><td><b>—</b></td><td>TB 0,0%</td></tr><tr class="grp"><td colspan="8">Sức khỏe tài chính</td></tr><tr><td>Tổng nợ phải trả cuối kỳ (tỷ đ)</td><td>4.151</td><td>9.745</td><td>10.958</td><td>11.304</td><td>12.910</td><td><b>19.497</b></td><td>CAGR 32,8%</td></tr><tr><td>Nợ phải trả / Doanh thu</td><td>111,1%</td><td>334,6%</td><td>524,9%</td><td>344,8%</td><td>277,6%</td><td><b>580,9%</b></td><td>TB 318,6%</td></tr><tr><td>Nợ phải trả / VCSH (lần)</td><td>0,41</td><td>0,83</td><td>0,71</td><td>0,58</td><td>0,61</td><td><b>0,98</b></td><td>TB 0,63</td></tr><tr><td>Dòng tiền kinh doanh CFO (tỷ đ)</td><td>-2.010</td><td>-1.047</td><td>-1.543</td><td>N/A</td><td>-2.024</td><td><b>—</b></td><td>—</td></tr><tr><td>CFO / LN mẹ (lần)</td><td>-1,7</td><td>-0,9</td><td>-2,2</td><td>N/A</td><td>-1,9</td><td><b>—</b></td><td>TB -1,7</td></tr><tr><td>FCF = CFO − đầu tư TSCĐ (tỷ đ)</td><td>-2.068</td><td>-1.108</td><td>-1.737</td><td>N/A</td><td>-2.708</td><td><b>—</b></td><td>—</td></tr>
   </table></div>
   <p class="note">Năm = báo cáo hợp nhất cả năm (CafeF). Cột TTM: LN mẹ, EPS, ROE, P/E theo 4 quý Q3-2025→Q2-2026; giá 14.250 đ (đóng cửa 28/10/2026). P/E, P/B mỗi năm = vốn hóa cuối năm ÷ LN mẹ / VCSH mẹ, nên không bị lệch do cổ phiếu thưởng.</p>
   <div class="callout"><b>Đọc nhanh 5 năm:</b>
@@ -171,7 +342,7 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
 <section class="card" id="bang">
   <h2>12 chỉ số cơ bản theo 5 mức giá</h2>
   <div class="tw"><table>
-    <tr><th>Chỉ số</th><th>−40%</th><th>−20%</th><th>Hiện tại</th><th>+20%</th><th>+40%</th></tr>
+    <tr><th>Chỉ số</th><th><span class="sg neg">−40%</span></th><th><span class="sg neg">−20%</span></th><th>Hiện tại</th><th><span class="sg pos">+20%</span></th><th><span class="sg pos">+40%</span></th></tr>
     <tr class="chg"><td><b>Giá</b> (đ)</td><td>8.550</td><td>11.400</td><td><b>14.250</b></td><td>17.100</td><td>19.950</td></tr>
     <tr class="chg"><td><b>Vốn hóa</b> (tỷ đ)</td><td>10.647</td><td>14.196</td><td><b>17.745</b></td><td>21.295</td><td>24.844</td></tr>
     <tr class="chg"><td><b>P/E</b> (lần)</td><td>6,04</td><td>8,05</td><td><b>10,07</b></td><td>12,08</td><td>14,09</td></tr>
@@ -198,11 +369,11 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
 <section class="card" id="the">
   <h2>Tóm tắt từng kịch bản</h2>
   <div class="pricebox">
-    <div><span class="l">−40% · 8.550 đ</span><span class="v">P/E 6,0 · P/B 0,57</span><span class="l">P/E cốt lõi 18,3 · vốn hóa 10.647 tỷ</span></div>
-    <div><span class="l">−20% · 11.400 đ</span><span class="v">P/E 8,1 · P/B 0,76</span><span class="l">P/E cốt lõi 24,4 · vốn hóa 14.196 tỷ</span></div>
+    <div><span class="l"><span class="sg neg">−40%</span> · 8.550 đ</span><span class="v">P/E 6,0 · P/B 0,57</span><span class="l">P/E cốt lõi 18,3 · vốn hóa 10.647 tỷ</span></div>
+    <div><span class="l"><span class="sg neg">−20%</span> · 11.400 đ</span><span class="v">P/E 8,1 · P/B 0,76</span><span class="l">P/E cốt lõi 24,4 · vốn hóa 14.196 tỷ</span></div>
     <div><span class="l">Hiện tại · 14.250 đ</span><span class="v">P/E 10,1 · P/B 0,95</span><span class="l">P/E cốt lõi 30,5 · vốn hóa 17.745 tỷ</span></div>
-    <div><span class="l">+20% · 17.100 đ</span><span class="v">P/E 12,1 · P/B 1,14</span><span class="l">P/E cốt lõi 36,6 · vốn hóa 21.295 tỷ</span></div>
-    <div><span class="l">+40% · 19.950 đ</span><span class="v">P/E 14,1 · P/B 1,33</span><span class="l">P/E cốt lõi 42,7 · vốn hóa 24.844 tỷ</span></div>
+    <div><span class="l"><span class="sg pos">+20%</span> · 17.100 đ</span><span class="v">P/E 12,1 · P/B 1,14</span><span class="l">P/E cốt lõi 36,6 · vốn hóa 21.295 tỷ</span></div>
+    <div><span class="l"><span class="sg pos">+40%</span> · 19.950 đ</span><span class="v">P/E 14,1 · P/B 1,33</span><span class="l">P/E cốt lõi 42,7 · vốn hóa 24.844 tỷ</span></div>
   </div>
   <div class="gloss"><div>Mỗi thẻ là một mức giá giả định; các chỉ số khác (EPS, ROE…) không đổi.</div></div>
 </section>
@@ -232,7 +403,7 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
   <ul>
     <li><strong>Rẻ theo sổ sách, không rẻ theo lợi nhuận:</strong> P/B 0,95 lần là thấp nhất 5 năm (trung bình 2,2 lần). P/E 10,1 lần trông rẻ, nhưng bỏ lãi bất thường thì P/E cốt lõi khoảng 30 lần.</li>
     <li><strong>Với công ty bất động sản, P/B dưới 1 chỉ hấp dẫn khi</strong> quỹ đất (tồn kho 29.488 tỷ, ghi theo giá vốn) bán được với giá cao hơn sổ sách và nợ được kiểm soát. Báo cáo này không định giá lại quỹ đất (RNAV).</li>
-    <li><strong>Ở mức −20% (11.400 đ):</strong> P/B 0,76 lần. <strong>Ở mức +40% (19.950 đ):</strong> P/B 1,33 lần — vẫn dưới trung bình 5 năm, nhưng P/E cốt lõi lên khoảng 43 lần.</li>
+    <li><strong>Ở mức <span class="sg neg">−20%</span> (11.400 đ):</strong> P/B 0,76 lần. <strong>Ở mức <span class="sg pos">+40%</span> (19.950 đ):</strong> P/B 1,33 lần — vẫn dưới trung bình 5 năm, nhưng P/E cốt lõi lên khoảng 43 lần.</li>
     <li><strong>Rủi ro chính:</strong> nợ tăng nhanh hơn doanh thu nhiều lần (Nợ/Doanh thu 581%), dòng tiền kinh doanh âm liên tục, lợi nhuận cốt lõi yếu. LN hoạt động cốt lõi đã giảm 2 quý liên tiếp (xem <a href="#quy">quy tắc bán ①</a>) — cần xem Q3/2026.</li>
     <li><strong>Nối sang định giá:</strong> bội số chỉ cho biết giá so với lợi nhuận/sổ sách; giá trị ước tính theo dòng tiền và tài sản nằm ở <a href="#giadinhgia">Phần 1</a> và chi tiết ở <a href="#pe">Phần 3</a>.</li>
   </ul>
@@ -249,7 +420,7 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
     <tr><td>TTM báo cáo (Q3/25–Q2/26)</td><td>1.416</td><td>10,1x</td><td>—</td><td>không có ý nghĩa</td><td class="l">Gồm khoản một lần</td></tr>
     <tr><td>TTM bỏ 2 khoản một lần (xấp xỉ)</td><td>467</td><td>30,5x</td><td>âm</td><td>không có ý nghĩa</td><td class="l">Trừ trước thuế, chưa phân bổ thuế/NCI</td></tr>
     <tr><td>Chuẩn hóa LN mẹ BQ 2021–25 (975 tỷ)</td><td>783</td><td>18,2x</td><td>CAGR 2021→25 âm</td><td>không có ý nghĩa</td><td class="l">LN mẹ 2021: 1.202,5 → 2025: 1.045,5 tỷ</td></tr>
-    <tr><td>Forward theo KH 2026 (1.500 tỷ)</td><td>1.205</td><td>11,8x</td><td>+43,5%</td><td>0,27</td><td class="l"><span class="pill p-warn">Không dùng</span> bị làm đẹp bởi lãi thoái vốn</td></tr>
+    <tr><td>Forward theo KH 2026 (1.500 tỷ)</td><td>1.205</td><td>11,8x</td><td><span class="sg pos">+43,5%</span></td><td>0,27</td><td class="l"><span class="pill p-warn">Không dùng</span> bị làm đẹp bởi lãi thoái vốn</td></tr>
   </table></div>
   <p class="note">EPS tính trên 1.245.297.704 cp hiện tại. PEG chỉ là tham khảo tương quan giá/tăng trưởng, không phải ngưỡng mua bán.</p>
   <div class="gloss">
@@ -264,9 +435,9 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
   <div class="tw"><table>
     <tr><th>Thước đo</th><th>Tỷ đồng</th><th>đ/cp</th><th>2/3 NCAV</th><th>So với giá</th></tr>
     <tr><td>NWC (TSNH − nợ ngắn hạn)</td><td>32.059</td><td>25.744</td><td>—</td><td class="l">Thanh khoản, không phải giá trị</td></tr>
-    <tr><td>NCAV sổ sách</td><td>14.719</td><td>11.820</td><td>7.880</td><td class="neg">−17%</td></tr>
-    <tr><td>NCAV, giảm 15% tồn kho / 10% phải thu</td><td>—</td><td>8.029</td><td>5.353</td><td class="neg">−44%</td></tr>
-    <tr><td>NCAV, giảm 30% tồn kho / 20% phải thu</td><td>—</td><td>4.238</td><td>2.825</td><td class="neg">−70%</td></tr>
+    <tr><td>NCAV sổ sách</td><td>14.719</td><td>11.820</td><td>7.880</td><td class="neg"><span class="sg neg">−17%</span></td></tr>
+    <tr><td>NCAV, giảm 15% tồn kho / 10% phải thu</td><td>—</td><td>8.029</td><td>5.353</td><td class="neg"><span class="sg neg">−44%</span></td></tr>
+    <tr><td>NCAV, giảm 30% tồn kho / 20% phải thu</td><td>—</td><td>4.238</td><td>2.825</td><td class="neg"><span class="sg neg">−70%</span></td></tr>
   </table></div>
   <p class="note">NCAV = TSNH 35.453,5 − tổng nợ 19.497,0 − NCI 1.367,5 + tiền ESOP 130,4 tỷ (số dư 30/06/2026). Tồn kho 29.488 tỷ ghi theo giá vốn, không phải giá thị trường quỹ đất. Mức giảm giá là giả định.</p>
   <div class="gloss">
@@ -281,9 +452,9 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
   <p>FCFE năm 0 = tỷ lệ chuyển đổi × LN mẹ bình quân 975,4 tỷ. <strong>Đây là giả định</strong>: CFO − capex thực tế năm 2025 âm.</p>
   <div class="tw"><table>
     <tr><th>Kịch bản</th><th>FCFE năm 0</th><th>g năm 1–5 / 6–10</th><th>r / gT</th><th>PV 10 năm</th><th>PV TV (tỷ trọng)</th><th>Giá trị/cp</th><th>vs giá</th></tr>
-    <tr><td>Bi quan</td><td>390 (40%)</td><td>3% / 3%</td><td>15% / 3%</td><td>2.236</td><td>1.113 (33%)</td><td>2.689</td><td class="neg">−81,1%</td></tr>
-    <tr><td>Cơ sở</td><td>634 (65%)</td><td>8% / 5%</td><td>14% / 4%</td><td>4.606</td><td>3.335 (42%)</td><td><strong>6.377</strong></td><td class="neg">−55,2%</td></tr>
-    <tr><td>Lạc quan</td><td>829 (85%)</td><td>12% / 7%</td><td>13% / 4%</td><td>7.413</td><td>6.976 (48%)</td><td>11.555</td><td class="neg">−18,9%</td></tr>
+    <tr><td>Bi quan</td><td>390 (40%)</td><td>3% / 3%</td><td>15% / 3%</td><td>2.236</td><td>1.113 (33%)</td><td>2.689</td><td class="neg"><span class="sg neg">−81,1%</span></td></tr>
+    <tr><td>Cơ sở</td><td>634 (65%)</td><td>8% / 5%</td><td>14% / 4%</td><td>4.606</td><td>3.335 (42%)</td><td><strong>6.377</strong></td><td class="neg"><span class="sg neg">−55,2%</span></td></tr>
+    <tr><td>Lạc quan</td><td>829 (85%)</td><td>12% / 7%</td><td>13% / 4%</td><td>7.413</td><td>6.976 (48%)</td><td>11.555</td><td class="neg"><span class="sg neg">−18,9%</span></td></tr>
   </table></div>
   <div class="callout"><strong>Định giá ngược:</strong> để 14.250 đ hợp lý với tham số cơ sở, KDH cần khoảng <strong>1.417 tỷ FCFE/năm</strong> (1.138 đ/cp), tức 145% LN mẹ bình quân.</div>
   <h2 style="margin-top:18px;font-size:16px">Độ nhạy kịch bản cơ sở (đ/cp)</h2>
@@ -308,9 +479,9 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
   <h2>Phương pháp 3 — Owner Earnings</h2>
   <div class="tw"><table>
     <tr><th>Kịch bản</th><th>Tái đầu tư quỹ đất duy trì</th><th>OE (tỷ)</th><th>OE/cp</th><th>Giá trị/cp</th><th>TV</th><th>vs giá</th></tr>
-    <tr><td>Bi quan</td><td>55%</td><td>439</td><td>352</td><td>3.025</td><td>33%</td><td class="neg">−78,8%</td></tr>
-    <tr><td>Cơ sở</td><td>35%</td><td>634</td><td>509</td><td>6.377</td><td>42%</td><td class="neg">−55,2%</td></tr>
-    <tr><td>Lạc quan</td><td>20%</td><td>780</td><td>627</td><td>10.876</td><td>48%</td><td class="neg">−23,7%</td></tr>
+    <tr><td>Bi quan</td><td>55%</td><td>439</td><td>352</td><td>3.025</td><td>33%</td><td class="neg"><span class="sg neg">−78,8%</span></td></tr>
+    <tr><td>Cơ sở</td><td>35%</td><td>634</td><td>509</td><td>6.377</td><td>42%</td><td class="neg"><span class="sg neg">−55,2%</span></td></tr>
+    <tr><td>Lạc quan</td><td>20%</td><td>780</td><td>627</td><td>10.876</td><td>48%</td><td class="neg"><span class="sg neg">−23,7%</span></td></tr>
   </table></div>
   <p class="note">OE = LN chuẩn hóa + D&amp;A (13,3) − capex duy trì (≈ D&amp;A) − bổ sung quỹ đất duy trì (giả định, không có thuyết minh). Dùng chung nền lợi nhuận với DCF nên không phải bằng chứng độc lập.</p>
   <div class="gloss">
@@ -357,10 +528,10 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
   <div class="legend"><span><i style="background:var(--bar1)"></i>Cùng kỳ năm trước</span><span><i style="background:var(--bar2)"></i>Quý hiện tại</span><span>Đơn vị: tỷ đồng · LN cốt lõi = LN gộp − CPBH − CPQL</span></div>
   <div class="tw" style="margin-top:14px"><table>
     <tr><th>Kỳ</th><th>DT thuần</th><th>DT YoY</th><th>LN mẹ</th><th>LN mẹ YoY</th><th>LN cốt lõi (cùng kỳ)</th><th>CFO lũy kế</th><th>Khoản bất thường</th><th>Trạng thái</th></tr>
-    <tr><td>Q3/2025</td><td>1.098,2</td><td class="pos">+334,9%</td><td>235,8</td><td class="pos">+235,1%</td><td>656,5 (90,7)</td><td>−3.294,6 (9T)</td><td class="l">—</td><td><span class="pill p-good">Tăng</span></td></tr>
-    <tr><td>Q4/2025</td><td>1.816,3</td><td class="neg">−11,3%</td><td>496,0</td><td class="pos">+24,8%</td><td>1.021,4 (678,1)</td><td>−3.174,7 (12T)*</td><td class="l">—</td><td><span class="pill p-good">Tăng</span></td></tr>
-    <tr><td>Q1/2026</td><td>281,4</td><td class="neg">−60,4%</td><td>281,4</td><td class="pos">+130,7%</td><td>86,8 (189,7)</td><td>−633,7 (3T)</td><td class="l">Lãi mua rẻ An Lập 285,2</td><td><span class="pill p-bad">Giảm</span></td></tr>
-    <tr><td>Q2/2026</td><td>160,6</td><td class="neg">−84,7%</td><td>749,8</td><td class="pos">+277,3%</td><td class="neg">−53,3 (292,4)</td><td>−1.480,2 (6T)</td><td class="l">Lãi thoái vốn BTM 896,3</td><td><span class="pill p-bad">Giảm</span></td></tr>
+    <tr><td>Q3/2025</td><td>1.098,2</td><td class="pos"><span class="sg pos">+334,9%</span></td><td>235,8</td><td class="pos"><span class="sg pos">+235,1%</span></td><td>656,5 (90,7)</td><td>−3.294,6 (9T)</td><td class="l">—</td><td><span class="pill p-good">Tăng</span></td></tr>
+    <tr><td>Q4/2025</td><td>1.816,3</td><td class="neg"><span class="sg neg">−11,3%</span></td><td>496,0</td><td class="pos"><span class="sg pos">+24,8%</span></td><td>1.021,4 (678,1)</td><td>−3.174,7 (12T)*</td><td class="l">—</td><td><span class="pill p-good">Tăng</span></td></tr>
+    <tr><td>Q1/2026</td><td>281,4</td><td class="neg"><span class="sg neg">−60,4%</span></td><td>281,4</td><td class="pos"><span class="sg pos">+130,7%</span></td><td>86,8 (189,7)</td><td>−633,7 (3T)</td><td class="l">Lãi mua rẻ An Lập 285,2</td><td><span class="pill p-bad">Giảm</span></td></tr>
+    <tr><td>Q2/2026</td><td>160,6</td><td class="neg"><span class="sg neg">−84,7%</span></td><td>749,8</td><td class="pos"><span class="sg pos">+277,3%</span></td><td class="neg">−53,3 (292,4)</td><td>−1.480,2 (6T)</td><td class="l">Lãi thoái vốn BTM 896,3</td><td><span class="pill p-bad">Giảm</span></td></tr>
   </table></div>
   <p class="note">Đơn vị tỷ đồng. Nguồn: CafeF KQKD/LCTT quý (raw API). CFO là số lũy kế, không cộng các cột. *CafeF năm 2025 ghi CFO −2.024,2 tỷ, khác số lũy kế Q4 −3.174,7 tỷ: cần đối chiếu BCTC kiểm toán.</p>
   <div class="callout"><strong>Trạng thái:</strong> <span class="pill p-bad">Tín hiệu bán 2 quý</span> — LN cốt lõi Q1/2026 và Q2/2026 đều thấp hơn cùng kỳ. Cần xác minh ngoại lệ bàn giao dự án theo đợt; Q3/2026 sẽ quyết định quý thứ ba.</div>
@@ -421,7 +592,7 @@ nav .pl{width:100%;color:var(--mut);font-size:12px;font-weight:700;margin-top:4p
   </table></div>
   <p class="note">Mức đạt: <strong>đạt một phần trong phạm vi dữ liệu</strong>. Đây là phân tích theo khung quy tắc của chuyên gia, không phải tư vấn đầu tư cá nhân hóa.</p>
   <div class="gloss">
-    <div><b>k</b>: hệ số giá (0,6 / 0,8 / 1 / 1,2 / 1,4) tương ứng −40% … +40%. <b>TTM</b>: 12 tháng gần nhất. <b>OCR</b>: nhận dạng chữ từ ảnh scan. <b>Perpetuity</b>: dòng tiền kéo dài mãi mãi — dùng để kiểm tra công thức. <b>N/A</b>: không có dữ liệu.</div>
+    <div><b>k</b>: hệ số giá (0,6 / 0,8 / 1 / 1,2 / 1,4) tương ứng <span class="sg neg">−40%</span> … <span class="sg pos">+40%</span>. <b>TTM</b>: 12 tháng gần nhất. <b>OCR</b>: nhận dạng chữ từ ảnh scan. <b>Perpetuity</b>: dòng tiền kéo dài mãi mãi — dùng để kiểm tra công thức. <b>N/A</b>: không có dữ liệu.</div>
   </div>
 </section>
 

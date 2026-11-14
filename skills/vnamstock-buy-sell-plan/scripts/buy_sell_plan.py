@@ -63,6 +63,27 @@ def ym(y):
     return f"{a} năm {b} tháng" if a else f"{b} tháng"
 
 
+def _colorize_signs(path):
+    """Quy tắc của người dùng: số % có dấu trừ -> đỏ, dấu cộng -> xanh (dùng chung ../../vnamstock/scripts/colorize_signs.py)."""
+    import importlib.util, os
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vnamstock", "scripts", "colorize_signs.py")
+    spec = importlib.util.spec_from_file_location("colorize_signs", p)
+    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    mod.colorize_file(path)
+
+
+def _add_logo(path, ticker, market="vn"):
+    """Logo công ty (tiêu đề + favicon) qua ../../vnamstock/scripts/add_logo.py; lỗi thì bỏ qua."""
+    try:
+        import importlib.util
+        p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vnamstock", "scripts", "add_logo.py")
+        spec = importlib.util.spec_from_file_location("add_logo", p)
+        mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+        mod.add_logo([path], ticker, market)
+    except Exception as ex:
+        print("add_logo bỏ qua:", ex)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--symbol", required=True)
@@ -197,6 +218,8 @@ def main():
         css = f.read()
     with open(os.path.abspath(a.out), "w", encoding="utf-8") as f:
         f.write(render(a, css, rows, me, ytabs, taxes, feas, cur_pe, target, s, S5, S10, N5, N10, sh0, P0, kel, divsc))
+    _colorize_signs(os.path.abspath(a.out))
+    _add_logo(os.path.abspath(a.out), a.symbol, "vn")
     print(a.out)
 
 

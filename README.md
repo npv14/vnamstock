@@ -12,7 +12,7 @@ VNamStock là bộ skill cho [Claude Code](https://claude.com/claude-code). Bạ
 | `vnamstock-full-report` | "báo cáo tổng hợp FPT" | Định giá NCAV, DCF 10 năm, Owner Earnings × 3 kịch bản + giá mua theo biên an toàn → phân tích cơ bản 5 năm + 5 kịch bản giá → chi tiết định giá |
 | `vnamstock-buy-sell-plan` | "kế hoạch mua bán FPT, 1.000 cp giá 60.000, định bán 100.000" | Lãi kép từ cổ tức khi giữ 5–10 năm, mua thêm, tỷ lệ Kelly |
 | `canslim-report` | "chấm CAN SLIM MWG" | 7 tiêu chí CAN SLIM, 4 kịch bản mua/bán, mức cắt lỗ |
-| `four-m-report` | "phân tích 4M VNM" | 4M của Phil Town + lãi suất, chu kỳ, thời điểm mua tích trữ |
+| `four-m-report` | "phân tích 4M VNM" | 4M của Phil Town: Big Five, Sticker Price, Payback Time 8 năm + lãi suất, chu kỳ, thời điểm mua tích trữ |
 | `validation-check` | (tự chạy) | Kiểm tra số liệu và kết quả trước khi trả lời |
 
 **Hai quy tắc bán của chuyên gia** được kiểm tra trong mọi báo cáo:
@@ -64,6 +64,14 @@ Cài plugin VNamStock từ GitHub cho mình:
 4. Chạy thử "báo cáo tổng hợp FPT" và gửi mình đường dẫn file HTML.
 Không cài gì khác ngoài những thứ trên.
 ```
+
+## Có gì mới (1.1.0)
+
+- **4M đầy đủ hơn:** thêm script tính Big Five (`big_five.py`), Sticker Price (`sticker_price.py`) và Payback Time 8 năm (`payback_time.py`) của Phil Town trong `skills/four-m-report/scripts/`.
+- **Giao diện báo cáo mới "Bảng giá":** nền tối, điểm nhấn cam, số tăng xanh và giảm đỏ (`skills/vnamstock/assets/theme-bang-gia.css`). Cập nhật báo cáo cũ: `python skills/vnamstock/scripts/apply_theme.py <file hoặc thư mục>`.
+- **Tự tô màu số %:** số có dấu trừ màu đỏ, dấu cộng màu xanh (`colorize_signs.py`).
+- **Logo doanh nghiệp** trên tiêu đề và biểu tượng tab (`add_logo.py`, cần mạng và Pillow).
+- **Bảng không tràn ngang** trên máy tính; phân tích cơ bản 5 năm có thêm chỉ số ROIC.
 
 ## Cập nhật và gỡ
 

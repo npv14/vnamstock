@@ -1,3 +1,4 @@
 requests>=2.28
 openpyxl>=3.1
+pillow>=10  # logo doanh nghiệp (add_logo.py)
 tzdata; sys_platform == "win32"
